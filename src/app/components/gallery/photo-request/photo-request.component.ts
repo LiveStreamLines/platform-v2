@@ -43,7 +43,7 @@ export class PhotoRequestComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
   isLoading: boolean = false;
   errorMessage: string | null = null;
-  serverUrl: string = environment.backend + '/media/upload';
+  serverUrl: string = environment.images + '/media/upload';
   userRole: string | null = null;
   accessibleProjects: string[] = []; // List of accessible project IDs
   accessibleDevelopers: string[] =[]; // List of accessible devloper IDs

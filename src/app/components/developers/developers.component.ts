@@ -28,7 +28,7 @@ export class DevelopersComponent implements OnInit {
   displayedColumns: string[] = ['logo', 'name', 'status', 'createdDate', 'actions'];
   dataSource = new MatTableDataSource<Developer>();
   searchTerm: string = '';
-  link: string = environment.backend;
+  link: string = environment.images;
   @ViewChild(MatSort) sort!: MatSort;  // Sort for the table
 
 

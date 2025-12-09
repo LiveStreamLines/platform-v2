@@ -106,7 +106,7 @@ export class ProjectFormComponent implements OnInit {
       isActive: project.isActive,
       status: project.status
     });
-    this.logoPreview = environment.backend +'/' + project.logo;
+    this.logoPreview = environment.images +'/' + project.logo;
   }
 
   onLogoChange(event: Event): void {

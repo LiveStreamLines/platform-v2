@@ -45,9 +45,7 @@ import { AuthService } from '../../services/auth.service';
     MatButtonModule,
     MatTooltipModule,
     MatDialogModule,
-    MatSnackBarModule,
-    TaskCreationDialogComponent,
-    ProjectInfoDialogComponent
+    MatSnackBarModule
   ],
   templateUrl: './camera-monitor.component.html',
   styleUrls: ['./camera-monitor.component.css']
@@ -468,9 +466,9 @@ export class CameraMonitorComponent implements OnInit {
     const developer = this.developers.find(dev => dev._id === camera.developer);
     const project = this.allProjects.find(proj => proj._id === camera.project);
     if (!developer || !project || !camera.lastPhoto) {
-      return `${environment.backend}/logos/project/image.png`;
+      return `${environment.images}/logos/project/image.png`;
     }
-    return `${environment.backend}/media/upload/${developer.developerTag}/${project.projectTag}/${camera.camera}/large/${camera.lastPhoto}`;
+    return `${environment.images}/media/upload/${developer.developerTag}/${project.projectTag}/${camera.camera}/large/${camera.lastPhoto}`;
   }
 
   isUpdated(lastPhoto: string): boolean {

@@ -44,6 +44,7 @@ import { InvoiceDetailComponent } from './components/sales-order/invoice-detail/
 import { InvoiceEditComponent } from './components/sales-order/invoice-edit/invoice-edit.component';
 import { PrintableInvoiceComponent } from './components/sales-order/printable-invoice/printable-invoice.component';
 import { DroneShootingComponent } from './components/drone-shooting/drone-shooting.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -74,6 +75,7 @@ export const routes: Routes = [
   { path: 'users', component: UsersComponent,  canActivate: [AuthGuard] },
   { path: 'users/add', component: UserFormComponent,  canActivate: [AuthGuard] },
   { path: 'users/edit/:id', component: UserFormComponent,  canActivate: [AuthGuard] }, // Route for editing
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
   { path: 'gallery', component: GalleryComponent,  canActivate: [AuthGuard]},
   { path: 'gallery/video-request', component: VideoRequestComponent,  canActivate: [AuthGuard]},
   { path: 'gallery/photo-request', component: PhotoRequestComponent,  canActivate: [AuthGuard]},

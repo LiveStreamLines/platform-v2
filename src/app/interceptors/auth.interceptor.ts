@@ -51,7 +51,16 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       
       // Handle 401 unauthorized errors (token missing or invalid)
       if (error.status === 401) {
-        const errorMessage = (error.error?.msg || error.message || '').toLowerCase();
+        const errorMessage = (error.error?.msg || error.error?.message || error.message || '').toLowerCase();
+        
+        // Skip logout for chat API errors that are not authentication-related
+        const isChatEndpoint = req.url.includes('/api/chat');
+        if (isChatEndpoint && errorMessage.includes('user not authenticated')) {
+          // Chat API might return 401 for user lookup issues, but user is still authenticated
+          console.warn('Chat API user lookup issue, but user is authenticated');
+          return throwError(() => error);
+        }
+        
         if (errorMessage.includes('token missing') || 
             errorMessage.includes('authorization token missing') ||
             errorMessage.includes('unauthorized')) {

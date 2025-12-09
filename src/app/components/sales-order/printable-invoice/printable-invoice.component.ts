@@ -13,7 +13,7 @@ import { AmountToWordsPipe } from '../../../pipes/amount-to-words.pipe';
   standalone: true,
   imports: [CommonModule, AmountToWordsPipe],
   templateUrl: './printable-invoice.component.html',
-  styleUrls: ['./printable-invoice.component.scss']
+  styleUrls: ['./printable-invoice.component.css']
 })
 export class PrintableInvoiceComponent implements OnInit {
   invoice: any = null;

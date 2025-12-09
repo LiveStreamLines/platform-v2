@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { DeveloperService } from '../../services/developer.service';
@@ -17,7 +19,19 @@ import { MediaService } from '../../services/media.service';
 @Component({
   selector: 'app-media',
   standalone: true,
-  imports: [CommonModule, MatNativeDateModule, ReactiveFormsModule ,MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatDatepickerModule, MatProgressBarModule],
+  imports: [
+    CommonModule, 
+    MatNativeDateModule, 
+    ReactiveFormsModule,
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatSelectModule, 
+    MatButtonModule, 
+    MatDatepickerModule, 
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatIcon
+  ],
   templateUrl: './media.component.html',
   styleUrl: './media.component.css'
 })
@@ -36,6 +50,7 @@ export class MediaComponent {
   uploadProgress: number = 0;
   uploadSuccess: boolean = false; 
   isUploading: boolean = false; // Track upload state
+  isProcessing: boolean = false; // Track S3 upload processing
 
 
   constructor(
@@ -48,7 +63,7 @@ export class MediaComponent {
     const today = new Date(); // Get the current date
     this.mediaForm = this.fb.group({
       developer: ['', Validators.required],
-      project: [{ value: '', disabled: true }, Validators.required],
+      project: this.fb.control({ value: '', disabled: true }, Validators.required),
       service: ['', Validators.required],
       date: [today.toISOString().split('T')[0], Validators.required],
       files: [null, Validators.required]
@@ -102,6 +117,7 @@ export class MediaComponent {
     }
 
     this.isUploading = true; // Mark upload as in progress
+    this.uploadProgress = 0; // Initialize progress at 0
 
     const formData = new FormData();
     formData.append('developer', this.mediaForm.get('developer')?.value);
@@ -118,25 +134,70 @@ export class MediaComponent {
       next: (event) => {
         if (event.type === HttpEventType.UploadProgress) {
           if (event.total) {
-            this.uploadProgress = Math.round((event.loaded / event.total) * 100);
+            const totalProgress = Math.round((event.loaded / event.total) * 100);
+            
+            if (totalProgress >= 100) {
+              // HTTP upload to backend is complete
+              // Now backend is processing and uploading to S3
+              this.uploadProgress = 90;
+              this.isProcessing = true;
+            } else {
+              // Show progress up to 90% for HTTP upload to backend
+              this.uploadProgress = Math.round(totalProgress * 0.9);
+              this.isProcessing = false;
+            }
+          } else if (event.loaded) {
+            // If total is not available, show some progress
+            this.uploadProgress = 50;
           }
         } else if (event.type === HttpEventType.Response) {
-          this.uploadSuccess = true; // Show success message
-          this.uploadProgress = 0; // Reset progress
-          this.isUploading = false; // Mark upload as completed
+          // Backend has finished processing and S3 upload
+          // Show 100% completion
+          this.uploadProgress = 100;
+          this.isProcessing = false;
+          
+          // Small delay to show 100% before switching to success
+          setTimeout(() => {
+            this.uploadSuccess = true; // Show success message
+            this.uploadProgress = 0; // Reset progress
+            this.isUploading = false; // Mark upload as completed
+          }, 500);
         }
       },
       error: (err) => {
         console.error('Upload error:', err)
         this.isUploading = false; // Reset upload state on error
+        this.isProcessing = false; // Reset processing state on error
+        this.uploadProgress = 0; // Reset progress on error
       },
     });
   }
 
   resetForm(): void {
-    this.mediaForm.reset();
+    const today = new Date();
+    this.mediaForm.reset({
+      developer: '',
+      service: '',
+      date: today.toISOString().split('T')[0],
+      files: null
+    });
+    // Reset project field separately with disabled state
+    this.mediaForm.get('project')?.reset('');
+    this.mediaForm.get('project')?.disable();
+    
     this.files_List = []; // Clear files array
     this.uploadSuccess = false; // Hide success message
+    this.uploadProgress = 0; // Reset progress
+    this.isUploading = false; // Reset upload state
+    this.isProcessing = false; // Reset processing state
+  }
+
+  formatFileSize(bytes: number): string {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
   }
 
 }

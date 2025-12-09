@@ -42,9 +42,7 @@ import { AuthService } from '../../services/auth.service';
     MatIconModule,
     MatTooltipModule,
     MatDialogModule,
-    MatSnackBarModule,
-    TaskCompletionDialogComponent,
-    EditMaintenanceDialogComponent
+    MatSnackBarModule
   ],
   templateUrl: './maintenance.component.html',
   styleUrls: ['./maintenance.component.css']

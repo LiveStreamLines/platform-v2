@@ -48,7 +48,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     StudioComponent
 ],
   templateUrl: './camera-detail.component.html',  
-  styleUrls: ['./camera-detail.component.scss']
+  styleUrls: ['./camera-detail.component.css']
 })
 export class CameraDetailComponent implements OnInit {
   projectId!: any;
@@ -144,7 +144,7 @@ export class CameraDetailComponent implements OnInit {
     .subscribe({
       next: (data: CameraDetail) => {
         this.date2Pictures = data.date2Photos.map(photo => photo.toString());
-        this.path =`${environment.backend}/media/upload/${this.developerTag}/${this.projectTag}/${this.cameraName}/`
+        this.path =`${environment.images}/media/upload/${this.developerTag}/${this.projectTag}/${this.cameraName}/`
         ;
       
         const lastPhoto = this.date2Pictures[this.date2Pictures.length - 1];

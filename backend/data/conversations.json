@@ -1,0 +1,105 @@
+[
+  {
+    "_id": "0650bc8f3b68619d6b7d2c74",
+    "userId": "e9cd87aea8be8c052f2b2203",
+    "status": "closed",
+    "messages": [
+      {
+        "_id": "c053a11d8a033ce2105ed74a",
+        "senderId": "e9cd87aea8be8c052f2b2203",
+        "senderName": "Ammar",
+        "receiverId": "admin",
+        "receiverName": "Admin",
+        "content": "hello",
+        "replyTo": null,
+        "read": true,
+        "readAt": "2025-12-09T13:22:55.996Z",
+        "createdAt": "2025-12-09T13:22:51.288Z"
+      },
+      {
+        "_id": "65a0614ed1b8a24a75421b68",
+        "senderId": "123456789",
+        "senderName": "Ammar Omer",
+        "receiverId": "e9cd87aea8be8c052f2b2203",
+        "receiverName": "User",
+        "content": "hello and close",
+        "replyTo": null,
+        "read": false,
+        "createdAt": "2025-12-09T13:23:01.681Z"
+      }
+    ],
+    "createdAt": "2025-12-09T13:22:51.284Z",
+    "updatedAt": "2025-12-09T14:21:35.072Z",
+    "isActive": true,
+    "createdDate": "2025-12-09T13:22:51.286Z"
+  },
+  {
+    "_id": "36cfbd7a3da5a9cdfdeb2706",
+    "userId": "e9cd87aea8be8c052f2b2203",
+    "status": "closed",
+    "messages": [
+      {
+        "_id": "8c5d5f70dfd4984c6000fc38",
+        "senderId": "e9cd87aea8be8c052f2b2203",
+        "senderName": "Ammar",
+        "receiverId": "admin",
+        "receiverName": "Admin",
+        "content": "hello",
+        "replyTo": null,
+        "read": true,
+        "readAt": "2025-12-09T14:19:53.317Z",
+        "createdAt": "2025-12-09T13:27:43.465Z"
+      },
+      {
+        "_id": "b5a0e2a841b0f3b85ad7dcc8",
+        "senderId": "123456789",
+        "senderName": "Ammar Omer",
+        "receiverId": "e9cd87aea8be8c052f2b2203",
+        "receiverName": "Ammar",
+        "content": "you again",
+        "replyTo": null,
+        "read": false,
+        "createdAt": "2025-12-09T14:20:02.380Z"
+      },
+      {
+        "_id": "4a258c5a4dafdf6af6975ad5",
+        "senderId": "e9cd87aea8be8c052f2b2203",
+        "senderName": "Ammar",
+        "receiverId": "admin",
+        "receiverName": "Admin",
+        "content": "yes it is me what is your problem",
+        "replyTo": null,
+        "read": true,
+        "readAt": "2025-12-09T14:20:42.941Z",
+        "createdAt": "2025-12-09T14:20:41.169Z"
+      },
+      {
+        "_id": "c6f13213b29cfaaa33ecbf03",
+        "senderId": "123456789",
+        "senderName": "Ammar Omer",
+        "receiverId": "e9cd87aea8be8c052f2b2203",
+        "receiverName": "Ammar",
+        "content": "me I don't have a problem you the one who have a problem",
+        "replyTo": null,
+        "read": false,
+        "createdAt": "2025-12-09T14:21:10.633Z"
+      },
+      {
+        "_id": "8a40066a38ad7e9a8aa39e05",
+        "senderId": "e9cd87aea8be8c052f2b2203",
+        "senderName": "Ammar",
+        "receiverId": "admin",
+        "receiverName": "Admin",
+        "content": "sorry then",
+        "replyTo": null,
+        "read": true,
+        "readAt": "2025-12-09T14:21:27.988Z",
+        "createdAt": "2025-12-09T14:21:25.063Z"
+      }
+    ],
+    "createdAt": "2025-12-09T13:27:43.461Z",
+    "updatedAt": "2025-12-09T14:37:16.509Z",
+    "isActive": true,
+    "createdDate": "2025-12-09T13:27:43.462Z"
+  }
+]

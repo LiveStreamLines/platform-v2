@@ -31,7 +31,7 @@ import { environment } from '../../../environment/environments';
     CommonModule
   ],
   templateUrl: './generate-video.component.html',
-  styleUrls: ['./generate-video.component.scss'],
+  styleUrls: ['./generate-video.component.css'],
 })
 export class GenerateVideoComponent implements OnInit {
   @Input() cameraName!: string; // Receiving cameraName from pare
@@ -525,7 +525,7 @@ export class GenerateVideoComponent implements OnInit {
   onMusicSelectionChange(): void {
     if (this.selectedMusic) {
       this.stopMusic(); // Stop current music if any
-      this.musicUrl = `${environment.backend}/media/music/${this.selectedMusic}`;
+      this.musicUrl = `${environment.images}/media/music/${this.selectedMusic}`;
     } else {
       this.musicUrl = '';
     }

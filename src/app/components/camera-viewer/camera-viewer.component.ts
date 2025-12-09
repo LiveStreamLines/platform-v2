@@ -83,7 +83,7 @@ export class CameraViewerComponent implements OnInit {
     const project = camera.projectTag;
     const cameraName = camera.cameraName;
     const lastPhoto = camera.lastPhoto;
-    return `${environment.backend}/media/upload/${developer}/${project}/${cameraName}/large/${lastPhoto}`;
+    return `${environment.images}/media/upload/${developer}/${project}/${cameraName}/large/${lastPhoto}`;
   }
 
   isUpdated(lastPhoto: string): boolean {

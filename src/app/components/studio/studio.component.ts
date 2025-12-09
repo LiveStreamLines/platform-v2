@@ -913,7 +913,7 @@ export class StudioComponent {
   }
 
   downloadImage(imageUrl: string): void {
-    fetch(environment.backend + "/" + imageUrl)
+    fetch(environment.images + "/" + imageUrl)
         .then((response) => response.blob())
         .then((imageBlob) => {
             const imageUrl = URL.createObjectURL(imageBlob);

@@ -65,7 +65,7 @@
       .subscribe(data => {
         this.date1Pictures = data.date1Photos.map(photo => photo.toString());
         this.date2Pictures = data.date2Photos.map(photo => photo.toString());
-        this.path = `${environment.backend}/media/upload/${this.developerTag}/${this.projectTag}/${this.cameraName}/`
+        this.path = `${environment.images}/media/upload/${this.developerTag}/${this.projectTag}/${this.cameraName}/`
         ;
         
         // Preserve existing selection or set to the default value

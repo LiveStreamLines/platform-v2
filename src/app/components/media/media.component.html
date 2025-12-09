@@ -1,100 +1,199 @@
 <div class="container">
   <div class="content">
-    <div class="form-section">
-      <p class="form-title">Upload Media</p>
+    <!-- Upload Form -->
+    <div class="form-section" *ngIf="!uploadSuccess">
+      <div class="form-header">
+        <mat-icon class="header-icon">cloud_upload</mat-icon>
+        <h2 class="form-title">Upload Media</h2>
+        <p class="form-subtitle">Upload your media files for different services</p>
+      </div>
+
       <form [formGroup]="mediaForm" (ngSubmit)="submitForm()" class="form-container">
-        <!-- Group 1: Developer -->
-        <div class="control-group group">
-          <div class="group-title">Developer</div>
-          <div class="form-field">
-            <label for="developer">Select Developer</label>
+        <div class="form-grid">
+          <!-- Developer Field -->
+          <div class="form-group">
+            <label for="developer" class="form-label">
+              <mat-icon class="label-icon">business</mat-icon>
+              Developer
+            </label>
             <select
               id="developer"
               formControlName="developer"
               (change)="fetchProjects($event)"
+              class="form-select"
+              [class.error]="mediaForm.get('developer')?.invalid && mediaForm.get('developer')?.touched"
             >
+              <option value="" disabled>Select Developer</option>
               <option *ngFor="let dev of developers" [value]="dev._id">
                 {{ dev.developerName }}
               </option>
             </select>
+            <span class="error-message" *ngIf="mediaForm.get('developer')?.invalid && mediaForm.get('developer')?.touched">
+              Developer is required
+            </span>
           </div>
-        </div>
 
-        <!-- Group 2: Project -->
-        <div class="control-group group">
-          <div class="group-title">Project</div>
-          <div class="form-field">
-            <label for="project">Select Project</label>
-            <select id="project" formControlName="project">
+          <!-- Project Field -->
+          <div class="form-group">
+            <label for="project" class="form-label">
+              <mat-icon class="label-icon">folder</mat-icon>
+              Project
+            </label>
+            <select 
+              id="project" 
+              formControlName="project"
+              class="form-select"
+              [class.error]="mediaForm.get('project')?.invalid && mediaForm.get('project')?.touched"
+              [disabled]="!mediaForm.get('developer')?.value"
+            >
+              <option value="" disabled>Select Project</option>
               <option *ngFor="let proj of projects" [value]="proj._id">
                 {{ proj.projectName }}
               </option>
             </select>
+            <span class="error-message" *ngIf="mediaForm.get('project')?.invalid && mediaForm.get('project')?.touched">
+              Project is required
+            </span>
           </div>
-        </div>
 
-        <!-- Group 3: Service -->
-        <div class="control-group group">
-          <div class="group-title">Service</div>
-          <div class="form-field">
-            <label for="service">Select Service</label>
-            <select id="service" formControlName="service">
+          <!-- Service Field -->
+          <div class="form-group">
+            <label for="service" class="form-label">
+              <mat-icon class="label-icon">category</mat-icon>
+              Service
+            </label>
+            <select 
+              id="service" 
+              formControlName="service"
+              class="form-select"
+              [class.error]="mediaForm.get('service')?.invalid && mediaForm.get('service')?.touched"
+            >
+              <option value="" disabled>Select Service</option>
               <option *ngFor="let service of services" [value]="service">
                 {{ service }}
               </option>
             </select>
+            <span class="error-message" *ngIf="mediaForm.get('service')?.invalid && mediaForm.get('service')?.touched">
+              Service is required
+            </span>
           </div>
-        </div>
 
-        <!-- Group 4: Date -->
-        <div class="control-group group">
-          <div class="group-title">Date</div>
-          <div class="form-field date">
-            <label for="date">Select Date</label>
-            <input type="date" id="date" formControlName="date" />
-            <span class="calendar-icon">
-              <i class="material-icons">calendar_today</i>
+          <!-- Date Field -->
+          <div class="form-group">
+            <label for="date" class="form-label">
+              <mat-icon class="label-icon">calendar_today</mat-icon>
+              Date
+            </label>
+            <div class="date-input-wrapper">
+              <input 
+                type="date" 
+                id="date" 
+                formControlName="date"
+                class="form-input date-input"
+                [class.error]="mediaForm.get('date')?.invalid && mediaForm.get('date')?.touched"
+              />
+            </div>
+            <span class="error-message" *ngIf="mediaForm.get('date')?.invalid && mediaForm.get('date')?.touched">
+              Date is required
             </span>
           </div>
         </div>
 
-        <!-- Group 5: Files -->
-        <div class="control-group group">
-          <div class="group-title">Files</div>
-          <div class="form-field">
-            <label for="fileUpload" class="file-label">Upload Files</label>
-            <input
-              id="fileUpload"
-              type="file"
-              (change)="onFileChange($event)"
-              multiple
-              class="file-input"
-            />
-            <div class="selected-files" *ngIf="files_List.length > 0">
-              <p>Selected Files:</p>
-              <ul>
-                <li *ngFor="let file of files_List">{{ file.name }}</li>
-              </ul>
+        <!-- File Upload Section -->
+        <div class="file-upload-section">
+          <label for="fileUpload" class="file-upload-label">
+            <div class="file-upload-area" [class.has-files]="files_List.length > 0">
+              <mat-icon class="upload-icon">attach_file</mat-icon>
+              <span class="upload-text" *ngIf="files_List.length === 0">
+                Click to select files or drag and drop
+              </span>
+              <span class="upload-text" *ngIf="files_List.length > 0">
+                {{ files_List.length }} file(s) selected
+              </span>
+              <input
+                id="fileUpload"
+                type="file"
+                (change)="onFileChange($event)"
+                multiple
+                class="file-input"
+              />
+            </div>
+          </label>
+
+          <!-- Selected Files List -->
+          <div class="selected-files" *ngIf="files_List.length > 0">
+            <div class="files-header">
+              <span class="files-count">{{ files_List.length }} file(s) selected</span>
+              <button type="button" class="clear-files" (click)="files_List = []">
+                <mat-icon>close</mat-icon>
+                Clear
+              </button>
+            </div>
+            <div class="files-list">
+              <div class="file-item" *ngFor="let file of files_List; let i = index">
+                <mat-icon class="file-icon">description</mat-icon>
+                <span class="file-name">{{ file.name }}</span>
+                <span class="file-size">({{ formatFileSize(file.size) }})</span>
+                <button type="button" class="remove-file" (click)="files_List.splice(i, 1)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-         <!-- Progress Bar -->
-         <div *ngIf="uploadProgress > 0" style="margin: 30px 0">
-          <p>Upload Progress: {{ uploadProgress }}%</p>
-          <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+        <!-- Progress Bar -->
+        <div class="progress-section" *ngIf="isUploading || isProcessing">
+          <div class="progress-header">
+            <div class="progress-title">
+              <mat-icon class="uploading-icon" [class.processing]="isProcessing">
+                {{ isProcessing ? 'cloud_sync' : 'cloud_upload' }}
+              </mat-icon>
+              <span>{{ isProcessing ? 'Processing and uploading to cloud...' : 'Uploading files...' }}</span>
+            </div>
+            <span class="progress-percentage">{{ uploadProgress }}%</span>
+          </div>
+          <mat-progress-bar 
+            [mode]="isProcessing && uploadProgress >= 90 ? 'indeterminate' : 'determinate'"
+            [value]="uploadProgress"
+            class="progress-bar"
+          ></mat-progress-bar>
+          <div class="progress-details" *ngIf="files_List.length > 0">
+            <span class="files-info">
+              <span *ngIf="!isProcessing">{{ files_List.length }} file(s) being uploaded</span>
+              <span *ngIf="isProcessing">Uploading {{ files_List.length }} file(s) to cloud storage...</span>
+            </span>
+          </div>
         </div>
 
         <!-- Submit Button -->
-        <button class="submit" type="submit" [disabled]="mediaForm.invalid || isUploading">
-          Submit
-        </button>
+        <div class="submit-section">
+          <button 
+            class="submit-button" 
+            type="submit" 
+            [disabled]="mediaForm.invalid || isUploading || files_List.length === 0"
+            [class.loading]="isUploading"
+          >
+            <mat-icon *ngIf="!isUploading">cloud_upload</mat-icon>
+            <mat-spinner *ngIf="isUploading" diameter="20" class="button-spinner"></mat-spinner>
+            <span>{{ isUploading ? 'Uploading...' : 'Upload Media' }}</span>
+          </button>
+        </div>
       </form>
+    </div>
 
-      <!-- Success Message -->
-      <div *ngIf="uploadSuccess" class="success-message">
-        <h3>Upload Successful!</h3>
-        <button class="submit" (click)="resetForm()">Upload Another</button>
+    <!-- Success Message -->
+    <div class="success-section" *ngIf="uploadSuccess">
+      <div class="success-content">
+        <div class="success-icon-wrapper">
+          <mat-icon class="success-icon">check_circle</mat-icon>
+        </div>
+        <h2 class="success-title">Upload Successful!</h2>
+        <p class="success-message">Your media files have been uploaded successfully.</p>
+        <button class="upload-another-button" (click)="resetForm()">
+          <mat-icon>add</mat-icon>
+          Upload Another
+        </button>
       </div>
     </div>
   </div>

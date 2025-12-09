@@ -22,7 +22,7 @@
     "addedUserId": "123456789",
     "addedUserName": "Ammar Omer",
     "status": "active",
-    "LastLoginTime": "2025-12-09T05:59:31.543Z",
+    "LastLoginTime": "2025-12-09T12:13:01.490Z",
     "hasUaeAccess": false,
     "hasSaudiAccess": false,
     "canManageDevProjCam": "",
@@ -18830,7 +18830,7 @@
     "memoryRole": "viewer",
     "inventoryRole": "tech",
     "status": "active",
-    "LastLoginTime": "2025-11-06T08:09:47.721Z"
+    "LastLoginTime": "2025-12-09T12:13:48.196Z"
   },
   {
     "_id": "512bc6cee5d46fc86de794eb",
@@ -45862,6 +45862,55 @@
     "password": "Mandoo@99",
     "phone": "+9710545449191",
     "LastLoginTime": "2025-12-09T06:44:41.062Z",
+    "manual": true
+  },
+  {
+    "_id": "653c34b5b3284783c4cf3dc1",
+    "name": "Ammar Another",
+    "email": "amar@lsl.com",
+    "password": "123",
+    "phone": "123123",
+    "role": "User",
+    "accessibleDevelopers": [
+      "5dc8e1c19cd85639a6deb69a"
+    ],
+    "accessibleProjects": [
+      "668ffa39acccfed9dadf7e25"
+    ],
+    "accessibleCameras": [
+      "all"
+    ],
+    "accessibleServices": [
+      "all"
+    ],
+    "canAddUser": false,
+    "canGenerateVideoAndPics": true,
+    "memoryRole": "",
+    "inventoryRole": "",
+    "addedUserId": "123456789",
+    "addedUserName": "Ammar Omer",
+    "status": "New",
+    "canManageDevProjCam": "",
+    "hasUaeAccess": false,
+    "hasSaudiAccess": false,
+    "hasCameraMonitorAccess": false,
+    "hasInventoryAccess": false,
+    "hasMemoryAccess": false,
+    "canWatchCameraMonitor": false,
+    "canCreateMonitorTask": false,
+    "canHoldMaintenance": false,
+    "canDeletePhoto": false,
+    "canTogglePhotoDirtyBetterView": false,
+    "canSeeAllTasks": false,
+    "canAddDeviceType": false,
+    "canAddDeviceStock": false,
+    "canSeeAllInventory": false,
+    "canAssignToUser": false,
+    "canArchiveMemory": false,
+    "isActive": true,
+    "createdDate": "2025-12-09T12:50:11.800Z",
+    "logo": "",
+    "LastLoginTime": "2025-12-09T12:50:55.445Z",
     "manual": true
   }
 ]

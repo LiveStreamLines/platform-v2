@@ -1,0 +1,209 @@
+<div class="chat-container">
+  <!-- Sidebar: Only show for admins, or show user's own conversation -->
+  <div class="chat-sidebar" *ngIf="isAdmin || conversations.length > 0">
+    <div class="chat-header">
+      <h2>{{ isAdmin ? 'Support Conversations' : 'Support Chat' }}</h2>
+      <button mat-icon-button (click)="loadConversations()" matTooltip="Refresh">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+
+    <!-- Conversations List (Admin view: all users, User view: their conversation) -->
+    <div class="conversations-list">
+      <div *ngIf="isLoading && conversations.length === 0" class="loading">
+        <mat-spinner diameter="30"></mat-spinner>
+      </div>
+      
+      <div *ngIf="!isLoading && conversations.length === 0" class="empty-state">
+        <mat-icon>chat_bubble_outline</mat-icon>
+        <p>{{ isAdmin ? 'No conversations yet' : 'Start a conversation with support' }}</p>
+      </div>
+
+      <div 
+        *ngFor="let conversation of conversations" 
+        class="conversation-item"
+        [class.active]="selectedConversation?.userId === conversation.userId"
+        [class.closed]="conversation.status === 'closed'"
+        (click)="selectConversation(conversation)">
+        <div class="conversation-content">
+          <div class="conversation-name">
+            {{ isAdmin ? conversation.userName : 'Support Team' }}
+            <span *ngIf="conversation.status === 'closed'" class="status-badge closed">Closed</span>
+            <span *ngIf="conversation.status === 'open'" class="status-badge open">Open</span>
+          </div>
+          <div class="conversation-preview">
+            {{ conversation.lastMessage.content || 'No messages yet' }}
+          </div>
+        </div>
+        <div class="conversation-meta">
+          <span class="conversation-time" *ngIf="conversation.lastMessage.createdAt">
+            {{ formatTime(conversation.lastMessage.createdAt) }}
+          </span>
+          <span *ngIf="conversation.unreadCount > 0" class="unread-badge">{{ conversation.unreadCount }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Chat Area -->
+  <div class="chat-main">
+    <!-- For regular users: Show welcome if no conversation selected -->
+    <div *ngIf="!isAdmin && !selectedConversation && !showNewConversationPrompt" class="no-selection">
+      <mat-icon>support_agent</mat-icon>
+      <h2>Chat with Support</h2>
+      <p>Type a message below to start a conversation with our support team</p>
+    </div>
+
+    <!-- Show closed conversation prompt for users -->
+    <div *ngIf="!isAdmin && showNewConversationPrompt" class="no-selection closed-conversation">
+      <mat-icon>lock</mat-icon>
+      <h2>Conversation Closed</h2>
+      <p>This conversation has been closed by support. Start a new conversation to continue.</p>
+      <button mat-raised-button color="primary" (click)="startNewConversation()">
+        <mat-icon>add</mat-icon>
+        Start New Conversation
+      </button>
+    </div>
+
+    <!-- For admins: Show selection prompt -->
+    <div *ngIf="isAdmin && !selectedConversation" class="no-selection">
+      <mat-icon>chat_bubble_outline</mat-icon>
+      <h2>Select a conversation to start chatting</h2>
+    </div>
+
+      <!-- Chat Window - Show for selected conversation OR for regular users ready to chat -->
+    <div *ngIf="selectedConversation || (!isAdmin && currentUserId && !showNewConversationPrompt)" class="chat-window">
+      <!-- Chat Header -->
+      <div class="chat-window-header" *ngIf="selectedConversation">
+        <div class="chat-user-info">
+          <mat-icon>{{ isAdmin ? 'person' : 'support_agent' }}</mat-icon>
+          <div>
+            <h3>{{ isAdmin ? selectedConversation.userName : 'Support Team' }}</h3>
+            <span *ngIf="isAdmin" class="user-email">{{ selectedConversation.userEmail }}</span>
+          </div>
+        </div>
+        <div *ngIf="isAdmin" class="chat-actions">
+          <mat-form-field appearance="outline" class="status-select">
+            <mat-select [value]="selectedConversation.status" (selectionChange)="updateConversationStatus($event.value)">
+              <mat-option value="open">Open</mat-option>
+              <mat-option value="closed">Closed</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <!-- Simple header for users without conversation yet -->
+      <div class="chat-window-header" *ngIf="!selectedConversation && !isAdmin">
+        <div class="chat-user-info">
+          <mat-icon>support_agent</mat-icon>
+          <div>
+            <h3>Support Team</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages Area -->
+      <div class="messages-container" #messageContainer>
+        <div *ngIf="isLoading && messages.length === 0 && selectedConversation" class="loading">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+
+        <div *ngIf="!isLoading && messages.length === 0 && selectedConversation" class="empty-messages">
+          <mat-icon>chat_bubble_outline</mat-icon>
+          <p>No messages yet. Start the conversation!</p>
+        </div>
+
+        <div *ngIf="!selectedConversation && !isAdmin" class="empty-messages">
+          <mat-icon>support_agent</mat-icon>
+          <p>Type a message below to start chatting with support</p>
+        </div>
+
+        <div *ngFor="let message of messages" class="message-wrapper">
+          <div class="message" [class.my-message]="isMyMessage(message)" [class.other-message]="!isMyMessage(message)">
+            <!-- Reply indicator -->
+            <div *ngIf="message.replyToMessage" class="reply-indicator">
+              <mat-icon>reply</mat-icon>
+              <div class="reply-content">
+                <strong>{{ message.replyToMessage.senderName }}</strong>
+                <span>{{ message.replyToMessage.content }}</span>
+              </div>
+            </div>
+
+            <!-- Message content -->
+            <div class="message-content">
+              <p>{{ message.content }}</p>
+            </div>
+
+            <!-- Message metadata -->
+            <div class="message-meta">
+              <span class="message-time">{{ formatTime(message.createdAt) }}</span>
+              <span *ngIf="isMyMessage(message) && message.read" class="read-indicator">
+                <mat-icon>done_all</mat-icon>
+              </span>
+              <span *ngIf="isMyMessage(message) && !message.read" class="read-indicator">
+                <mat-icon>done</mat-icon>
+              </span>
+            </div>
+
+            <!-- Message actions -->
+            <div class="message-actions">
+              <button mat-icon-button (click)="replyTo(message)" matTooltip="Reply">
+                <mat-icon>reply</mat-icon>
+              </button>
+              <button *ngIf="isMyMessage(message)" mat-icon-button (click)="deleteMessage(message._id)" matTooltip="Delete">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reply Preview -->
+      <div *ngIf="replyToMessage" class="reply-preview">
+        <div class="reply-preview-content">
+          <mat-icon>reply</mat-icon>
+          <div>
+            <strong>Replying to {{ replyToMessage.senderName }}</strong>
+            <p>{{ replyToMessage.content }}</p>
+          </div>
+        </div>
+        <button mat-icon-button (click)="cancelReply()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <!-- Message Input -->
+      <div class="message-input-container" *ngIf="!showNewConversationPrompt">
+        <!-- Show message when conversation is closed (for users) -->
+        <div *ngIf="!isAdmin && selectedConversation && selectedConversation.status === 'closed'" class="closed-message-banner">
+          <mat-icon>info</mat-icon>
+          <span>This conversation has been closed. Start a new conversation to continue.</span>
+          <button mat-button color="primary" (click)="startNewConversation()">
+            Start New Conversation
+          </button>
+        </div>
+        
+        <!-- Normal message input (only show if conversation is open or user is admin) -->
+        <div *ngIf="isAdmin || (selectedConversation && selectedConversation.status === 'open') || !selectedConversation" class="input-wrapper">
+          <mat-form-field appearance="outline" class="message-input-field">
+            <input 
+              matInput 
+              [(ngModel)]="newMessage" 
+              [placeholder]="isAdmin ? 'Type a reply...' : 'Type your message to support...'"
+              (keydown.enter)="sendMessage()"
+              [disabled]="!isAdmin && selectedConversation?.status === 'closed'"
+              #messageInput>
+          </mat-form-field>
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="sendMessage()"
+            [disabled]="!newMessage.trim() || isSending || (!isAdmin && selectedConversation?.status === 'closed')">
+            <mat-icon *ngIf="!isSending">send</mat-icon>
+            <mat-spinner *ngIf="isSending" diameter="20"></mat-spinner>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

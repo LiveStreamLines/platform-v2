@@ -223,7 +223,8 @@
                 // Get configuration from URL parameters or use defaults
                 const urlParams = new URLSearchParams(window.location.search);
                 
-                this.apiBaseUrl = 'https://lsl-platform.com/backend'; // Your backend URL
+                this.apiBaseUrl = 'https://lsl-platform.com/backend'; // Your backend URL for API calls
+                this.imagesBackendUrl = urlParams.get('imagesBackend') || 'https://lsl-platform.com/backend'; // Images backend URL (configurable)
                 this.refreshInterval = 30 * 60 * 1000; // 30 minutes in milliseconds
                 this.retryAttempts = 3;
                 this.currentRetry = 0;
@@ -267,8 +268,8 @@
                         // Get the latest image (last in the sorted array)
                         const latestImage = response.images[response.images.length - 1];
                         
-                        // Construct the image URL using HTTPS and the correct path structure
-                        const imageUrl = `https://lsl-platform.com/backend/media/upload/${this.config.developerId}/${this.config.projectId}/${this.config.cameraId}/large/${latestImage}.jpg`;
+                        // Construct the image URL using the configurable images backend URL
+                        const imageUrl = `${this.imagesBackendUrl}/media/upload/${this.config.developerId}/${this.config.projectId}/${this.config.cameraId}/large/${latestImage}.jpg`;
                         
                         await this.displayImage(imageUrl);
                         this.updateStatus('online', 'Connected');

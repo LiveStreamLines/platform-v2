@@ -81,7 +81,7 @@ export class CameraViewComponent implements OnInit{
     this.cameraDetailService.getCameraPreview(this.developerTag, this.projectTag, cameraId).subscribe({
       next: (response) => {
         //this.path = response.path;
-        this.path = `${environment.backend}/media/upload/${this.developerTag}/${this.projectTag}/${cameraId}/`
+        this.path = `${environment.images}/media/upload/${this.developerTag}/${this.projectTag}/${cameraId}/`
         
         this.images = response.weeklyImages || []; // Update the list of images for the selected camera
         this.preloadImages();
@@ -176,7 +176,7 @@ export class CameraViewComponent implements OnInit{
     return new Promise((resolve, reject) => {
       this.cameraDetailService.getVideoPreview(this.developerTag, this.projectTag, cameraId).subscribe({
         next: () => {
-          const videoUrl = `${environment.backend}/media/upload/${this.developerTag}/${this.projectTag}/${cameraId}/weekly_video.mp4`;
+          const videoUrl = `${environment.images}/media/upload/${this.developerTag}/${this.projectTag}/${cameraId}/weekly_video.mp4`;
           if (videoUrl) {
             window.open(videoUrl, '_blank'); // Open the video in a new tab
             resolve(); // Indicate success

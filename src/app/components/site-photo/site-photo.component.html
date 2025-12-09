@@ -1,17 +1,91 @@
-<div class="cards-container" *ngIf="!isLoading && media.length > 0">
-    <div class="card" *ngFor="let element of media">
-      <div class="card-header">
-        <mat-icon class="play-icon">photo_library</mat-icon>
-      </div>
-      <div class="card-body">
-        <h3>{{ element.developerProject }}</h3>
-        <h3>{{ element.camera }}</h3>
-        <p><strong>Dates:</strong> {{ element.date }}</p>
-      </div>
-      <div class="card-footer">
-        <a *ngIf="element.zipLink" [href]="element.zipLink" target="_blank" class="view-video">Download Media</a>
-        <span *ngIf="!element.zipLink" class="not-ready">Not Ready</span>
+<div class="calendar-container" *ngIf="!isLoading">
+  <!-- Calendar Header with Navigation -->
+  <div class="calendar-header">
+    <button mat-icon-button (click)="viewMode === 'month' ? previousMonth() : previousYear()" class="nav-button">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <h2 class="month-year">{{ getCurrentMonthYear() }}</h2>
+    <button mat-icon-button (click)="viewMode === 'month' ? nextMonth() : nextYear()" class="nav-button">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toggleViewMode()" class="view-toggle-button" [title]="viewMode === 'month' ? 'Switch to Year View' : 'Switch to Month View'">
+      <mat-icon>{{ viewMode === 'month' ? 'calendar_view_month' : 'calendar_today' }}</mat-icon>
+    </button>
+  </div>
+
+  <!-- Month View -->
+  <div *ngIf="viewMode === 'month'">
+    <!-- Day Names Header -->
+    <div class="calendar-weekdays">
+      <div class="weekday" *ngFor="let dayName of dayNames">{{ dayName }}</div>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="calendar-grid">
+    <div 
+      class="calendar-day" 
+      *ngFor="let day of calendarDays"
+      [class.empty-day]="day === null"
+      [class.today]="isToday(day)"
+      [class.has-media]="day !== null && getMediaForDate(day).length > 0"
+    >
+      <div class="day-number" *ngIf="day !== null">{{ getDayNumber(day) }}</div>
+      <div class="day-media" *ngIf="day !== null && getMediaForDate(day).length > 0">
+        <div class="media-item" *ngFor="let item of getMediaForDate(day)">
+          <div class="media-preview">
+            <mat-icon class="media-icon">videocam</mat-icon>
+            <div class="media-info">
+              <span class="media-project">{{ item.developerProject }}</span>
+              <div class="media-files">
+                <a 
+                  *ngFor="let file of item.files; let i = index" 
+                  [href]="getFileUrl(item, file)" 
+                  target="_blank"
+                  class="file-link"
+                  (click)="$event.stopPropagation()"
+                >
+                  {{ i === 0 ? 'Download' : '' }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  </div>
+
+  <!-- Year View -->
+  <div *ngIf="viewMode === 'year'" class="year-view">
+    <div class="year-grid">
+      <div 
+        class="year-month" 
+        *ngFor="let monthData of yearMonths"
+        [class.has-media]="monthData.mediaCount > 0"
+        (click)="selectMonth(monthData.month)"
+      >
+        <div class="month-name">{{ monthData.monthName }}</div>
+        <div class="month-media-count" *ngIf="monthData.mediaCount > 0">
+          <mat-icon class="month-icon">videocam</mat-icon>
+          <span class="count-badge">{{ monthData.mediaCount }}</span>
+        </div>
+        <div class="month-media-count" *ngIf="monthData.mediaCount === 0">
+          <span class="no-media">No media</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && media.length === 0">
+    <mat-icon class="empty-icon">videocam</mat-icon>
+    <p>No site photography media available</p>
+  </div>
+</div>
+
+<!-- Loading Spinner -->
+<div class="loading-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+  <p>Loading media...</p>
+</div>
   

@@ -20,7 +20,7 @@ import { User } from '../../models/user.model';
     standalone: true,
     imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule],  // Add the HeaderComponent to imports
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: ['./home.component.css']
   })
 
   export class HomeComponent implements OnInit {
@@ -30,7 +30,7 @@ import { User } from '../../models/user.model';
     searchTerm: string = '';  // This will be used for filtering developers
     userRole: string | null = null;
     accessibleDevelopers: string[] = [];
-    logopath: string =  environment.backend;
+    logopath: string =  environment.images;
     lastlogin: string | null = null;
 
     constructor(

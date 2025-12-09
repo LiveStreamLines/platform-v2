@@ -14,7 +14,7 @@ import { Capacitor } from '@capacitor/core';
   standalone: true,
   imports: [FormsModule, CommonModule, MatTabsModule],  // Import FormsModule here
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   email: string = '';

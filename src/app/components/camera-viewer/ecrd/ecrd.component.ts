@@ -40,7 +40,7 @@ export class EcrdComponent {
   }
 
   getImagePath(camera: any): string {
-    return `${environment.backend}/media/upload/${camera.developerTag}/${camera.projectTag}/${camera.cameraName}/large/${camera.lastPhoto}`;
+    return `${environment.images}/media/upload/${camera.developerTag}/${camera.projectTag}/${camera.cameraName}/large/${camera.lastPhoto}`;
   }
 
   isUpdated(lastPhoto: string): boolean {

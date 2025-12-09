@@ -114,7 +114,7 @@ export class CameraListComponent implements OnInit {
                       camera.firstPhoto =  cameraDetail.firstPhoto;
                       camera.lastPhoto = cameraDetail.lastPhoto;     
                       //camera.path = cameraDetail.path;   
-                      camera.path = `${environment.backend}/media/upload/${this.developerTag}/${this.projectTag}/${camera.camera}/`
+                      camera.path = `${environment.images}/media/upload/${this.developerTag}/${this.projectTag}/${camera.camera}/`
                       camera.error = false;
                     } else {
                       camera.error = true;
@@ -137,7 +137,7 @@ export class CameraListComponent implements OnInit {
     if (camera && photo) {
       return `${camera}large/${photo}.jpg` ;
     } else {
-      return environment.backend + '/logos/project/image.png';
+      return environment.images + '/logos/project/image.png';
     }
   }
 

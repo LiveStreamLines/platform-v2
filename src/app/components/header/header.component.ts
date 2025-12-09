@@ -21,7 +21,7 @@ import { ManualVideoDialogComponent } from '../manual-video-dialog/manual-video-
     RouterLink
   ],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
   @Input() sidenav!: MatSidenav;

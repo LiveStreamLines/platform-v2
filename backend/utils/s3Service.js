@@ -272,6 +272,21 @@ function getCameraInternalAttachmentKey(cameraId, filename) {
 }
 
 /**
+ * Generate S3 key for media files
+ * @param {string} developerTag - Developer tag
+ * @param {string} projectTag - Project tag
+ * @param {string} service - Service name
+ * @param {string} date - Date (YYYY-MM-DD format)
+ * @param {string} filename - Filename
+ * @returns {string}
+ */
+function getMediaKey(developerTag, projectTag, service, date, filename) {
+    // Sanitize service name for path (replace spaces and special chars)
+    const sanitizedService = service.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+    return `media/${developerTag}/${projectTag}/${sanitizedService}/${date}/${filename}`;
+}
+
+/**
  * Extract key from S3 URL
  * @param {string} url - S3 URL
  * @returns {string|null}
@@ -304,6 +319,7 @@ module.exports = {
     getDeveloperInternalAttachmentKey,
     getProjectInternalAttachmentKey,
     getCameraInternalAttachmentKey,
+    getMediaKey,
     extractKeyFromUrl,
     ensureBucketExists,
     BUCKET_NAME,

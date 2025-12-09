@@ -98,6 +98,7 @@
         const cameraId = params.get('cameraId') || 'your-camera-id';
         const token = params.get('token') || 'your-auth-token';
         const developerId = 'seeb';
+        const imagesBackendUrl = params.get('imagesBackend') || 'https://lsl-platform.com/backend'; // Images backend URL (configurable)
         
         // Update camera info
         document.getElementById('cameraInfo').textContent = `${projectId} | ${cameraId}`;
@@ -155,7 +156,7 @@
                 if (data.images && data.images.length > 0) {
                     // Get last image
                     const lastImage = data.images[data.images.length - 1];
-                    const imageUrl = `https://lsl-platform.com/backend/media/upload/${developerId}/${projectId}/${cameraId}/large/${lastImage}.jpg`;
+                    const imageUrl = `${imagesBackendUrl}/media/upload/${developerId}/${projectId}/${cameraId}/large/${lastImage}.jpg`;
                     
                     // Load image
                     image.onload = function() {

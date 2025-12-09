@@ -1,33 +1,98 @@
 [
   {
-    "_id": "e67d639fc8cd334ac7f47e6b",
-    "developerId": "62175bcb587832ecc6d21be8",
-    "projectId": "62175c3d587832ecc6d21be9",
-    "developerTag": "gugg",
-    "projectTag": "gugg1",
-    "developer": "Guggnheim",
-    "project": "Guggenheim",
-    "service": "Site Photography",
-    "date": "13/jan/2024",
+    "_id": "6a74acd517a8bfdf100c3816",
+    "developerId": "5dc8e1c19cd85639a6deb69a",
+    "projectId": "668ffa39acccfed9dadf7e25",
+    "developerTag": "age",
+    "projectTag": "dwd",
+    "developer": "AG Engineering",
+    "project": "Deira Waterfront Development District Cooling Plant DCP",
+    "service": "Drone Shooting",
+    "date": "2025-12-09",
     "files": [
-      "gugg.zip"
+      {
+        "s3Key": "media/age/dwd/drone-shooting/2025-12-09/logo-dark-1765298693751-516224265.png",
+        "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/media/age/dwd/drone-shooting/2025-12-09/logo-dark-1765298693751-516224265.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251209%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251209T164456Z&X-Amz-Expires=604800&X-Amz-Signature=4f10db30e0b6a8e577177df73b64faf011cce1cd12f82e45601125c6139bbdb4&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+        "originalName": "logo-dark.png",
+        "fileName": "logo-dark-1765298693751-516224265.png",
+        "size": 12392,
+        "contentType": "image/png"
+      }
     ],
-    "createdDate": "2024-01-15T15:26:32.102Z"
+    "RequestTime": "2025-12-09T16:44:53.747Z",
+    "isActive": true,
+    "createdDate": "2025-12-09T16:44:53.748Z"
   },
   {
-    "_id": "0b0f1ae1090aaf7b9746f2f8",
-    "developerId": "63a04e557b857a64bb09bdc0",
-    "projectId": "66e184067afe7cb1f1f2d8c5",
-    "developerTag": "tornado",
-    "projectTag": "yasbay",
-    "developer": "Tornado Group",
-    "project": "Yas Bay",
-    "service": "Drone Shooting",
-    "date": "2025-05-13",
+    "_id": "ca6ca9adcf9ef79e5139f358",
+    "developerId": "5dc8e1c19cd85639a6deb69a",
+    "projectId": "668ffa39acccfed9dadf7e25",
+    "developerTag": "age",
+    "projectTag": "dwd",
+    "developer": "AG Engineering",
+    "project": "Deira Waterfront Development District Cooling Plant DCP",
+    "service": "Site Photography & Videography",
+    "date": "2025-12-01",
     "files": [
-      "files/yasbay-13may.zip"
+      {
+        "s3Key": "media/age/dwd/site-photography---videography/2025-12-01/time-lapse-1765300200547-578159131.mp4",
+        "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/media/age/dwd/site-photography---videography/2025-12-01/time-lapse-1765300200547-578159131.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251209%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251209T171108Z&X-Amz-Expires=604800&X-Amz-Signature=7a716dd0ef9f0b02b85b84bd993174c2eda759886df6a3bd87ba5c094620ead3&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+        "originalName": "time-lapse.mp4",
+        "fileName": "time-lapse-1765300200547-578159131.mp4",
+        "size": 440531304,
+        "contentType": "video/mp4"
+      }
     ],
+    "RequestTime": "2025-12-09T17:10:00.543Z",
     "isActive": true,
-    "createdDate": "2025-07-14T05:54:54.833Z"
+    "createdDate": "2025-12-09T17:10:00.544Z"
+  },
+  {
+    "_id": "052df705bbef611dcf66a379",
+    "developerId": "60d0413feba4f394c7eb217b",
+    "projectId": "64b991ed33a81bfce5aa326f",
+    "developerTag": "agility",
+    "projectTag": "khjskt",
+    "developer": "Abu Dhabi Municipality",
+    "project": "Khaleej Al Arabi Junction Work IP-135",
+    "service": "Drone Shooting",
+    "date": "2025-12-01",
+    "files": [
+      {
+        "s3Key": "media/agility/khjskt/drone-shooting/2025-12-01/video_2f4cca874a7e1d9e3f996e9a-1765300427842-982145556.mp4",
+        "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/media/agility/khjskt/drone-shooting/2025-12-01/video_2f4cca874a7e1d9e3f996e9a-1765300427842-982145556.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251209%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251209T171704Z&X-Amz-Expires=604800&X-Amz-Signature=fc12c63138e1805bb276d95ba2fe383e9e87fe47dc31fbf6702cf61394fe1a77&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+        "originalName": "video_2f4cca874a7e1d9e3f996e9a.mp4",
+        "fileName": "video_2f4cca874a7e1d9e3f996e9a-1765300427842-982145556.mp4",
+        "size": 199954028,
+        "contentType": "video/mp4"
+      }
+    ],
+    "RequestTime": "2025-12-09T17:13:47.837Z",
+    "isActive": true,
+    "createdDate": "2025-12-09T17:13:47.838Z"
+  },
+  {
+    "_id": "3d87220cef4e7c7d549995a5",
+    "developerId": "5dc8e1c19cd85639a6deb69a",
+    "projectId": "668ffa39acccfed9dadf7e25",
+    "developerTag": "age",
+    "projectTag": "dwd",
+    "developer": "AG Engineering",
+    "project": "Deira Waterfront Development District Cooling Plant DCP",
+    "service": "Drone Shooting",
+    "date": "2025-12-09",
+    "files": [
+      {
+        "s3Key": "media/age/dwd/drone-shooting/2025-12-09/volante_comp-1765301401695-715438992.mp4",
+        "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/media/age/dwd/drone-shooting/2025-12-09/volante_comp-1765301401695-715438992.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251209%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251209T173026Z&X-Amz-Expires=604800&X-Amz-Signature=f4b196fc59a3e6dbe941e7de819425e7ce4ced8bde29add2085e12311d95f3b9&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+        "originalName": "volante_comp.mp4",
+        "fileName": "volante_comp-1765301401695-715438992.mp4",
+        "size": 187949028,
+        "contentType": "video/mp4"
+      }
+    ],
+    "RequestTime": "2025-12-09T17:30:01.690Z",
+    "isActive": true,
+    "createdDate": "2025-12-09T17:30:01.690Z"
   }
 ]

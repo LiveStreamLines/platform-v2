@@ -20,7 +20,7 @@ import { Observable , map, tap } from 'rxjs';
     MatIconModule
   ], 
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+  styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
   memoryRole: string | null = '';
