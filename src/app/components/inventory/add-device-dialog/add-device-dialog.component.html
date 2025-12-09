@@ -1,0 +1,33 @@
+<div style="margin: 20px;">
+  <h2 mat-dialog-title style="color: white;">Add New Device</h2>
+  <div mat-dialog-content>
+    <div class="m-4">
+      <form [formGroup]="deviceForm">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Device Type</mat-label>
+          <mat-select formControlName="type" required>
+            <mat-option *ngFor="let type of deviceTypes" [value]="type.name">
+              {{type.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Serial Number</mat-label>
+          <input matInput formControlName="serialNumber" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Model (Optional)</mat-label>
+          <input matInput formControlName="model">
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div mat-dialog-actions align="end" style="gap: 12px; padding: 16px 0 0 0;">
+    <button mat-button style="color: #9CA3AF; padding: 8px 20px;" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" style="padding: 8px 20px;" (click)="onSubmit()" [disabled]="!deviceForm.valid">
+      Add Device
+    </button>
+  </div>
+</div>

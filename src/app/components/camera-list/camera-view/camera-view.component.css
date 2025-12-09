@@ -1,0 +1,123 @@
+.camera-tabs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-tab-group {
+  width: 100%;
+}
+
+mat-tab {
+  width: 100%;
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 60%;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.custom-slider {
+  position: absolute;
+  top: 80%;
+  width: 60%;
+  height: 40px;
+  margin-top: 20px;
+}
+
+.slider-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgb(153, 6, 6);
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.slider-thumb {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-thumb:active {
+  cursor: grabbing;
+}
+
+.thumb-content {
+  font-size: 14px; /* Adjust font size for the icons */
+  font-weight: bold;
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1px; /* Space between the icons */
+  user-select: none; /* Prevents text selection */
+}
+
+.thumb-content .material-icons,
+.thumb-content i {
+  font-size: 16px; /* Icon size */
+  color: #000; /* Icon color */
+  user-select: none; /* Prevents text selection */
+}
+
+.navigate-button-container button {
+  position: relative;
+  padding: 15px 60px;
+  color: white;
+    background: darkred;
+    margin: 20px;
+    border-radius: 13px;
+    border: 1px solid gray;
+}
+
+.movie{
+  position: absolute;
+    font-size: 30px;
+    right: 21px;
+    top: 6px;
+}
+
+.mat-tab-header {
+  flex-wrap: wrap; /* Allow tabs to wrap into multiple rows */
+  justify-content: flex-start; /* Align wrapped tabs to the left */
+}
+
+.mat-tab-label {
+  flex: 1 1 auto; /* Allow tabs to adjust their size dynamically */
+  text-align: center; /* Center-align tab labels */
+  padding: 8px; /* Add padding for better spacing */
+}

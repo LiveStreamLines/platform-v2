@@ -1,0 +1,36 @@
+<mat-toolbar color="primary">
+  <!-- Toggle Button -->
+  <button mat-icon-button (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <!-- Breadcrumbs -->
+  <div class="breadcrumbs">
+    <ng-container *ngFor="let crumb of breadcrumbs; let isLast = last">
+      <!-- Link for breadcrumbs with URLs -->
+      <a *ngIf="crumb.url && !isLast" [routerLink]="crumb.url">{{ crumb.label }}</a>
+      <!-- Plain text for the current (last) breadcrumb -->
+      <span *ngIf="!crumb.url || isLast">{{ crumb.label }}</span>
+      <!-- Separator -->
+      <span *ngIf="!isLast" class="separator"> / </span>
+    </ng-container>
+  </div>
+ 
+
+  <span class="spacer"></span>
+
+  <!-- User Info -->
+  <div class="user-info">
+    <!-- Manual Button -->
+    <button mat-button class="manual-button" (click)="openManual()">
+      <mat-icon>video_library</mat-icon>
+      Manual
+    </button>
+    <span>{{ username }}</span>
+    <mat-icon>account_circle</mat-icon>
+    <button mat-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+      </div>
+</mat-toolbar>

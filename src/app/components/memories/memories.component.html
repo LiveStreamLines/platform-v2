@@ -1,0 +1,205 @@
+<div class="memories-container">
+  <!-- Filter Controls -->
+  <div class="filter-section">
+    <!-- Developer Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Developer</mat-label>
+      <mat-select [(ngModel)]="selectedDeveloperId" (selectionChange)="onDeveloperChange()">
+        <mat-option>All Developers</mat-option>
+        <mat-option *ngFor="let developer of developers" [value]="developer.developerTag">
+          {{ developer.developerName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Project Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Project</mat-label>
+      <mat-select [(ngModel)]="selectedProjectId" (selectionChange)="onProjectChange()" [disabled]="!selectedDeveloperId">
+        <mat-option>All Projects</mat-option>
+        <mat-option *ngFor="let project of projects" [value]="project.projectTag">
+          {{ project.projectName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Camera Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Camera</mat-label>
+      <mat-select [(ngModel)]="selectedCameraId" (selectionChange)="onCameraChange()" [disabled]="!selectedProjectId">
+        <mat-option>All Cameras</mat-option>
+        <mat-option *ngFor="let camera of cameras" [value]="camera.camera">
+          {{ camera.camera }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- User Dropdown -->
+    <!-- <mat-form-field appearance="outline">
+      <mat-label>User</mat-label>
+      <mat-select [(ngModel)]="selectedUserId" (selectionChange)="onUserChange()">
+        <mat-option>All Users</mat-option>
+        <mat-option *ngFor="let user of users" [value]="user._id">
+          {{ user.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+
+    <!-- Add this with your other filters -->
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="statusFilter" (selectionChange)="onStatusChange()">
+        <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+          {{ status.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <button mat-raised-button color="primary" (click)="openAddMemory()" class="add-button">
+      <mat-icon>add</mat-icon> Add New Memory
+    </button> -->
+  </div>
+
+  <!-- Add this checkbox near your other filters -->
+  <mat-checkbox [(ngModel)]="showSizeWarning" (change)="filterMemories()" class="warning-filter">
+    Show only memories with less than 10GB available
+  </mat-checkbox>
+  <br><br>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="spinner-container">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <h3>Memory {{memoryRole}}</h3>
+
+  <!-- Memories Table -->
+  <table mat-table [dataSource]="filteredMemories" class="mat-elevation-z8" *ngIf="!isLoading">
+    <!-- Developer Column -->
+    <ng-container matColumnDef="developer">
+      <th mat-header-cell *matHeaderCellDef> Developer </th>
+      <td mat-cell *matCellDef="let memory"> {{ getDeveloperName(memory.developer) | async }} ({{ memory.developer}}) </td>
+    </ng-container>
+
+    <!-- Project Column -->
+    <ng-container matColumnDef="project">
+      <th mat-header-cell *matHeaderCellDef> Project </th>
+      <td mat-cell *matCellDef="let memory"> {{ getProjectName(memory.project) | async }} ({{ memory.project }}) </td>
+    </ng-container>
+
+    <!-- Camera Column -->
+    <ng-container matColumnDef="camera">
+      <th mat-header-cell *matHeaderCellDef> Camera </th>
+      <td mat-cell *matCellDef="let memory"> {{ memory.camera }} </td>
+    </ng-container>
+
+    <!-- User Column
+    <ng-container matColumnDef="user">
+      <th mat-header-cell *matHeaderCellDef> User </th>
+      <td mat-cell *matCellDef="let memory"> {{ memory.user.userName }} </td>
+    </ng-container> -->
+
+    <!-- Date Range Column -->
+    <ng-container matColumnDef="dateRange">
+      <th mat-header-cell *matHeaderCellDef> Date Range </th>
+      <td mat-cell *matCellDef="let memory"> 
+        {{ memory.createdDate | date:'shortDate' }} - {{ memory.dateOfRemoval | date:'shortDate' }}
+      </td>
+    </ng-container>
+
+    <!-- Pictures Column -->
+    <ng-container matColumnDef="pictures">
+      <th mat-header-cell *matHeaderCellDef> Pictures </th>
+      <td mat-cell *matCellDef="let memory"> {{ memory.numberofpics }} </td>
+    </ng-container>
+
+    <!-- Shutter Count Column -->
+    <ng-container matColumnDef="shuttercount">
+      <th mat-header-cell *matHeaderCellDef> Shutter Count </th>
+      <td mat-cell *matCellDef="let memory"> {{ memory.shuttercount || 'N/A' }} </td>
+    </ng-container>
+
+     <!-- Pictures Column -->
+     <ng-container matColumnDef="memoryUsed">
+      <th mat-header-cell *matHeaderCellDef> Memory Used </th>
+      <td mat-cell *matCellDef="let memory"> {{ memory.memoryUsed }} </td>
+    </ng-container>
+
+     <!-- Pictures Column -->
+     <ng-container matColumnDef="memoryAvailable">
+      <th mat-header-cell *matHeaderCellDef> Memory Available </th>
+      <td mat-cell *matCellDef="let memory" 
+          [class.low-memory-text]="isLowMemory(memory)">
+        {{ memory.memoryAvailable }}
+        <mat-icon *ngIf="isLowMemory(memory)" color="warn" class="warning-icon">warning</mat-icon>
+        <span *ngIf="isLowMemory(memory)" class="warning-text">(Low Memory)</span>
+      </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let memory"> 
+        <mat-chip-listbox>
+          <mat-chip  [color]="getStatusColor(memory.status)" selected>
+            {{ memory.status || 'active' }}
+          </mat-chip>
+        </mat-chip-listbox>
+      </td>
+    </ng-container>
+
+    <!-- Remove Date Column -->
+    <ng-container matColumnDef="removeDate">
+      <th mat-header-cell *matHeaderCellDef> Remove Date </th>
+      <td mat-cell *matCellDef="let memory">
+        {{ memory.dateOfRemoval ? (memory.dateOfRemoval | date:'shortDate') : 'N/A' }} 
+        <br> by {{ memory.RemovalUser }}
+      </td>
+    </ng-container>
+
+    <!-- Receive Date Column -->
+    <ng-container matColumnDef="receiveDate">
+      <th mat-header-cell *matHeaderCellDef> Receive Date </th>
+      <td mat-cell *matCellDef="let memory">
+        {{ memory.dateOfReceive ? (memory.dateOfReceive | date:'shortDate') : 'N/A' }}
+        <br> by {{ memory.RecieveUser }}
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td  mat-cell *matCellDef="let memory">
+
+        <div *ngIf="memoryRole !== 'viewer'" class="action-buttons">
+          <!-- Remove Button (shown only for active memories) -->
+          <button mat-icon-button color="warn" 
+                  *ngIf="memory.status === 'active' && (memoryRole === 'removal' || userRole === 'Super Admin')"
+                  (click)="updateMemoryStatus(memory._id, 'removed')"
+                  matTooltip="Mark as Removed">
+            <mat-icon>handyman</mat-icon>
+          </button>
+          
+          <!-- Receive Button (shown only for removed memories) -->
+          <button mat-icon-button color="primary" 
+                  *ngIf="memory.status === 'removed' && (memoryRole === 'archiver' || userRole === 'Super Admin')"
+                  (click)="updateMemoryStatus(memory._id, 'archived')"
+                  matTooltip="Mark as Archived">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+          
+        
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && !filteredMemories.length" class="empty-state">
+    <mat-icon>photo_library</mat-icon>
+    <p>No memories found matching your filters.</p>
+  </div>
+</div>

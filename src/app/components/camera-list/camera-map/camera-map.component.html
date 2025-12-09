@@ -1,0 +1,30 @@
+<div class="container">
+  <google-map
+    *ngIf="cameras.length > 0"
+    height="400px"
+    width="100%"
+    [center]="{ lat: +cameras[0].lat, lng: +cameras[0].lng }"
+    [zoom]="16"
+    (mapInitialized)="onMapReady($event)"
+  >
+    <map-marker
+      *ngFor="let camera of cameras"
+      [position]="{ lat: +camera.lat, lng: +camera.lng }"
+      [title]="camera.cameraDescription"
+      (mapClick)="onMarkerClick(camera)"
+    ></map-marker>
+  </google-map>
+
+  <div
+  *ngIf="selectedCamera"
+  class="camera-info-popup"
+  [style.left.px]="popupX"
+  [style.top.px]="popupY">
+    <button class="close-button" (click)="closeInfoPopup()">X</button>
+    <p class="title">{{ selectedCamera.cameraDescription }}<p>
+    <p>Latitude: {{ selectedCamera.lat }}</p>
+    <p>Longitude: {{ selectedCamera.lng }}</p>
+    <button class="view-details-button" (click)="viewCameraDetails(selectedCamera)">View Details</button>
+  </div>
+  
+</div>

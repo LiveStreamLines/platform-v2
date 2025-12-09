@@ -1,0 +1,84 @@
+[
+  {
+    "_id": "6842921a87c2973a8c25a45e",
+    "title": "tasks",
+    "description": "sdfsfsdf",
+    "type": "purchase_request",
+    "assignee": "000000000000000000000001",
+    "assigneeName": "Amar LSL",
+    "assigned": "000000000000000000000001",
+    "assignedName": "Amar LSL",
+    "approver": null,
+    "approverName": null,
+    "status": "open",
+    "attachments": [
+      {
+        "_id": "79892a445daac4bedac4b961",
+        "name": "6842921a87c2973a8c25a45e_1764628812808_635005010.pdf",
+        "originalName": "73e4bfe41d0e4e331ae53f37_1764627326099_342523946.pdf",
+        "size": 3610,
+        "type": "application/pdf",
+        "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/attachments/tasks/6842921a87c2973a8c25a45e/6842921a87c2973a8c25a45e_1764628812808_635005010.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251201%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251201T224013Z&X-Amz-Expires=604800&X-Amz-Signature=8ac0f35a895e8513d2be3d36a0deb8bb066fbf5ee67a0499a5e9336ac289191c&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+        "s3Key": "attachments/tasks/6842921a87c2973a8c25a45e/6842921a87c2973a8c25a45e_1764628812808_635005010.pdf",
+        "uploadedAt": "2025-12-01T22:40:13.399Z",
+        "uploadedBy": "amar@lsl.com",
+        "context": "initial"
+      }
+    ],
+    "notes": [
+      {
+        "_id": "13a677d34259acc934ac3f3a",
+        "content": "sdfsdfsdf",
+        "user": "000000000000000000000001",
+        "userName": "Amar LSL",
+        "attachments": [],
+        "createdAt": "2025-12-01T22:40:13.399Z"
+      },
+      {
+        "_id": "6605bb37fc5dcec5bcfbcb40",
+        "content": "some reply",
+        "user": "000000000000000000000001",
+        "userName": "Amar LSL",
+        "attachments": [
+          {
+            "_id": "fe06512b6f17a505b341df54",
+            "name": "6842921a87c2973a8c25a45e_1764628841687_617023083.txt",
+            "originalName": "e2-s3.ap-southeast-1.idrivee2.com-Access-Keys.txt",
+            "size": 165,
+            "type": "text/plain",
+            "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/attachments/tasks/6842921a87c2973a8c25a45e/6842921a87c2973a8c25a45e_1764628841687_617023083.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251201%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251201T224041Z&X-Amz-Expires=604800&X-Amz-Signature=e4ee354bf97615247ce1e9d189bdc83b86816dbcf958c363d5013f78514daac0&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+            "s3Key": "attachments/tasks/6842921a87c2973a8c25a45e/6842921a87c2973a8c25a45e_1764628841687_617023083.txt",
+            "uploadedAt": "2025-12-01T22:40:41.892Z",
+            "uploadedBy": "amar@lsl.com",
+            "context": "note"
+          }
+        ],
+        "createdAt": "2025-12-01T22:40:41.892Z"
+      },
+      {
+        "_id": "8677f5eceee6b3d12c362e81",
+        "content": "hello another task what happen",
+        "user": "000000000000000000000001",
+        "userName": "Amar LSL",
+        "attachments": [
+          {
+            "_id": "d8579a3d0cf6e0d63f337bde",
+            "name": "6842921a87c2973a8c25a45e_1764692455453_581970980.png",
+            "originalName": "canvas_image (2).png",
+            "size": 4692023,
+            "type": "image/png",
+            "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/attachments/tasks/6842921a87c2973a8c25a45e/6842921a87c2973a8c25a45e_1764692455453_581970980.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251202%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251202T162058Z&X-Amz-Expires=604800&X-Amz-Signature=a18c55dda77c60bd2a0a4418d49613619ca4622f84859efb5dd680c431eebc5f&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+            "s3Key": "attachments/tasks/6842921a87c2973a8c25a45e/6842921a87c2973a8c25a45e_1764692455453_581970980.png",
+            "uploadedAt": "2025-12-02T16:20:58.004Z",
+            "uploadedBy": "amar@lsl.com",
+            "context": "note"
+          }
+        ],
+        "createdAt": "2025-12-02T16:20:58.004Z"
+      }
+    ],
+    "createdDate": "2025-12-01T22:40:12.807Z",
+    "updatedDate": "2025-12-02T16:20:58.004Z",
+    "isActive": true
+  }
+]

@@ -1,0 +1,204 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="logo-container">
+      <img src="assets/lsl.svg" alt="Timelapse Monitoring Logo" class="logo" />
+    </div>
+
+    <mat-tab-group>
+      <!-- Regular Login Tab -->
+      <mat-tab label="Email Login">
+        <div *ngIf="currentView === 'login'">
+          <p style="font-size:12px; margin-top: 10px;">If this is your first time logging in, you will be asked to register and confirm your phone number.</p>
+          <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
+            <!-- Email Field -->
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                [(ngModel)]="email" 
+                name="email" 
+                required 
+                placeholder="Enter your email" 
+                class="form-control"
+              />
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input 
+                type="password" 
+                id="password" 
+                [(ngModel)]="password" 
+                name="password" 
+                required 
+                placeholder="Enter your password" 
+                class="form-control"
+              />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" [disabled]="loginForm.invalid || loading" class="btn-login">Login</button>
+            <div *ngIf="loading" class="loading-spinner">Loading...</div>
+            <!-- Forgot Password Link -->
+            <div style="margin: 10px 0; font-size: 14px;">
+              Kindly reset your Password
+              <a style="color:rgb(205, 81, 81);" href="javascript:void(0);" (click)="toggleForgotPassword()" class="forgot-password-link">Reset Password?</a>
+            </div>
+            <!-- Error Message -->
+            <div *ngIf="loginError" class="error-message">
+              {{ loginError }}
+            </div>
+          </form>
+        </div>
+
+        <div *ngIf="currentView === 'phoneVerification'">
+          <!-- Phone Verification Form -->
+          <div class="verification-form">
+            <ng-container *ngIf="!isPhoneSubmitted; else otpForm">
+              <p style="font-size: 14px; margin: 15px 0">Please enter your phone number for login verification:</p>
+              <div class="form-group">
+                <label for="country-code">Country Code</label>
+                <div class="country-select-container">
+                  <select id="country-code" [(ngModel)]="selectedCountryCode" name="countryCode" class="form-control">
+                    <option *ngFor="let country of countries" [value]="country.code">
+                      <img [src]="country.flag" alt="{{ country.name }}" class="country-flag" /> {{ country.name }} ({{ country.code }})
+                    </option>
+                  </select>
+                </div>
+              </div> 
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input 
+                  type="text" 
+                  id="phone" 
+                  [(ngModel)]="phone" 
+                  name="phone" 
+                  placeholder="Enter your phone number" 
+                  class="form-control" 
+                  required
+                />
+                <small class="helper-text">Format: 5xxxxx without leading zero</small>
+              </div>
+              <button type="button" (click)="sendOtp()" [disabled]="!phone || loading" class="btn-login">Send OTP</button>
+              <div *ngIf="loading" class="loading-spinner">Loading...</div>
+
+            </ng-container>
+
+            <!-- OTP Field -->
+            <ng-template #otpForm>
+              <div style= "margin: 25px 0" class="form-group">
+                <label for="otp">Enter OTP</label>
+                <input 
+                  type="text" 
+                  id="otp" 
+                  [(ngModel)]="otp" 
+                  name="otp" 
+                  placeholder="Enter OTP" 
+                  class="form-control" 
+                  required
+                />
+                <button type="button" (click)="verifyOtp()" [disabled]="!otp || loading" class="btn-login">Verify OTP</button>
+                <div *ngIf="loading" class="loading-spinner">Loading...</div>
+              </div>
+            </ng-template>
+
+            <!-- Error Message -->
+            <div *ngIf="loginError" class="error-message">
+              {{ loginError }}
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="currentView === 'forgotPassword'">
+          <!-- Forgot Password Form -->
+          <div class="forgot-password-form" style="margin: 25px 0;">
+            <p style="font-size:12px">Enter your email address to receive a password reset link:</p>
+            <div class="form-group">
+              <label for="reset-email">Email</label>
+              <input 
+                type="email" 
+                id="reset-email" 
+                [(ngModel)]="resetPasswordEmail" 
+                name="resetPasswordEmail" 
+                required 
+                placeholder="Enter your email" 
+                class="form-control"
+              />
+            </div>
+            <button type="button" (click)="sendResetLink()" [disabled]="!resetPasswordEmail || loading" class="btn-login">Send Reset Link</button>
+            <div style="margin-top: 40px;display: flex;flex-direction: row;">
+              <button class="btn-back" type="button" (click)="backToLogin()">Back to Login</button>
+            </div>
+            <div *ngIf="loading" class="loading-spinner">Loading...</div>
+            <div *ngIf="loginError" class="error-message">{{ loginError }}</div>
+          </div>
+        </div>
+
+      </mat-tab>
+
+      <!-- Phone Number Login Tab -->
+      <mat-tab label="Phone Login">
+        <form class="login-form">
+          <div class="form-group">
+            <label for="country-code">Country Code</label>
+            <div class="country-select-container">
+              <select id="country-code" [(ngModel)]="selectedCountryCode" name="countryCode" class="form-control">
+                <option *ngFor="let country of countries" [value]="country.code">
+                  <img [src]="country.flag" alt="{{ country.name }}" class="country-flag" /> {{ country.name }} ({{ country.code }})
+                </option>
+              </select>
+            </div>
+          </div> 
+          <!-- Phone Number Field -->
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input 
+              type="text" 
+              id="phone" 
+              [(ngModel)]="phone" 
+              name="phone" 
+              placeholder="Enter your phone number" 
+              class="form-control" 
+              required
+            />
+          </div>
+          <small class="helper-text">Format: 5xxxxx without leading zero</small>
+
+
+          <!-- OTP Field -->
+          <div class="form-group" *ngIf="isOtpSent">
+            <label for="otp">Enter OTP</label>
+            <input 
+              type="text" 
+              id="otp" 
+              [(ngModel)]="otp" 
+              name="otp" 
+              placeholder="Enter OTP" 
+              class="form-control" 
+              required
+            />
+          </div>
+
+          <!-- Buttons -->
+          <button *ngIf="!isOtpSent" type="button" (click)="sendOtp()" [disabled]="!phone || loading" class="btn-login">Send OTP</button>
+          <button *ngIf="isOtpSent" type="button" (click)="verifyOtp()" [disabled]="!otp || loading" class="btn-login">Verify OTP</button>
+          <div *ngIf="loading" class="loading-spinner">Loading...</div>
+          <!-- Error Message -->
+          <div *ngIf="loginError" class="error-message">
+            {{ loginError }}
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div class="video-container" *ngIf="!isMobileView && !isIOS">
+    <video #backgroundVideo autoplay muted loop class="background-video">
+      <source src="assets/background.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+</div>

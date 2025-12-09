@@ -1,0 +1,54 @@
+<div class="developer-container">
+    <!-- Add New and Search Bar -->
+    <div class="toolbar">
+      <button class="add-new-button" mat-raised-button color="primary" (click)="openAddDeveloperDialog()">Add New</button>
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search Developers</mat-label>
+        <input matInput [(ngModel)]="searchTerm" (input)="applyFilter()" placeholder="Search" />
+      </mat-form-field>
+    </div>
+  
+    <!-- Developer Table -->
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <!-- Logo Column -->
+      <ng-container matColumnDef="logo">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let developer">
+          <img [src]="link+'/'+developer.logo" alt="Logo" class="developer-logo" />
+        </td>
+      </ng-container>
+  
+      <!-- Developer Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Developer Name </th>
+        <td mat-cell *matCellDef="let developer"> {{ developer.developerName }} </td>
+      </ng-container>
+  
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let developer"> {{ developer.isActive }} </td>
+      </ng-container>
+  
+      <!-- Created Date Column -->
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+        <td mat-cell *matCellDef="let developer"> {{ developer.createdDate | date }} </td>
+      </ng-container>
+  
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let developer">
+          <button mat-icon-button color="warn" class="open-circle-button" (click)="openEditDeveloperDialog(developer)">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <!-- Table Headers and Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  

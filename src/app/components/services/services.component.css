@@ -1,0 +1,186 @@
+.tile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Vertical spacing between tiles */
+  padding: 20px;
+  align-items: center;
+}
+
+.tile {
+  display: flex;
+  margin-right: 130px;
+  align-items: center;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: rgba(50, 50, 50, 0.9); /* Dark gray background */
+  box-shadow: 0 2px 10px rgba(139, 6, 6, 0.2);
+  border: 1px solid rgb(111, 10, 10);
+  transition: transform 0.3s ease;
+  position: relative; /* For positioning the overflowing image */
+  overflow: visible; /* Allows the image to overflow the tile */
+  width: 50%
+}
+
+.tile:hover {
+    transform: scale(1.02);
+    /* color:rgb(111, 10, 10); */
+    background-color: rgba(88, 86, 86, 0.9); /* Dark gray background */  
+    box-shadow: 0 4px 20px rgba(192, 6, 6, 0.89);
+}
+
+.tile:hover {
+  transform: translateY(-5px);
+}
+
+.tile-content {
+  flex: 1; /* Content occupies the majority of the space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tile-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+.tile-button {
+  background-color: #7e1919;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start;
+}
+
+.tile-button:hover {
+  background:radial-gradient(
+    rgba(215, 212, 212, 0.9) 20%,
+    transparent 15%
+  );
+  background-size: 3px 3px;
+  background-color: #7e0707; /* Darker red on hover */
+}
+
+.tile-image {
+  flex: 0 0 30%; /* Image occupies 30% of the tile width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Needed for the overflowing effect */
+}
+
+.tile-image img {
+  width: 250px;
+  max-width: 180%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  position: absolute;
+  right: -10%; /* Overflow to the right of the tile */
+  top: 50%; /* Center the image vertically */
+  transform: translateY(-50%); /* Align image properly */
+}
+
+@media (max-width: 768px) {
+  .tile {
+    flex-direction: column; /* Stack the content vertically on small screens */
+    align-items: flex-start;
+    padding-bottom: 40px;
+  }
+
+  .tile-image {
+    width: 100%; /* Make the image full width */
+    position: static; /* Default position for smaller screens */
+    margin-top: 15px;
+  }
+
+  .tile-image img {
+    width: 100%; /* Ensure the image fits within the screen width */
+    position: static; /* No overflow effect for smaller screens */
+    transform: none;
+  }
+
+  .tile-button {
+    align-self: stretch; /* Stretch the button to fit full width on small screens */
+  }
+}
+
+  
+.back-button {
+  background-color: #590606;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 10px;
+}
+
+.back-button:hover {
+  background-color: #d10b0b;
+}
+
+/* Tablet Screens */
+@media (max-width: 768px) {
+  .tile-container {
+    flex-direction: column; /* Stack tiles vertically */
+    align-items: stretch; /* Stretch tiles to fit the container */
+  }
+
+  .tile {
+    flex-direction: column; /* Stack content vertically within each tile */
+    align-items: flex-start;
+    width: 90%;
+    max-height: 300px;
+    padding: 15px;
+  }
+
+  .tile-image {
+    width: 100%; /* Full width */
+    margin-bottom: 10px; /* Add spacing below the image */
+  }
+
+  .tile-image img {
+    width: 70%; /* Fit the container */
+    transform: none; /* No overflow effect */
+    position: absolute;
+    right: 10px; /* Overflow to the right of the tile */
+    top: 0; /* Center the image vertically */
+  }
+
+  .tile-button {
+    width: 100%; /* Full width button for easier tapping */
+  }
+}
+
+
+/* Mobile Screens */
+@media (max-width: 480px) {
+  .tile {
+    padding: 10px;
+  }
+
+  .tile-title {
+    max-width: 60px;
+    font-size: 16px; /* Smaller font size */
+    line-height: normal;
+  }
+
+  .tile-button {
+    padding: 8px 16px; /* Adjust button padding */
+    font-size: 12px; /* Smaller font size */
+  }
+
+  .back-button {
+    font-size: 12px; /* Adjust font size */
+    padding: 8px 16px;
+  }
+}
+

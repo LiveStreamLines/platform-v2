@@ -1,0 +1,88 @@
+<div class="developer-container">
+    <!-- Developer Dropdown and Toolbar -->
+    <div class="toolbar">
+      <mat-form-field appearance="outline" class="developer-select-field">
+        <mat-label>Select Developer</mat-label>
+        <mat-select [(ngModel)]="selectedDeveloperId" (selectionChange)="fetchProjectsByDeveloper($event.value)">
+          <mat-option *ngFor="let developer of developers" [value]="developer._id">
+            {{ developer.developerName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <button class="add-new-button" mat-raised-button color="primary" (click)="openAddProjectDialog()">Add New</button>
+  
+      
+    </div>
+
+    <div *ngIf="isLoading" class="loading-indicator">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading projects...</p>
+    </div>
+  
+    <!-- Projects Table -->
+    <table *ngIf="!isLoading" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <!-- Logo Column -->
+      <ng-container matColumnDef="logo">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let project">
+          <img [src]="link+'/'+project.logo" alt="Logo" class="project-logo" />
+        </td>
+      </ng-container>
+  
+      <!-- Project Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
+        <td mat-cell *matCellDef="let project"> {{ project.projectName }} </td>
+      </ng-container>
+  
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let project">
+          <mat-form-field appearance="outline" class="status-select">
+            <mat-select [(ngModel)]="project.status" (selectionChange)="updateProjectStatus(project)">
+              <mat-option value="new">New</mat-option>
+              <mat-option value="active">Active</mat-option>
+              <mat-option value="on hold">On Hold</mat-option>
+              <mat-option value="finished">Finished</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>
+  
+      <!-- Created Date Column -->
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+        <td mat-cell *matCellDef="let project"> {{ project.createdDate | date }} </td>
+      </ng-container>
+
+      <!-- Block/Unblock Column -->
+    <ng-container matColumnDef="blockUnblock">
+      <th mat-header-cell *matHeaderCellDef> Block/Unblock </th>
+      <td mat-cell *matCellDef="let project">
+        <button 
+          class="block-unblock-button" 
+          [class.blocked]="project.blocked" 
+          (click)="toggleBlockStatus(project)">
+          {{ project.blocked ? 'Unblock' : 'Block' }}
+      </button>
+      </td>
+    </ng-container>
+  
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let project">
+          <button mat-icon-button color="warn" class="open-circle-button" (click)="openEditProjectDialog(project)">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <!-- Table Headers and Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  

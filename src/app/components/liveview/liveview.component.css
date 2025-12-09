@@ -1,0 +1,357 @@
+/* Container for Live View and PTZ Control */
+.container {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 80px);
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+/* Video Section with PTZ Values */
+.video-section {
+    flex: 8; /* Takes 80% of the width */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    box-sizing: border-box;
+}
+  
+/* Live View Section */
+.iframe-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 0;
+    min-height: 400px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+/* PTZ Values Display */
+.ptz-values {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 15px 20px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.ptz-value-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.ptz-label {
+    font-size: 12px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ptz-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #4CAF50;
+    font-family: 'Courier New', monospace;
+}
+  
+.live-view-iframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove iframe border */
+    object-fit: contain;
+}
+  
+/* PTZ Control Section */
+.ptz-control {
+    flex: 2; /* Takes 20% of the width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 200px;
+    max-width: 250px;
+    color: white;
+    box-sizing: border-box;
+}
+  
+.ptz-control h4 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+  
+.ptz-circle {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin: 15px auto;
+}
+  
+.ptz-btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #333;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+  
+.ptz-btn:hover {
+    background: #444;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.ptz-btn:active {
+    background: #555;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    /* No transform to prevent movement */
+}
+  
+.ptz-up {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+  
+.ptz-down {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+}
+  
+.ptz-left {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+}
+  
+.ptz-right {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+}
+  
+.ptz-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #444;
+    position: absolute;
+}
+
+.zoom-control {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 15px;
+}
+  
+.zoom-btn {
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: #333;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.zoom-icon {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+}
+  
+.zoom-btn:hover {
+    background: #444;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.zoom-btn:active {
+    background: #555;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    /* No transform to prevent movement */
+}
+  
+.ptz-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+  
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 80px);
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .video-section {
+        flex: none;
+        width: 100%;
+    }
+
+    .iframe-container {
+        flex: none;
+        width: 100%;
+        min-height: 300px;
+        margin-bottom: 15px;
+    }
+
+    .ptz-values {
+        gap: 20px;
+        padding: 12px 15px;
+    }
+
+    .ptz-value {
+        font-size: 18px;
+    }
+
+    .ptz-control {
+        flex: none;
+        width: 100%;
+        min-width: auto;
+        max-width: none;
+        padding: 15px;
+        margin-top: 0;
+    }
+
+    .ptz-circle {
+        width: 140px;
+        height: 140px;
+    }
+
+    .ptz-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .iframe-container {
+        min-height: 200px;
+    }
+
+    .ptz-values {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .ptz-value-item {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .ptz-value {
+        font-size: 16px;
+    }
+
+    .ptz-control {
+        padding: 10px;
+    }
+
+    .ptz-circle {
+        width: 120px;
+        height: 120px;
+    }
+
+    .ptz-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+    .zoom-control {
+        gap: 8px;
+    }
+
+    .zoom-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .zoom-icon {
+        font-size: 20px;
+    }
+}
+  
+.header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.title {
+    margin: 0;
+    margin-left: 20px;
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.back-button {
+    padding: 8px 16px;
+    background: rgb(141, 13, 13);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background: rgb(180, 17, 17);
+}
+  
+  

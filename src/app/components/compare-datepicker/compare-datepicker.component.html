@@ -1,0 +1,28 @@
+<div class="form-field">
+    <label for="photoDate">Photo Date:</label>
+    <input
+      type="date"
+      id="photoDate"
+      [value]="dateInputValue"
+      (change)="onDateChange($event)"
+      class="native-date-picker"
+    />
+    <span class="calendar-icon">
+      <i class="material-icons">calendar_today</i>
+    </span>
+  </div>
+  
+  <div class="thumbnail-strip">
+    <div
+      *ngFor="let picture of pictures"
+      class="thumbnail"
+      [class.selected]="picture === selectedThumbnail"
+      (click)="onThumbnailSelect(picture)"
+    >
+      <img [src]="getThumbPictureUrl(picture)" class="thumbnail-img" />
+      <div class="thumbnail-overlay">
+        <p>{{ thumbformat(picture) }}</p>
+      </div>
+    </div>
+  </div>
+  

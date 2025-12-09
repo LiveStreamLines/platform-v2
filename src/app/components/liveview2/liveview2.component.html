@@ -1,0 +1,63 @@
+<div class="container">
+    <!-- Live View Section -->
+    <div class="iframe-container">
+      <iframe
+        [src]="iframeSrc"
+        frameborder="0"
+        class="live-view-iframe"
+        allowfullscreen
+      ></iframe>
+    </div>
+  
+    <div class="ptz-control">
+      <h4>PTZ Control</h4>
+      <div class="ptz-circle">
+        <!-- Up -->
+        <button 
+          class="ptz-btn ptz-up" 
+          (click)="moveUp()" 
+        >▲</button>
+    
+        <!-- Left -->
+        <button 
+          class="ptz-btn ptz-left" 
+          (click)="moveLeft()" 
+        >◀</button>
+    
+        <!-- Right -->
+        <button 
+          class="ptz-btn ptz-right" 
+          (click)="moveRight()" 
+        >▶</button>
+    
+        <!-- Down -->
+        <button 
+          class="ptz-btn ptz-down" 
+          (click)="moveDown()" 
+        >▼</button>
+    
+        <!-- Center/Reset -->
+        <button 
+          class="ptz-btn ptz-center" 
+          (click)="resetToStartPosition()">O</button>
+      </div>
+    
+      <!-- Zoom Controls -->
+      <div class="zoom-control">
+        <button 
+          class="zoom-in" 
+          (click)="zoomIn()" 
+        >
+          <i class="material-icons">zoom_in</i>
+        </button>
+        <button 
+          class="zoom-out" 
+          (click)="zoomOut()" 
+        >
+          <i class="material-icons">zoom_out</i>
+        </button>
+      </div>
+    </div>
+    
+  </div>
+  

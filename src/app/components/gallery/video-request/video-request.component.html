@@ -1,0 +1,27 @@
+
+<div class="home-layout">
+  <div class="content">
+
+    <div class="cards-container" *ngIf="!isLoading && dataSource.data.length > 0">
+      <div class="card" *ngFor="let element of dataSource.data">
+        <div class="card-header">
+          <mat-icon class="play-icon">play_circle</mat-icon>
+        </div>
+        <div class="card-body">
+          <h3>{{ element.developerProject }}</h3>
+          <h3> {{ element.camera }}</h3>
+          <p><strong>Duration:</strong> {{ element.duration }}</p>
+          <p><strong>Hours:</strong> {{ element.hours }}</p>
+          <p><strong>Request Time:</strong> {{ element.RequestTime | date: 'medium' }}</p>
+          <p><strong>Images:</strong> {{ element.filteredImageCount }}</p>
+          <p><strong>Resolution:</strong> {{ element.resolution }}</p>
+          <p><strong>Status:</strong> {{ element.status }}</p>
+        </div>
+        <div class="card-footer">
+          <a *ngIf="element.videoLink" [href]="element.videoLink" target="_blank" class="view-video">View Video</a>
+          <span *ngIf="!element.videoLink" class="not-ready">Not Ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

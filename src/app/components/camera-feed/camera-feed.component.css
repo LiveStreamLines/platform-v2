@@ -1,0 +1,61 @@
+.playContainer {
+  width: 100%;
+  height: 100%;
+  min-width: 280px; /* Reduced minimum width */
+  min-height: 157.5px; /* 16:9 aspect ratio for 280px width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+}
+
+#playWind {
+  width: 100%;
+  height: 100%;
+  min-width: 280px;
+  min-height: 157.5px;
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1024px) {
+  .playContainer, #playWind {
+    min-width: 480px;
+    min-height: 270px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .playContainer, #playWind {
+    min-width: 320px;
+    min-height: 180px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .playContainer, #playWind {
+    min-width: 280px;
+    min-height: 157.5px;
+  }
+}
+
+/* Extra small screens */
+@media screen and (max-width: 360px) {
+  .playContainer, #playWind {
+    min-width: 240px;
+    min-height: 135px;
+  }
+}
+
+/* Very small screens */
+@media screen and (max-width: 280px) {
+  .playContainer, #playWind {
+    min-width: 200px;
+    min-height: 112.5px;
+  }
+}

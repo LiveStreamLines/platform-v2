@@ -1,0 +1,17 @@
+<div class="cards-container" *ngIf="!isLoading && media.length > 0">
+    <div class="card" *ngFor="let element of media">
+      <div class="card-header">
+        <mat-icon class="play-icon">photo_library</mat-icon>
+      </div>
+      <div class="card-body">
+        <h3>{{ element.developerProject }}</h3>
+        <h3>{{ element.camera }}</h3>
+        <p><strong>Dates:</strong> {{ element.date }}</p>
+      </div>
+      <div class="card-footer">
+        <a *ngIf="element.zipLink" [href]="element.zipLink" target="_blank" class="view-video">Download Media</a>
+        <span *ngIf="!element.zipLink" class="not-ready">Not Ready</span>
+      </div>
+    </div>
+  </div>
+  

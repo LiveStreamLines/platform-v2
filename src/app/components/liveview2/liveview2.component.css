@@ -1,0 +1,130 @@
+/* Container for Live View and PTZ Control */
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh; /* Full height */
+  }
+  
+  /* Live View Section */
+  .iframe-container {
+    flex: 7; /* Takes 70% of the width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .live-view-iframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove iframe border */
+  }
+  
+  /* PTZ Control Section */
+  .ptz-control {
+    flex: 3; /* Takes 30% of the width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+  }
+  
+  .ptz-circle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+  }
+  
+  .ptz-btn {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .ptz-btn:hover {
+    background-color: #e0e0e0;
+  }
+
+  .ptz-btn:active {
+    background-color: #dcdcdc;
+    border-color: #a0a0a0;
+}
+
+  
+  .ptz-up {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .ptz-down {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .ptz-left {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .ptz-right {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .ptz-center {
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    font-size: 20px;
+  }
+
+  .zoom-control {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .ptz-btn.zoom-in, .ptz-btn.zoom-out {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .ptz-btn.zoom-in:hover, .ptz-btn.zoom-out:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .ptz-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  

@@ -1,0 +1,266 @@
+<div class="sales-order-form-container">
+  <div class="header">
+    <h2>{{ isEditMode ? 'Edit Sales Order' : 'Create New Sales Order' }}</h2>
+  </div>
+
+  <form [formGroup]="salesOrderForm" (ngSubmit)="onSubmit()" class="sales-order-form">
+    <!-- Customer Selection -->
+    <div class="form-section">
+      <h3>Customer Information</h3>
+      
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="customerId">Customer (Developer):</label>
+          <div *ngIf="isLoading" class="loading-indicator">
+            Loading developers...
+          </div>
+          <select 
+            *ngIf="!isLoading"
+            id="customerId"
+            formControlName="customerId" 
+            (change)="onDeveloperChange()"
+            [class.error]="salesOrderForm.get('customerId')?.invalid && salesOrderForm.get('customerId')?.touched">
+            <option value="">Select a customer</option>
+            <option *ngFor="let dev of developers" [value]="dev._id">
+              {{ dev.developerName }}
+            </option>
+          </select>
+          <div *ngIf="salesOrderForm.get('customerId')?.invalid && salesOrderForm.get('customerId')?.touched" class="validation-error">
+            Customer is required
+          </div>
+          <div *ngIf="!isLoading && developers.length === 0" class="no-data-message">
+            No developers available. Please add a developer first.
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <button type="button" (click)="addNewDeveloper()" class="btn btn-secondary">
+            Add New Customer
+          </button>
+        </div>
+      </div>
+
+      <!-- Customer Details -->
+      <div *ngIf="selectedDeveloper" class="customer-details">
+        <div class="info-row">
+          <strong>Address:</strong>
+          <span>{{ getDeveloperAddress(selectedDeveloper) }}</span>
+        </div>
+        <div class="info-row">
+          <strong>VAT Number:</strong>
+          <span>{{ selectedDeveloper.vatNumber || 'Not provided' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Selection -->
+    <div class="form-section">
+      <h3>Project Information</h3>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="projectId">Select Project:</label>
+          <select 
+            id="projectId"
+            formControlName="projectId"
+            (change)="onProjectChange()"
+            [disabled]="!selectedDeveloper || isLoading">
+            <option value="">-- Select a project or add new --</option>
+            <option *ngFor="let project of availableProjects" [value]="project._id">
+              {{ project.projectName }} ({{ project.projectTag }})
+            </option>
+          </select>
+          <div *ngIf="!selectedDeveloper" class="help-text">
+            Please select a customer first to see available projects
+          </div>
+          <div *ngIf="selectedDeveloper && availableProjects.length === 0 && !isLoading" class="help-text">
+            No available projects found. You can create a new project.
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <button 
+            type="button" 
+            (click)="addNewProject()" 
+            class="btn btn-secondary"
+            [disabled]="!selectedDeveloper">
+            <span>+</span> Add New Project
+          </button>
+        </div>
+      </div>
+
+      <!-- Selected Project Info -->
+      <div *ngIf="selectedProject" class="selected-project-info">
+        <div class="info-row">
+          <strong>Selected Project:</strong>
+          <span>{{ selectedProject.projectName }}</span>
+        </div>
+        <div class="info-row" *ngIf="selectedProject.projectTag">
+          <strong>Project Tag:</strong>
+          <span>{{ selectedProject.projectTag }}</span>
+        </div>
+        <div class="info-row" *ngIf="selectedProject.description">
+          <strong>Description:</strong>
+          <span>{{ selectedProject.description }}</span>
+        </div>
+        <div class="info-row">
+          <strong>Status:</strong>
+          <span class="status-badge new">{{ selectedProject.status }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Information -->
+    <div class="form-section">
+      <h3>Order Information</h3>
+      
+      <div class="form-row" *ngIf="!isEditMode && currentOrderNumber">
+        <div class="form-group">
+          <label>Order Number:</label>
+          <input type="text" [value]="currentOrderNumber" readonly class="readonly-input">
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="orderDate">Order Date *</label>
+          <input type="date" id="orderDate" formControlName="orderDate" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- Line Items -->
+    <div class="form-section">
+      <h3>Line Items (Cameras)</h3>
+      
+      <div formArrayName="lineItems">
+        <table class="line-items-table">
+          <thead>
+            <tr>
+              <th>Camera ID</th>
+              <th>Camera Name</th>
+              <th>Duration (months)</th>
+              <th>Monthly Fee</th>
+              <th>Value</th>
+              <th>VAT (5%)</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of lineItems.controls; let i = index" [formGroupName]="i">
+              <td>
+                <input 
+                  formControlName="camera" 
+                  placeholder="Camera ID"
+                  [class.error]="item.get('camera')?.invalid && item.get('camera')?.touched" />
+                <div *ngIf="item.get('camera')?.invalid && item.get('camera')?.touched" class="validation-error">
+                  Camera ID is required
+                </div>
+              </td>
+              <td>
+                <input 
+                  formControlName="cameraName" 
+                  placeholder="Camera Name"
+                  [class.error]="item.get('cameraName')?.invalid && item.get('cameraName')?.touched" />
+                <div *ngIf="item.get('cameraName')?.invalid && item.get('cameraName')?.touched" class="validation-error">
+                  Camera name is required
+                </div>
+              </td>
+              <td>
+                <input 
+                  type="number" 
+                  formControlName="duration" 
+                  placeholder="Months"
+                  min="1"
+                  (input)="updateLineItemCalculations(i)"
+                  [class.error]="item.get('duration')?.invalid && item.get('duration')?.touched" />
+                <div *ngIf="item.get('duration')?.invalid && item.get('duration')?.touched" class="validation-error">
+                  Duration must be at least 1 month
+                </div>
+              </td>
+              <td>
+                <input 
+                  type="number" 
+                  formControlName="monthlyFee" 
+                  placeholder="Monthly fee"
+                  min="0"
+                  (input)="updateLineItemCalculations(i)"
+                  [class.error]="item.get('monthlyFee')?.invalid && item.get('monthlyFee')?.touched" />
+                <div *ngIf="item.get('monthlyFee')?.invalid && item.get('monthlyFee')?.touched" class="validation-error">
+                  Monthly fee must be at least 0
+                </div>
+              </td>
+              <td class="calculated-field">
+                ${{ item.get('value')?.value | number:'1.2-2' }}
+              </td>
+              <td class="calculated-field">
+                ${{ item.get('vat')?.value | number:'1.2-2' }}
+              </td>
+              <td>
+                <button 
+                  type="button" 
+                  (click)="removeLineItem(i)" 
+                  [disabled]="lineItems.length <= 1"
+                  class="btn btn-danger btn-small">
+                  ✕
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <button type="button" (click)="addLineItem()" class="btn btn-secondary">
+          Add Camera
+        </button>
+      </div>
+
+      <!-- Totals -->
+      <div class="totals-section">
+        <div class="total-row">
+          <strong>Total Value:</strong>
+          <span>${{ calculateTotalValue() | number:'1.2-2' }}</span>
+        </div>
+        <div class="total-row">
+          <strong>VAT (5%):</strong>
+          <span>${{ calculateTotalVat() | number:'1.2-2' }}</span>
+        </div>
+        <div class="total-row grand-total">
+          <strong>Grand Total:</strong>
+          <span>${{ calculateGrandTotal() | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="form-section">
+      <h3>Notes</h3>
+      <div class="form-group">
+        <textarea 
+          formControlName="notes" 
+          placeholder="Additional notes..."
+          rows="3"></textarea>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="button" (click)="onCancel()" class="btn btn-secondary">
+        Cancel
+      </button>
+      <button 
+        type="submit" 
+        [disabled]="!salesOrderForm.valid || isLoading"
+        class="btn btn-primary">
+        {{ isLoading ? (isEditMode ? 'Updating...' : 'Creating...') : (isEditMode ? 'Update Sales Order' : 'Create Sales Order') }}
+      </button>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div> 

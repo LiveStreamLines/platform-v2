@@ -1,0 +1,87 @@
+<div class="history-container">
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && camera" class="history-content">
+    <!-- Back Button -->
+    <button mat-button color="primary" (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+      Back to Camera Monitor
+    </button>
+
+    <!-- Camera Info Card -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>{{camera.camera}}</mat-card-title>
+        <mat-card-subtitle>
+          {{developer?.developerName}} - {{project?.projectName}}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Location:</span>
+            <span class="value">{{camera.country || 'Not specified'}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Server Folder:</span>
+            <span class="value">{{camera.serverFolder || 'Not specified'}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Installation Date:</span>
+            <span class="value">{{firstPhotoDate ? formatDate(firstPhotoDate) : 'Not available'}}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Maintenance History -->
+    <mat-card class="history-card">
+      <mat-card-header>
+        <mat-card-title>Maintenance History</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="maintenanceTasks.length === 0" class="no-tasks">
+          No maintenance tasks found for this camera.
+        </div>
+        <div *ngFor="let task of maintenanceTasks" class="task-item">
+          <div class="task-header">
+            <span class="task-type">{{getTaskTypeLabel(task.taskType)}}</span>
+            <span class="task-date">{{formatDateTime(task.dateOfRequest)}}</span>
+          </div>
+          <div class="task-details">
+            <p class="task-description">{{task.taskDescription}}</p>
+            <div class="task-meta">
+              <div class="task-info">
+                <div class="assigned-to" *ngIf="task.assignedUsers?.length">
+                  <span class="label">Assigned to:</span>
+                  <div class="assigned-users">
+                    <span *ngFor="let userName of task.assignedUserNames" class="user-chip">
+                      {{userName}}
+                    </span>
+                  </div>
+                </div>
+                <span class="task-status" [ngClass]="getTaskStatusClass(task.status)">
+                  <strong>Status:</strong> {{task.status}}
+                </span>
+              </div>
+              <div class="task-timeline">
+                <span class="start-time" *ngIf="task.startTime">
+                  <strong>Started:</strong> {{formatDateTime(task.startTime)}}
+                </span>
+                <span class="completion-time" *ngIf="task.completionTime">
+                  <strong>Completed:</strong> {{formatDateTime(task.completionTime)}}
+                </span>
+              </div>
+              <div class="task-comment" *ngIf="task.userComment">
+                <strong>Comment:</strong> {{task.userComment}}
+              </div>
+            </div>
+          </div>
+          <mat-divider *ngIf="!task.isLast"></mat-divider>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

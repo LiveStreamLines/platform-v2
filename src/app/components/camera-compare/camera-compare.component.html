@@ -1,0 +1,43 @@
+<!-- Full-width slider for comparing two selected pictures -->
+<div class="compare-slider-container">
+  
+  <img 
+      *ngIf="!loadingLeft"
+      [src]="inselectedDate1Picture" 
+      class="compare-slider-img left-img large-picture" 
+      (load)="onImageLoad('left')"
+      (error)="onImageError('left')"
+      [style.display]="loadingLeft ? 'none' : 'block'"
+    />
+      
+  <img *ngIf="!loadingRight"
+        [src]="inselectedDate2Picture"
+        class="compare-slider-img right-img large-picture"
+        (load)="onImageLoad('right')"
+        (error)="onImageError('right')"
+        [style.display]="loadingRight ? 'none' : 'block'"
+        />
+
+    <div *ngIf="loadingLeft || loadingRight" class="spinner-container">
+      <p>Loading...</p>
+    </div>
+ 
+  <div class="slider-overlay">
+    <div class="custom-slider">
+      <div class="slider-track"></div>
+      <div
+        class="slider-thumb"
+        [style.left.%]="sliderPosition"
+        tabindex="0"
+        (keydown)="onThumbKeydown($event)"
+        (mousedown)="onThumbDragStart($event)"
+      >
+        <div class="thumb-content">
+          <span class="material-icons">chevron_left</span>
+          <span class="material-icons">chevron_right</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

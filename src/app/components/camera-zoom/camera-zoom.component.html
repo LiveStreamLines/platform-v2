@@ -1,0 +1,48 @@
+<div class="zoom-slider-container">
+    <label for="zoom-scale-slider">Zoom Scale:</label>
+    <input
+        id="zoom-scale-slider"
+        type="range"
+        min="1"
+        max="5"
+        step="0.2"
+        [(ngModel)]="scale"
+        (input)="updateZoomScale()" />
+</div>
+
+<div *ngIf="zoomView === 'lens'" class="zoom-lens-container">
+    <img #mainImage
+      *ngIf="selectedPictureUrl"
+      [src]="selectedPictureUrl"
+      alt="Zoomed Picture"
+      class="zoomed-picture"
+      (mousemove)="onMouseMove($event)"
+      (mouseleave)="hideZoom()"
+    />
+    <div
+      *ngIf="selectedPictureUrl"
+      class="zoom-lens"
+      [style.width.px]="lensSize"
+      [style.height.px]="lensSize"
+      [style.top.px]="lensY"
+      [style.left.px]="lensX"
+      [style.backgroundImage]="'url(' + selectedPictureUrl + ')'"
+      [style.backgroundPosition]="backgroundPosition"
+      [style.backgroundSize]="BackgroundSize"
+    ></div>
+  </div>
+  
+  <div *ngIf="zoomView === 'pan'" class="zoom-pan-container">
+    <img #panImage
+      *ngIf="selectedPictureUrl"
+      [src]="selectedPictureUrl"
+      alt="Zoomed Picture"
+      class="pan-zoomed-picture"
+      [style.transform]="transform"
+      (mousedown)="startPan($event)"
+      (mousemove)="pan($event)"
+      (mouseup)="endPan()"
+      (mouseleave)="endPan()"
+    />
+  </div>
+  

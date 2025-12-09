@@ -1,0 +1,48 @@
+.action-buttons {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.edit-container {
+    padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .header h1 {
+    margin-left: 16px;
+    margin-bottom: 0;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .form-row mat-form-field {
+    flex: 1;
+  }
+  
+  .section {
+    margin-top: 32px;
+  }
+  
+  .assignment-details {
+    padding: 16px;
+    background-color: #272525;
+    border-radius: 4px;
+    margin-top: 8px;
+    font: 200 1rem / 1rem "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
+ }
+  
+  mat-expansion-panel {
+    margin-bottom: 8px;
+  }

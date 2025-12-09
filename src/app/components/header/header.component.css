@@ -1,0 +1,99 @@
+.spacer {
+  flex: 1;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  gap: 10px;
+}
+
+.user-info button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.user-info button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Optional hover effect */
+}
+
+mat-toolbar {
+  width: 100%;
+  z-index: 1000;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.breadcrumbs a {
+  text-decoration: none;
+  color: white;
+  /* font-weight: bold; */
+  cursor: pointer;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbs span {
+  font-weight: bold;
+  font-size: 12px;
+  color: rgb(155, 7, 7);
+}
+
+.breadcrumbs .separator {
+  margin: 0 8px; /* Adds space before and after the separator */
+  color: white;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  overflow: hidden; /* Prevents content overflow */
+  white-space: nowrap; /* Prevent wrapping to the next line */
+  text-overflow: ellipsis; /* Adds "..." for truncated content */
+}
+
+.breadcrumbs a, .breadcrumbs span {
+  max-width: 120px; /* Limit the width of breadcrumb items */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block; /* Ensures the text behaves as a block */
+  vertical-align: middle;
+}
+
+.breadcrumbs a:hover, .breadcrumbs span:hover {
+  text-decoration: underline; /* Optional hover effect */
+}
+
+.breadcrumbs .separator {
+  margin: 0 8px; /* Space around the separator */
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .breadcrumbs {
+    display: none;
+  }
+
+  /* Hide manual button in tablet and mobile view */
+  .user-info .manual-button {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumbs a, .breadcrumbs span {
+    max-width: 50px; /* Even shorter truncation for phones */
+  }
+}
+
+

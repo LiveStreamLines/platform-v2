@@ -1,0 +1,166 @@
+<div>
+<h2 mat-dialog-title>{{ isEditMode ? 'Edit Developer' : 'Add New Developer' }}</h2>
+
+<div class="dialog-content">
+  
+    <form [formGroup]="developerForm" (ngSubmit)="onSubmit()">
+      <!-- Basic Information -->
+      <h3>Basic Information</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Developer Name</mat-label>
+        <input matInput formControlName="developerName" required />
+        <mat-error *ngIf="developerForm.get('developerName')?.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Developer Tag</mat-label>
+        <input matInput formControlName="developerTag" required />
+        <mat-error *ngIf="developerForm.get('developerTag')?.hasError('required')">Tag is required</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" required></textarea>
+        <mat-error *ngIf="developerForm.get('description')?.hasError('required')">Description is required</mat-error>
+      </mat-form-field>
+
+      <!-- Contact Information -->
+      <h3>Contact Information</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        <mat-error *ngIf="developerForm.get('email')?.hasError('email')">Please enter a valid email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Website</mat-label>
+        <input matInput formControlName="website" />
+      </mat-form-field>
+
+      <!-- Business Information -->
+      <h3>Business Information</h3>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>VAT Number</mat-label>
+        <input matInput formControlName="vatNumber" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tax ID</mat-label>
+        <input matInput formControlName="taxId" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Business License</mat-label>
+        <input matInput formControlName="businessLicense" />
+      </mat-form-field>
+
+      <!-- Address Information -->
+      <h3>Address Information</h3>
+      <div formGroupName="address">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Street Address</mat-label>
+          <input matInput formControlName="street" />
+        </mat-form-field>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>State/Province</mat-label>
+            <input matInput formControlName="state" />
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>ZIP/Postal Code</mat-label>
+            <input matInput formControlName="zipCode" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Contact Person -->
+      <h3>Contact Person</h3>
+      <div formGroupName="contactPerson">
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Contact Person Name</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Position</mat-label>
+            <input matInput formControlName="position" />
+          </mat-form-field>
+        </div>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Contact Email</mat-label>
+            <input matInput formControlName="email" type="email" />
+            <mat-error *ngIf="developerForm.get('contactPerson.email')?.hasError('email')">Please enter a valid email</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Contact Phone</mat-label>
+            <input matInput formControlName="phone" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Bank Details -->
+      <h3>Bank Details</h3>
+      <div formGroupName="bankDetails">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Bank Name</mat-label>
+          <input matInput formControlName="bankName" />
+        </mat-form-field>
+
+        <div class="row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Account Number</mat-label>
+            <input matInput formControlName="accountNumber" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>IBAN</mat-label>
+            <input matInput formControlName="iban" />
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>SWIFT Code</mat-label>
+          <input matInput formControlName="swiftCode" />
+        </mat-form-field>
+      </div>
+
+      <!-- Logo Upload -->
+      <h3>Logo</h3>
+      <mat-checkbox formControlName="isActive">Is Active</mat-checkbox>
+
+      <div class="logo-upload">
+        <mat-label>Upload Logo:</mat-label>
+        <input type="file" (change)="onLogoChange($event)" />
+        <img *ngIf="logoPreview" [src]="logoPreview" alt="Logo Preview" class="logo-preview mat-elevation-z2" />
+      </div>
+  
+      <div class="dialog-actions">
+        <button mat-button (click)="onCancel()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit">{{ isEditMode ? 'Update' : 'Add' }}</button>
+      </div>
+    </form>
+  </div>
+  

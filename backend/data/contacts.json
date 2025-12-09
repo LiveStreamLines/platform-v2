@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "1046ab1328b3b236f86f9914",
+    "name": "Ammar",
+    "phone": "939393",
+    "email": "amar",
+    "company": "LSL",
+    "designation": "Project Manager",
+    "notes": "sdfsdfsdf sdfsdfsdfafasfa",
+    "developerId": "6669d06bb9542fab690fc402",
+    "projectId": null,
+    "cameraId": null,
+    "isActive": true,
+    "createdDate": "2025-11-29T07:34:16.380Z"
+  },
+  {
+    "_id": "352ed66b94dfe7476f8d2e0c",
+    "name": "Ali",
+    "phone": "34234234",
+    "email": "ssd@ssd.com",
+    "company": "LLLLL",
+    "designation": "sfsdfsd",
+    "notes": "sdflkljdfsdf",
+    "developerId": "5dc8e1c19cd85639a6deb69a",
+    "projectId": "668ffa39acccfed9dadf7e25",
+    "cameraId": null,
+    "isActive": true,
+    "createdDate": "2025-11-29T08:04:40.595Z"
+  }
+]

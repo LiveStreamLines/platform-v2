@@ -1,0 +1,160 @@
+<div class="invoicing-container">
+  <div class="header">
+    <h2>Manual Invoice Generation</h2>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading sales order...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <form *ngIf="salesOrder && developer && !isLoading" [formGroup]="invoicingForm" (ngSubmit)="onSubmit()" class="invoicing-form">
+    <!-- Customer Information -->
+    <div class="form-section">
+      <h3>Customer Information</h3>
+      <div class="customer-info">
+        <div class="info-row">
+          <strong>Customer Name:</strong>
+          <span>{{ developer.developerName }}</span>
+        </div>
+        <div class="info-row">
+          <strong>Address:</strong>
+          <span>{{ getDeveloperAddress(developer) }}</span>
+        </div>
+        <div class="info-row">
+          <strong>VAT Number:</strong>
+          <span>{{ developer.vatNumber || 'Not provided' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoice Details -->
+    <div class="form-section">
+      <h3>Invoice Details</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="invoiceDate">Invoice Date:</label>
+          <input 
+            type="date" 
+            id="invoiceDate"
+            formControlName="invoiceDate" 
+            [class.error]="invoicingForm.get('invoiceDate')?.invalid && invoicingForm.get('invoiceDate')?.touched" />
+          <div *ngIf="invoicingForm.get('invoiceDate')?.invalid && invoicingForm.get('invoiceDate')?.touched" class="validation-error">
+            Invoice date is required
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="dueDate">Due Date:</label>
+          <input 
+            type="date" 
+            id="dueDate"
+            formControlName="dueDate" 
+            [class.error]="invoicingForm.get('dueDate')?.invalid && invoicingForm.get('dueDate')?.touched" />
+          <div *ngIf="invoicingForm.get('dueDate')?.invalid && invoicingForm.get('dueDate')?.touched" class="validation-error">
+            Due date is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Line Items -->
+    <div class="form-section">
+      <h3>Line Items</h3>
+      <div formArrayName="lineItems">
+        <table class="line-items-table">
+          <thead>
+            <tr>
+              <th>Include</th>
+              <th>Camera ID</th>
+              <th>Camera Name</th>
+              <th>Total Duration</th>
+              <th>Invoiced</th>
+              <th>Remaining</th>
+              <th>Monthly Fee</th>
+              <th>Select Duration</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of lineItems; let i = index" [formGroupName]="i">
+              <td>
+                <input 
+                  type="checkbox" 
+                  formControlName="include"
+                  (change)="onLineItemChange(i)"
+                  [disabled]="item.remainingDuration <= 0" />
+              </td>
+              <td>{{ item.cameraId }}</td>
+              <td>{{ item.cameraName }}</td>
+              <td>{{ item.totalDuration }} months</td>
+              <td>{{ item.invoicedDuration }} months</td>
+              <td>{{ item.remainingDuration }} months</td>
+              <td>{{ item.monthlyFee | currency:'AED' }}</td>
+              <td>
+                <input 
+                  type="number" 
+                  formControlName="selectedDuration" 
+                  placeholder="0"
+                  min="0"
+                  [max]="item.remainingDuration"
+                  (input)="onLineItemChange(i)"
+                  [disabled]="!lineItemsArray.at(i).get('include')?.value"
+                  [class.error]="lineItemsArray.at(i).get('selectedDuration')?.invalid && lineItemsArray.at(i).get('selectedDuration')?.touched" />
+                <div *ngIf="lineItemsArray.at(i).get('selectedDuration')?.invalid && lineItemsArray.at(i).get('selectedDuration')?.touched" class="validation-error">
+                  Invalid duration
+                </div>
+              </td>
+              <td class="calculated-field">
+                {{ lineItemsArray.at(i).get('amount')?.value | currency:'AED' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totals -->
+      <div class="totals-section">
+        <div class="total-row">
+          <strong>Total Amount:</strong>
+          <span>{{ calculateTotalAmount() | currency:'AED' }}</span>
+        </div>
+        <div class="total-row">
+          <strong>VAT (5%):</strong>
+          <span>{{ calculateTotalVat() | currency:'AED' }}</span>
+        </div>
+        <div class="total-row grand-total">
+          <strong>Grand Total:</strong>
+          <span>{{ calculateGrandTotal() | currency:'AED' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="form-section">
+      <h3>Notes</h3>
+      <div class="form-group">
+        <textarea 
+          formControlName="notes" 
+          placeholder="Additional notes..."
+          rows="3"></textarea>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="button" (click)="onCancel()" class="btn btn-secondary">
+        Cancel
+      </button>
+      <button 
+        type="submit" 
+        [disabled]="!invoicingForm.valid || isLoading || calculateTotalAmount() <= 0"
+        class="btn btn-primary">
+        {{ isLoading ? 'Creating...' : 'Generate Invoice' }}
+      </button>
+    </div>
+  </form>
+</div> 

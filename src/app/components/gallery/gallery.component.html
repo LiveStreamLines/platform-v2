@@ -1,0 +1,25 @@
+<div class="gallery-container">
+    <h1 class="gallery-title">Media Gallery</h1>
+    <div class="gallery-grid">
+      <!-- Card 1: Video Request -->
+      <mat-card class="gallery-card" (click)="navigateTo('video-request')">
+        <!-- <mat-icon class="gallery-icon">videocam</mat-icon> -->
+        <img src="../../../assets/genvideo.png" />
+        <h2 class="gallery-title">Generated Videos</h2>
+      </mat-card>
+  
+      <!-- Card 2: Photo Request -->
+      <mat-card class="gallery-card" (click)="navigateTo('photo-request')">
+        <img src="../../../assets/genphoto.png" />
+        <h2 class="gallery-title">Generated Photos</h2>
+      </mat-card>
+  
+      <!-- Card 3: LSL Videos -->
+      <mat-card class="gallery-card" (click)="navigateTo('lsl-videos')">
+        <img src="../../../assets/editedvideo.png" />
+        <h2 class="gallery-title">Flawlessly Edited Video</h2>
+      </mat-card>
+           
+    </div>
+  </div>
+  

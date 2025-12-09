@@ -1,0 +1,87 @@
+[
+  {
+    "_id": "462343bbbad127ae290b868e",
+    "orderNumber": "SO-2025-06-0001",
+    "customerId": "dfadf5973ff2454744b39e5c",
+    "customerName": "Ammar Development",
+    "developerTag": "ammar",
+    "projectId": "e9b68417bc572168ba2c692c",
+    "projectName": "Project 1",
+    "projectTag": "pr",
+    "orderDate": "2025-06-25T00:00:00.000Z",
+    "status": "Confirmed",
+    "cameras": [
+      {
+        "cameraId": "8a82a66bb5ebf4876a52be71",
+        "cameraName": "Camera 1",
+        "contractDuration": 12,
+        "monthlyFee": 1000,
+        "status": "Pending"
+      },
+      {
+        "cameraId": "d63585d60a5e4247d6b8d430",
+        "cameraName": "Camera 2",
+        "contractDuration": 12,
+        "monthlyFee": 1000,
+        "status": "Pending"
+      }
+    ],
+    "notes": "some info",
+    "invoices": [],
+    "createdAt": "2025-06-25T09:09:30.591Z",
+    "updatedAt": "2025-06-25T10:54:04.144Z"
+  },
+  {
+    "_id": "c07de280942d607548399afa",
+    "orderNumber": "SO-2025-07-0001",
+    "customerId": "dfadf5973ff2454744b39e5c",
+    "customerName": "Ammar Development",
+    "developerTag": "ammar",
+    "projectId": "1b6b75ceae12dc110c2d1b20",
+    "projectName": "project 4",
+    "projectTag": "pr5",
+    "orderDate": "2025-07-01T00:00:00.000Z",
+    "status": "Confirmed",
+    "cameras": [
+      {
+        "cameraId": "ff3a495c29c28af3d9d56e42",
+        "cameraName": "camera 1",
+        "contractDuration": 12,
+        "monthlyFee": 1000,
+        "status": "Pending",
+        "invoicedDuration": 3
+      },
+      {
+        "cameraId": "14d2f9cc413f9f0a985eface",
+        "cameraName": "Camera 2",
+        "contractDuration": 12,
+        "monthlyFee": 1000,
+        "status": "Pending",
+        "invoicedDuration": 3
+      }
+    ],
+    "notes": "",
+    "invoices": [
+      {
+        "invoiceNumber": "INV-2025-0001",
+        "invoiceSequence": 1,
+        "dueDate": "2025-07-31T08:34:13.348Z",
+        "amount": 3000,
+        "status": "Pending",
+        "description": "Invoice for camera 1 - 3 months",
+        "generatedDate": "2025-07-01T08:34:13.348Z"
+      },
+      {
+        "invoiceNumber": "INV-2025-0001",
+        "invoiceSequence": 1,
+        "dueDate": "2025-07-31T08:34:13.348Z",
+        "amount": 3000,
+        "status": "Pending",
+        "description": "Invoice for Camera 2 - 3 months",
+        "generatedDate": "2025-07-01T08:34:13.348Z"
+      }
+    ],
+    "createdAt": "2025-07-01T08:32:24.218Z",
+    "updatedAt": "2025-07-01T08:34:13.551Z"
+  }
+]

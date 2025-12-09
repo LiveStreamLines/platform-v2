@@ -1,0 +1,7 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<div class="video-container">
+  <video width=90% #videoPlayer autoplay controls>
+    <source [src]="data.videoUrl" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+</div>

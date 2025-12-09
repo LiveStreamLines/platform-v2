@@ -1,0 +1,197 @@
+<div class="invoice-edit-container" *ngIf="!isLoading">
+  <div class="header-section">
+    <div class="back-button">
+      <button mat-icon-button (click)="onBack()" class="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="back-text">Back to Invoices</span>
+    </div>
+    
+    <div class="header-actions">
+      <button mat-raised-button color="warn" (click)="onCancel()" class="cancel-btn">
+        <mat-icon>cancel</mat-icon>
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" (click)="onSave()" [disabled]="!invoiceForm.valid || isSaving" class="save-btn">
+        <mat-icon>save</mat-icon>
+        {{ isSaving ? 'Saving...' : 'Save Changes' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    <mat-card class="error-card">
+      <mat-card-content>
+        <mat-icon color="warn">error</mat-icon>
+        {{ errorMessage }}
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="invoice-edit-content" *ngIf="invoice && salesOrder">
+    <mat-card class="edit-form-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>edit</mat-icon>
+          Edit Invoice #{{ invoice.invoiceNumber }}
+        </mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <form [formGroup]="invoiceForm" class="invoice-form">
+          <div class="form-grid">
+            <!-- Invoice Number -->
+            <mat-form-field class="form-field">
+              <mat-label>Invoice Number</mat-label>
+              <input matInput formControlName="invoiceNumber" readonly>
+              <mat-error *ngIf="invoiceForm.get('invoiceNumber')?.hasError('required')">
+                Invoice number is required
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Invoice Sequence -->
+            <mat-form-field class="form-field">
+              <mat-label>Invoice Sequence</mat-label>
+              <input matInput type="number" formControlName="invoiceSequence" min="1">
+              <mat-error *ngIf="invoiceForm.get('invoiceSequence')?.hasError('required')">
+                Invoice sequence is required
+              </mat-error>
+              <mat-error *ngIf="invoiceForm.get('invoiceSequence')?.hasError('min')">
+                Invoice sequence must be at least 1
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Due Date -->
+            <mat-form-field class="form-field">
+              <mat-label>Due Date</mat-label>
+              <input matInput [matDatepicker]="dueDatePicker" formControlName="dueDate">
+              <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #dueDatePicker></mat-datepicker>
+              <mat-error *ngIf="invoiceForm.get('dueDate')?.hasError('required')">
+                Due date is required
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Status -->
+            <mat-form-field class="form-field">
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status">
+                <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+                  {{ status.label }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="invoiceForm.get('status')?.hasError('required')">
+                Status is required
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Amount -->
+            <mat-form-field class="form-field">
+              <mat-label>Amount</mat-label>
+              <input matInput type="number" formControlName="amount" min="0" step="0.01" (input)="calculateVat()">
+              <span matSuffix>$</span>
+              <mat-error *ngIf="invoiceForm.get('amount')?.hasError('required')">
+                Amount is required
+              </mat-error>
+              <mat-error *ngIf="invoiceForm.get('amount')?.hasError('min')">
+                Amount must be positive
+              </mat-error>
+            </mat-form-field>
+
+            <!-- VAT -->
+            <mat-form-field class="form-field">
+              <mat-label>VAT (5%)</mat-label>
+              <input matInput type="number" formControlName="vat" min="0" step="0.01" readonly>
+              <span matSuffix>$</span>
+            </mat-form-field>
+
+            <!-- Grand Total -->
+            <mat-form-field class="form-field">
+              <mat-label>Grand Total</mat-label>
+              <input matInput type="number" formControlName="grandTotal" min="0" step="0.01" readonly>
+              <span matSuffix>$</span>
+            </mat-form-field>
+
+            <!-- Description -->
+            <mat-form-field class="form-field full-width">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description" rows="3"></textarea>
+              <mat-error *ngIf="invoiceForm.get('description')?.hasError('required')">
+                Description is required
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Notes -->
+            <mat-form-field class="form-field full-width">
+              <mat-label>Notes</mat-label>
+              <textarea matInput formControlName="notes" rows="4"></textarea>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Customer Information -->
+    <mat-card class="customer-info-card" *ngIf="developer">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>person</mat-icon>
+          Customer Information
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="customer-info">
+          <div class="info-row">
+            <span class="info-label">Name:</span>
+            <span class="info-value">{{ developer.developerName }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{ developer.email }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Phone:</span>
+            <span class="info-value">{{ developer.phone || 'N/A' }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Sales Order Information -->
+    <mat-card class="sales-order-info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>receipt</mat-icon>
+          Sales Order Information
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="sales-order-info">
+          <div class="info-row">
+            <span class="info-label">Order Number:</span>
+            <span class="info-value">{{ salesOrder.orderNumber }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Order Date:</span>
+            <span class="info-value">{{ salesOrder.orderDate | date:'mediumDate' }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Status:</span>
+            <span class="info-value">{{ salesOrder.status }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="loading-container" *ngIf="isLoading">
+  <mat-card class="loading-card">
+    <mat-card-content>
+      <div class="loading-spinner">
+        <mat-icon class="spinner">hourglass_empty</mat-icon>
+        <p>Loading invoice details...</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div> 

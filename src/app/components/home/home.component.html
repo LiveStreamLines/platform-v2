@@ -1,0 +1,24 @@
+<input type="text" [(ngModel)]="searchTerm" (input)="filterDevelopers()" placeholder="Search developers" />
+
+<div class="home-layout">
+  <div class="content">
+    <div *ngIf="loading">
+      <p>Loading developers...</p>
+  </div>
+    
+  <div *ngIf="!loading && filteredDevelopers.length > 0" class="developers-container">
+      <mat-card class="developer-card" *ngFor="let developer of filteredDevelopers" (click)="onDeveloperClick(developer)">
+        <mat-card-title>{{ developer.developerName }}</mat-card-title>
+        <img mat-card-image [src]="developer.logo" alt="{{ developer.developerName }}" />
+        <mat-card-content>{{ developer.description }}</mat-card-content>
+        <mat-card-actions>
+          <button mat-button>View Projects</button>
+        </mat-card-actions>
+      </mat-card>
+  </div>
+    
+  <div *ngIf="!loading && filteredDevelopers.length === 0">
+     <p>No developers found.</p>
+  </div>
+ </div>
+</div>

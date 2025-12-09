@@ -1,0 +1,259 @@
+.login-page {
+  display: flex;
+  height: 100vh;
+  background-color: #333;
+  position: relative; /* Add this to ensure proper stacking */
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+}
+
+.login-card {
+  position: absolute;
+  height: auto;
+  max-width: 400px;
+  margin: 100px;
+  background: rgb(10, 10, 10, 0.6);
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(88, 11, 11, 1);
+  border: 2px solid #333;
+  text-align: center;
+  z-index: 10;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  max-width: 33%; /* One-third of the login card's width */
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Form styling */
+.login-form {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.login-title {
+  /* font-size: 1.5rem; Reduce font size to half of the original */
+  font-weight: bold;
+  margin: 0;
+}
+
+.form-control {
+  width: 90%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  /* font-size: 0.9rem; */
+  background: black;
+  color: white;
+  transition: border 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: red;
+  outline: none;
+}
+
+/* Button styling */
+.btn-login {
+  width: 50%;
+  margin-top: 15px;
+  padding: 10px 0;
+  background: rgba(88, 11, 11, 1);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  /* font-size: 2rem; */
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-login:disabled {
+  background: #444;
+  cursor: not-allowed;
+}
+
+.btn-login:hover {
+  background: darkred;
+}
+
+.btn-back {
+  padding: 10px; 
+  background-color: black; 
+  border:1px solid gray; 
+  color:rgb(205, 81, 81)
+}
+
+.btn-back:hover {
+  background: darkred;
+  color: white;
+}
+
+/* Error message */
+.error-message {
+  color: red;
+  /* font-size: 0.85rem; */
+  margin-top: 10px;
+}
+
+/* Tab styles */
+.mat-tab-group {
+  margin-top: 20px;
+  background: black;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.mat-tab-label {
+  color: #ccc;
+  font-weight: bold;
+}
+
+.mat-tab-label-active {
+  color: white;
+  background: red;
+  border-radius: 5px 5px 0 0;
+}
+
+.mat-tab-body-wrapper {
+  padding: 10px 0;
+}
+
+.mat-tab-body {
+  padding: 20px;
+  color: white;
+  /* font-size: 0.9rem; */
+  background: black;
+  border-radius: 0 0 5px 5px;
+}
+
+.country-select-container {
+  display: flex;
+  align-items: center;
+}
+
+.country-flag {
+  width: 20px;
+  height: 15px;
+  margin-right: 5px;
+}
+
+.helper-text {
+  font-size: 12px;
+}
+
+.helper-text {
+  color: #f0f0f0; /* Light color for better readability */
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.error-message {
+  font-size: 1rem; /* Ensure error messages are readable */
+  margin-top: 15px;
+}
+
+
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+    background: #333; /* Ensure background color is visible */
+  }
+
+  .video-container,
+  .video-container video,
+  .video-overlay,
+  .background-video {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    position: absolute !important;
+    z-index: -1 !important;
+  }
+
+  .login-card {
+    position: relative;
+    margin: 20px auto;
+    max-width: 90%;
+    padding: 20px;
+    background: rgba(10, 10, 10, 0.9); /* Make background more opaque */
+  }
+
+  .form-control {
+    width: 100%; /* Full width for inputs on small screens */
+  }
+
+  .btn-login {
+    width: 100%; /* Full width buttons */
+  }
+
+  .btn-back {
+    width: 100%;
+    text-align: center;
+  }
+
+  .logo {
+    max-width: 50%; /* Slightly larger logo on small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .helper-text {
+    font-size: 10px; /* Reduce helper text size for very small screens */
+  }
+
+  .form-control {
+    width: 90%;
+    padding: 8px;
+    font-size: 0.8rem; /* Adjust input padding and font size */
+  }
+
+  .btn-login, .btn-back {
+    padding: 10px;
+    font-size: 0.9rem; /* Adjust button padding and font size */
+  }
+
+  .mat-tab-group {
+    margin-top: 10px;
+  }
+}

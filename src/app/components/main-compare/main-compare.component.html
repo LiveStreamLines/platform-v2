@@ -1,0 +1,57 @@
+
+<!-- Secondary toolbar for Compare mode -->
+<mat-toolbar class="camera-detail-toolbar">
+  <button mat-button [ngClass]="{ 'active': compareView === 'sideBySide' }" (click)="setCompareView('sideBySide')">
+    <mat-icon>view_compact</mat-icon><span>Side by Side</span>
+  </button>
+  <button mat-button [ngClass]="{ 'active': compareView === 'slider' }" (click)="setCompareView('slider')">
+    <mat-icon>compare</mat-icon><span>Slider</span>
+  </button>
+  <button mat-button [ngClass]="{ 'active': compareView === 'magnify' }" (click)="setCompareView('magnify')">
+    <mat-icon>zoom_in</mat-icon><span>Spot</span>
+  </button>
+</mat-toolbar>
+
+
+<app-camera-compare-side *ngIf="compareView === 'sideBySide'"
+  [inselectedDate1Picture]="selectedDate1Picture"
+  [inselectedDate2Picture]="selectedDate2Picture">
+</app-camera-compare-side>
+
+<app-camera-compare *ngIf="compareView === 'slider'"
+  [inselectedDate1Picture]="selectedDate1Picture"
+  [inselectedDate2Picture]="selectedDate2Picture">
+</app-camera-compare>
+
+<app-camera-compare-magnify *ngIf="compareView === 'magnify'"
+  [inselectedDate1Picture]="selectedDate1Picture"
+  [inselectedDate2Picture]="selectedDate2Picture">
+</app-camera-compare-magnify>
+
+<div class="compare-layout">
+    <!-- Left-side for date1 thumbnails -->
+    <div class="date1-section">
+      <app-compare-datepicker
+        [dateInputValue]="selectedDate1"
+        [pictures]="date1Pictures"
+        [selectedThumbnail]="selectedDate1Thumbnail"
+        [path] = "path"
+        (dateChange)="onDate1Change($event)"
+        (pictureSelect)="onDate1PictureSelect($event)">      
+      >
+      </app-compare-datepicker>
+    </div>
+  
+    <!-- Right-side for date2 thumbnails -->
+    <div class="date2-section">
+      <app-compare-datepicker
+        [dateInputValue]="selectedDate2"
+        [pictures]="date2Pictures"
+        [selectedThumbnail]="selectedDate2Thumbnail"
+        [path] = "path"
+        (dateChange)="onDate2Change($event)"
+        (pictureSelect)="onDate2PictureSelect($event)">
+      >
+      </app-compare-datepicker>      
+    </div>
+  </div>

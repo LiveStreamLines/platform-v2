@@ -1,0 +1,156 @@
+<button (click)="goBack()" class="back-button">← Back</button>  <!-- Back Button -->
+
+<!-- Navigation Menu -->
+<mat-toolbar class="camera-detail-toolbar">
+  <button mat-button [ngClass]="{ 'active': mode === 'single' }" (click)="setMode('single')">
+    <mat-icon>visibility</mat-icon> Single View
+  </button>
+  <button mat-button *ngIf="!isSmallScreen" [ngClass]="{ 'active': mode === 'studio' }" (click)="setMode('studio')">
+    <mat-icon>edit</mat-icon> Studio
+  </button>
+  <button mat-button *ngIf="!isSmallScreen" [ngClass]="{ 'active': mode === 'zoom' }" (click)="setMode('zoom')">
+    <mat-icon>zoom_in</mat-icon> Zoom
+  </button>
+  <button mat-button *ngIf="!isSmallScreen" [ngClass]="{ 'active': mode === 'compare' }" (click)="setMode('compare')">
+    <mat-icon>compare_arrows</mat-icon> Compare
+  </button>
+  <button mat-button [ngClass]="{ 'active': mode === 'generate-video' }" (click)="setMode('generate-video')">
+    <mat-icon>movie</mat-icon> Generate Video
+  </button>
+  <button mat-button [ngClass]="{ 'active': mode === 'generate-photo' }" (click)="setMode('generate-photo')">
+    <mat-icon>photo_camera</mat-icon> Generate Photo
+  </button>  
+</mat-toolbar>
+
+<mat-toolbar *ngIf="mode === 'zoom'" class="compare-toolbar">
+  <button mat-button [ngClass]="{ 'active': zoomView === 'lens' }" (click)="setZoomView('lens')">
+    <mat-icon>view_compact</mat-icon> Magnify
+  </button>
+  <button mat-button [ngClass]="{ 'active': zoomView === 'pan' }" (click)="setZoomView('pan')">
+    <mat-icon>compare</mat-icon> Pan
+  </button>
+</mat-toolbar>
+
+<div class="home-layout">
+  
+    <div *ngIf="mode ==='compare'">
+      <app-main-compare
+      [projectId]="projectId"
+      [cameraName]="cameraName"
+      >
+      </app-main-compare>
+    </div>
+
+    <div *ngIf="mode === 'generate-video'">
+      <app-generate-video 
+        [cameraName]="cameraName"
+        [previewPHoto]="selectedPictureUrl">
+      ></app-generate-video>
+    </div>
+    
+    <div *ngIf="mode === 'generate-photo'">
+      <app-generate-photo 
+        [cameraName]="cameraName">
+      ></app-generate-photo>
+    </div>
+    
+
+    <div *ngIf="mode === 'single'" class="date-time-toggle">
+      <label>
+        <input type="checkbox" [(ngModel)]="showDateTime" /> Show Date and Time
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="showWeather" /> Show Weather
+      </label>
+    </div>
+
+  <!-- Rest of camera-detail content -->
+    <div *ngIf="mode === 'single' || mode === 'zoom' || mode=== 'studio'">  
+      <div class="content">
+          <!-- Show a loading spinner if the large picture is still loading -->
+        <div *ngIf="loadingLargePicture" class="spinner">
+          <p>Loading...</p> <!-- Replace with your spinner design -->
+        </div>
+
+        <div class="single" *ngIf="mode === 'single'">               
+          <!-- Large picture (lazy loading with error handling) -->
+          <div *ngIf="showDateTime" class="date-time-label">
+            {{ formatTimestamp(selectedThumbnail) }}
+          </div>
+          <div *ngIf="showWeather" class="weather-label">
+            <pre style="margin: 0">{{ weatherString }}</pre>
+          </div>
+          <img 
+            *ngIf="selectedPictureUrl"
+            [src]="selectedPictureUrl" 
+            alt="Selected Picture" 
+            class="large-picture"
+            (load)="onLargePictureLoad()" 
+            (error)="onLargePictureError()" />             
+        </div>
+
+        <div *ngIf="mode === 'zoom'">
+          <app-camera-zoom
+            [selectedPictureUrl]="selectedPictureUrl"
+            [zoomView]="zoomView"
+          ></app-camera-zoom>
+        </div>
+
+        <div *ngIf="mode === 'studio'">
+          <app-studio
+            [imageSrc] = "selectedPictureUrl">
+
+          </app-studio>
+        </div>
+
+        <!-- Date selector -->
+        <div class="date-selector">
+          <!-- <mat-form-field appearance="fill" class="red-outline">
+            <mat-label>Photo Date:</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (dateChange)="onDateChange($event)" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field> -->
+          <div class="form-field">
+            <label for="photoDate">Photo Date:</label>
+            <input
+              type="date"
+              id="photoDate"
+              [(ngModel)]="selectedDate"
+              (change)="onDateChange($event)"
+              class="native-date-picker"
+            />
+            <span class="calendar-icon">
+              <i class="material-icons">calendar_today</i>
+            </span>
+          </div>
+          <button class="share-button" mat-icon-button (click)="openShareModal(photoUrl)">
+            <mat-icon class="share-icon">share</mat-icon>
+            <span class="share-text">Share</span>
+          </button>
+          <app-share *ngIf="isShareModalOpen"
+            [photoUrl]="selectedPictureUrl"
+            (close)="closeShareModal()">
+         </app-share>
+        </div>
+
+        <!-- Thumbnail strip -->
+        <div class="thumbnail-strip">
+          <div *ngFor="let picture of date2Pictures" 
+            class="thumbnail" 
+            [class.selected]="picture === selectedThumbnail"> <!-- Highlight the selected thumbnail -->
+            <img [src]="getThumbPictureUrl(picture)" 
+              (click)="onThumbnailClick(picture)" 
+              alt="Thumbnail" 
+              class="thumbnail-img" />
+
+            <div class="thumbnail-overlay">
+              <p>{{ thumbformat(picture) }}</p> <!-- Display the formatted date and time -->
+            </div>
+          </div>      
+        </div>
+
+      </div>
+    </div>
+    
+</div>

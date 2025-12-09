@@ -1,0 +1,24 @@
+<h3>EMIRATES COUNCIL FOR BALANCED DEVELOPMENT (ECBD)</h3>
+<div *ngIf="loading" class="loading-container">
+  <p>Loading cameras...</p>
+</div>
+<div *ngIf="!loading" class="camera-grid">
+    <div *ngFor="let camera of filteredCameras" class="camera-item">
+      
+      <div class="camera-title">
+        <strong>{{ camera.project }}</strong> — {{ camera.cameraName }}
+      </div>
+  
+      <div class="camera-card">
+        <img [src]="getImagePath(camera)" alt="Camera Image" class="camera-img" />
+        <div class="camera-info"
+             [ngClass]="{ 'updated': isUpdated(camera.lastPhotoTime), 'not-updated': !isUpdated(camera.lastPhotoTime) }">
+          <p>{{ formatDate(camera.lastPhoto) }}</p>
+          <p>{{ formatTimeDifference(camera.lastPhotoTime) }}</p>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+  

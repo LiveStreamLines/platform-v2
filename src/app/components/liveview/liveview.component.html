@@ -1,0 +1,61 @@
+<div class="header">
+  <button (click)="goBack()" class="back-button">← Back</button>
+  <h1 class="title">Live View Camera</h1>
+</div>
+
+<div class="container">
+    <!-- Live View Section -->
+    <div class="video-section">
+      <div class="iframe-container">
+        <app-camera-feed [projectTag]="projectTag" [cameraId]="cameraId"></app-camera-feed>
+      </div>
+      
+      <!-- PTZ Values Display -->
+      <div class="ptz-values">
+        <div class="ptz-value-item">
+          <span class="ptz-label">Elevation:</span>
+          <span class="ptz-value">{{ elevation.toFixed(1) }}°</span>
+        </div>
+        <div class="ptz-value-item">
+          <span class="ptz-label">Azimuth:</span>
+          <span class="ptz-value">{{ azimuth.toFixed(1) }}°</span>
+        </div>
+        <div class="ptz-value-item">
+          <span class="ptz-label">Zoom:</span>
+          <span class="ptz-value">{{ zoom.toFixed(1) }}x</span>
+        </div>
+      </div>
+    </div>
+  
+    <div class="ptz-control">
+      <h4>PTZ Control</h4>
+      <div class="ptz-circle">
+        <!-- Up -->
+        <button class="ptz-btn ptz-up" (click)="moveUp()">▲</button>
+    
+        <!-- Left -->
+        <button class="ptz-btn ptz-left" (click)="moveLeft()">◀</button>
+    
+        <!-- Right -->
+        <button class="ptz-btn ptz-right" (click)="moveRight()">▶</button>
+    
+        <!-- Down -->
+        <button class="ptz-btn ptz-down" (click)="moveDown()">▼</button>
+    
+        <!-- Center/Reset -->
+        <button class="ptz-btn ptz-center" (click)="resetToStartPosition()">O</button>
+      </div>
+    
+      <!-- Zoom Controls -->
+      <div class="zoom-control">
+        <button class="zoom-btn zoom-in" (click)="zoomIn()">
+          <span class="zoom-icon">+</span>
+        </button>
+        <button class="zoom-btn zoom-out" (click)="zoomOut()">
+          <span class="zoom-icon">−</span>
+        </button>
+      </div>
+    </div>
+    
+  </div>
+  

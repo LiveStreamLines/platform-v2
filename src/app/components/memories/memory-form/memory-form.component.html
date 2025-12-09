@@ -1,0 +1,85 @@
+<div class="memory-form-container">
+    <h2>{{ isEditMode ? 'Edit Memory' : 'Add New Memory' }}</h2>
+    
+    <form (ngSubmit)="onSubmit()">
+      <!-- Developer Dropdown -->
+      <mat-form-field appearance="outline">
+        <mat-label>Developer</mat-label>
+        <mat-select [(ngModel)]="selectedDeveloperId" name="developer" (selectionChange)="onDeveloperChange()" required>
+          <mat-option *ngFor="let dev of developers" [value]="dev._id">
+            {{ dev.developerName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Project Dropdown -->
+      <mat-form-field appearance="outline">
+        <mat-label>Project</mat-label>
+        <mat-select [(ngModel)]="selectedProjectId" 
+                    name="project" 
+                    (selectionChange)="onProjectChange()" 
+                    [disabled]="!selectedDeveloperId"
+                    required>
+          <mat-option *ngFor="let proj of projects" [value]="proj._id">
+            {{ proj.projectName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Camera Dropdown -->
+      <mat-form-field appearance="outline">
+        <mat-label>Camera</mat-label>
+        <mat-select [(ngModel)]="selectedCameraId" 
+                    name="camera" 
+                    (selectionChange)="onCameraChange()" 
+                    [disabled]="!selectedProjectId"
+                    required>
+          <mat-option *ngFor="let cam of cameras" [value]="cam._id">
+            {{ cam.camera }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- User Dropdown -->
+      <!-- <mat-form-field appearance="outline">
+        <mat-label>User</mat-label>
+        <mat-select [(ngModel)]="selectedUserId" name="user" (selectionChange)="onUserChange()" required>
+          <mat-option *ngFor="let user of users" [value]="user._id">
+            {{ user.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+  
+      <!-- Start Date -->
+      <mat-form-field appearance="outline">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="startPicker" [(ngModel)]="memory.createdDate" name="startDate" required>
+        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+        <mat-datepicker #startPicker></mat-datepicker>
+      </mat-form-field>
+  
+      <!-- End Date -->
+      <mat-form-field appearance="outline">
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="endPicker" [(ngModel)]="memory.endDate" name="endDate" required>
+        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+        <mat-datepicker #endPicker></mat-datepicker>
+      </mat-form-field>
+  
+      <!-- Number of Photos -->
+      <mat-form-field appearance="outline">
+        <mat-label>Number of Photos</mat-label>
+        <input matInput type="number" [(ngModel)]="memory.numberOfPics" name="numberOfPics" required>
+      </mat-form-field>
+  
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
+          {{ isEditMode ? 'Update' : 'Save' }}
+        </button>
+        <button mat-raised-button type="button" (click)="router.navigate(['/memories'])">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>

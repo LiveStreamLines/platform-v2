@@ -1,0 +1,106 @@
+.developer-container {
+    padding: 16px;
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .developer-select-field, .search-field {
+    width: 300px;
+  }
+  
+  .project-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .mat-elevation-z8 {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .add-new-button {
+    font-weight: bold;
+    background-color: #7e0c0c;
+    color: white;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+  }
+  
+  .add-new-button:hover {
+    background-color: #b00a0a;
+  }
+  
+  /* Styles for circular "Open" button */
+  .open-circle-button {
+    background-color: #840707;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+  }
+  
+  .open-circle-button:hover {
+    background-color: #a00d0d;
+  }
+  
+  /* Loading indicator */
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #555;
+  }
+
+  .block-unblock-button {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: white;
+    background-color: #007bff; /* Default background color for Unblock */
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .block-unblock-button.blocked {
+    background-color: #dc3545; /* Background color for Block */
+  }
+  
+  .block-unblock-button:hover {
+    opacity: 0.8; /* Slightly dim on hover */
+  }
+  
+  .block-unblock-button:focus {
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.8); /* Add focus ring */
+  }
+
+  .status-select {
+    width: 120px;
+    margin: 0;
+  }
+
+  .status-select ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .status-select ::ng-deep .mat-mdc-form-field-infix {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }

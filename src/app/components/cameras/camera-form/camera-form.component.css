@@ -1,0 +1,111 @@
+/* Center container */
+.camera-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  /* Heading styling */
+  h2 {
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Row layout */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Horizontal and vertical space between columns */
+    margin-bottom: 15px; /* Space between rows */
+  }
+  
+  /* Column layout for each input field */
+  .col {
+    flex: 1;
+    min-width: 200px; /* Ensures that each column is wide enough */
+  }
+  
+  /* Form labels */
+  label {
+    font-weight: bold;
+    color: white; /* White label text */
+    margin-top: 10px;
+    display: block;
+    margin-bottom: 5px; /* Add some space below labels */
+  }
+  
+  /* Form inputs */
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 20px; /* Increased space between fields */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #f9f9f9; /* Light background for input fields */
+  }
+  
+  /* Focus styling for inputs */
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Checkbox styling */
+  input[type="checkbox"] {
+    margin-top: 8px;
+    margin-right: 5px;
+  }
+  
+  /* Submit button */
+  button[type="submit"] {
+    width: auto;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7; /* Slight opacity to indicate disabled state */
+  }
+  
+  /* Responsive design */
+  @media (max-width: 600px) {
+    .camera-container {
+      padding: 10px;
+    }
+  
+    h2 {
+      font-size: 20px;
+    }
+  
+    .row {
+      flex-direction: column; /* Stack columns in small screens */
+      gap: 10px; /* Adjusted gap for small screens */
+    }
+  }
+  

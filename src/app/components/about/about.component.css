@@ -1,0 +1,64 @@
+.about-us-container {
+  font-size: 12px;
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin: 20px;
+}
+  
+  .row {
+    padding: 20px;
+    border-radius: 10px;
+    background: #353131;
+    width: 75%;
+   align-items: center;
+  }
+
+  .address {
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+  }
+  
+  h2 {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    gap: 10px;
+  }
+  
+  .flag {
+    width: 24px;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .department {
+    font-weight: bold;
+    color: brown;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .person {
+    font-size: 18px;
+    margin-top: 10px; 
+  }
+  
+  .contact-section {
+    margin-top: 10px;
+  }
+  
+  .contact-grid {
+    margin-top: 35px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Two contacts per row */
+    gap: 20px;
+  }
+
+  .material-icons {
+    font-size: 16px;
+    vertical-align: middle;
+  }
+  

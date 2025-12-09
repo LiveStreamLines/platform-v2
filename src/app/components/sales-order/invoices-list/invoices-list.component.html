@@ -1,0 +1,186 @@
+<div class="invoices-list-container">
+  <div class="header">
+    <h1>All Invoices</h1>
+  </div>
+
+  <!-- Loading and Error States -->
+  <div *ngIf="isLoading" class="loading">
+    Loading invoices...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Summary Statistics -->
+  <div *ngIf="!isLoading && !errorMessage" class="summary-cards">
+    <div class="summary-card total">
+      <div class="card-icon">📊</div>
+      <div class="card-content">
+        <div class="card-title">Total Invoiced</div>
+        <div class="card-value">{{ getTotalInvoicedAmount() | currency:'AED' }}</div>
+        <div class="card-subtitle">{{ filteredInvoices.length }} invoices</div>
+      </div>
+    </div>
+
+    <div class="summary-card paid">
+      <div class="card-icon">✅</div>
+      <div class="card-content">
+        <div class="card-title">Paid</div>
+        <div class="card-value">{{ getTotalPaidAmount() | currency:'AED' }}</div>
+        <div class="card-subtitle">{{ getPaidInvoicesCount() }} invoices</div>
+      </div>
+    </div>
+
+    <div class="summary-card pending">
+      <div class="card-icon">⏳</div>
+      <div class="card-content">
+        <div class="card-title">Pending</div>
+        <div class="card-value">{{ getTotalPendingAmount() | currency:'AED' }}</div>
+        <div class="card-subtitle">{{ getPendingInvoicesCount() }} invoices</div>
+      </div>
+    </div>
+
+    <div class="summary-card overdue">
+      <div class="card-icon">⚠️</div>
+      <div class="card-content">
+        <div class="card-title">Overdue</div>
+        <div class="card-value">{{ getTotalOverdueAmount() | currency:'AED' }}</div>
+        <div class="card-subtitle">{{ getOverdueInvoicesCount() }} invoices</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div *ngIf="!isLoading && !errorMessage" class="filters-section">
+    <div class="filters-row">
+      <mat-form-field class="search-field">
+        <mat-label>Search Invoices</mat-label>
+        <input 
+          matInput 
+          [(ngModel)]="searchTerm" 
+          (input)="onSearchChange()"
+          placeholder="Search by invoice number, customer, or description">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="filter-field">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="statusFilter" (selectionChange)="onStatusFilterChange()">
+          <mat-option value="">All Statuses</mat-option>
+          <mat-option value="Pending">Pending</mat-option>
+          <mat-option value="Paid">Paid</mat-option>
+          <mat-option value="Overdue">Overdue</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="filter-field">
+        <mat-label>Customer</mat-label>
+        <mat-select [(ngModel)]="customerFilter" (selectionChange)="onCustomerFilterChange()">
+          <mat-option value="">All Customers</mat-option>
+          <mat-option *ngFor="let customer of getUniqueCustomers()" [value]="customer.id">
+            {{ customer.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-button (click)="clearFilters()" class="clear-filters-btn">
+        <mat-icon>clear</mat-icon>
+        Clear Filters
+      </button>
+    </div>
+  </div>
+
+  <!-- Invoices List with Expandable Line Items -->
+  <div *ngIf="!isLoading && !errorMessage" class="invoices-list">
+    <div *ngIf="filteredInvoices.length === 0" class="no-data">
+      <mat-icon>receipt</mat-icon>
+      <h3>No invoices found</h3>
+      <p *ngIf="searchTerm || statusFilter || customerFilter">
+        Try adjusting your filters or search terms.
+      </p>
+      <p *ngIf="!searchTerm && !statusFilter && !customerFilter">
+        No invoices have been generated yet. Create a sales order and generate invoices to see them here.
+      </p>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let invoice of filteredInvoices" class="invoice-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="invoice-header">
+              <div class="invoice-number-section">
+                <div class="invoice-number">
+                  <strong>{{ invoice.invoiceNumber }}</strong>
+                  <span class="invoice-sequence">#{{ invoice.invoiceSequence }}</span>
+                </div>
+                <div class="invoice-customer">{{ invoice.customerName }}</div>
+              </div>
+              <div class="invoice-details">
+                <div class="invoice-amount">{{ invoice.totalAmount | currency:'AED' }}</div>
+                <div class="invoice-status">
+                  <span class="status-badge" [style.background-color]="getStatusColor(invoice.status)">
+                    {{ invoice.status }}
+                  </span>
+                </div>
+                <div class="invoice-dates">
+                  <div>Due: {{ invoice.dueDate | date:'shortDate' }}</div>
+                  <div>Generated: {{ invoice.generatedDate | date:'shortDate' }}</div>
+                </div>
+              </div>
+              <div class="invoice-actions">
+                <button mat-icon-button color="primary" (click)="viewInvoice(invoice.invoiceNumber); $event.stopPropagation()" 
+                        matTooltip="View Invoice Details">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <!-- Line Items Table -->
+        <div class="line-items-section">
+          <h4>Line Items ({{ invoice.lineItems.length }})</h4>
+          <table mat-table [dataSource]="invoice.lineItems" class="line-items-table">
+            <!-- Description Column -->
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Description</th>
+              <td mat-cell *matCellDef="let item">{{ item.description }}</td>
+            </ng-container>
+
+            <!-- Order Number Column -->
+            <ng-container matColumnDef="orderNumber">
+              <th mat-header-cell *matHeaderCellDef>Sales Order</th>
+              <td mat-cell *matCellDef="let item">
+                <button mat-button color="primary" (click)="viewSalesOrder(item.salesOrderId)">
+                  {{ item.orderNumber }}
+                </button>
+              </td>
+            </ng-container>
+
+            <!-- Amount Column -->
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef>Amount</th>
+              <td mat-cell *matCellDef="let item">{{ item.amount | currency:'AED' }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="lineItemColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: lineItemColumns;"></tr>
+          </table>
+
+          <!-- Line Items Summary -->
+          <div class="line-items-summary">
+            <div class="summary-row">
+              <span class="summary-label">Total Line Items:</span>
+              <span class="summary-value">{{ invoice.lineItems.length }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Total Amount:</span>
+              <span class="summary-value">{{ invoice.totalAmount | currency:'AED' }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div> 

@@ -1,0 +1,56 @@
+<div class="camera-installation-dialog">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>
+      <mat-icon>videocam</mat-icon>
+      Update Camera Installation Date
+    </h2>
+  </div>
+
+  <div class="dialog-content">
+    <div class="camera-info">
+      <h3>{{ data.camera.camera }}</h3>
+      <p><strong>Camera ID:</strong> {{ data.camera.cameraId || 'N/A' }}</p>
+      <p><strong>Project:</strong> {{ data.camera.projectTag || 'N/A' }}</p>
+      <p><strong>Developer:</strong> {{ data.camera.developerTag || 'N/A' }}</p>
+      <p><strong>Current Status:</strong> 
+        <span class="status-badge {{ data.camera.status?.toLowerCase() }}">
+          {{ data.camera.status || 'Pending' }}
+        </span>
+      </p>
+    </div>
+
+    <form [formGroup]="installationForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Installation Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="installedDate" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="installationForm.get('installedDate')?.hasError('required')">
+          Installation date is required
+        </mat-error>
+      </mat-form-field>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="dialog-actions">
+        <button 
+          type="button" 
+          mat-button 
+          (click)="onCancel()"
+          [disabled]="isLoading">
+          Cancel
+        </button>
+        <button 
+          type="submit" 
+          mat-raised-button 
+          color="primary"
+          [disabled]="installationForm.invalid || isLoading">
+          <mat-icon *ngIf="isLoading">hourglass_empty</mat-icon>
+          {{ isLoading ? 'Updating...' : 'Update Installation Date' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div> 

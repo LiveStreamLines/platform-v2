@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>
+    {{data.isEdit ? 'Edit' : 'Add New'}} Device Type
+  </h2>
+  
+  <div mat-dialog-content>
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Device Type Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="form.get('name')?.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Validity Period (Days)</mat-label>
+        <input matInput type="number" formControlName="validityDays" required min="1">
+        <mat-error *ngIf="form.get('validityDays')?.hasError('required')">
+          Validity days is required
+        </mat-error>
+        <mat-error *ngIf="form.get('validityDays')?.hasError('min')">
+          Must be at least 1 day
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-checkbox formControlName="isActive" color="primary">
+        Active
+      </mat-checkbox>
+    </form>
+  </div>
+  
+  <div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button 
+            color="primary" 
+            (click)="onSave()"
+            [disabled]="form.invalid">
+      {{data.isEdit ? 'Update' : 'Save'}}
+    </button>
+  </div>

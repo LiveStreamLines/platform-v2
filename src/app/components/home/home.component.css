@@ -1,0 +1,119 @@
+/* Style the search input */
+input[type="text"] {
+  width: 150px;
+  padding: 10px 10px;
+  font-size: 0.5rem;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  margin-bottom: 20px;
+}
+
+/* Input hover and focus states */
+input[type="text"]:focus {
+  border-color: #007bff;
+}
+
+/* General layout for the home component */
+.home-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+/* Content area next to the sidenav */
+.content {
+  flex-grow: 1;
+  padding: 16px;
+}
+
+/* Developers container styling using CSS Grid */
+.developers-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexible column layout */
+  gap: 16px;
+  justify-content: space-around; /* Center items with space */
+}
+
+/* Individual developer card styling */
+.developer-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  background-color: rgba(50, 50, 50, 0.9); /* Dark gray background */
+  box-shadow: 0 2px 10px rgba(139, 6, 6, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgb(111, 10, 10);
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.developer-card:hover {
+  transform: scale(1.02);
+  /* color:rgb(111, 10, 10); */
+  background-color: rgba(88, 86, 86, 0.9); /* Dark gray background */
+
+  box-shadow: 0 4px 20px rgba(192, 6, 6, 0.89);
+}
+
+/* Card title styling */
+.developer-card mat-card-title {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+/* Image within developer cards */
+.developer-card img {
+  width: 50%; /* Image does not take full width */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 150px; /* Set max height for image */
+  object-fit: cover; /* Ensure image covers the area evenly */
+  border-radius: 8px;
+  margin: 0 auto 16px auto; /* Center the image */
+}
+
+/* Card content (description) styling */
+.developer-card mat-card-content {
+  font-size: 1em;
+   text-align: center;
+  flex-grow: 1; /* Make sure the content takes available space */
+  margin-bottom: 16px;
+}
+
+/* Button styling */
+.developer-card mat-card-actions {
+  margin-top: auto; /* Push the button to the bottom */
+}
+
+.developer-card mat-card-actions button {
+  width: 100%; /* Full width button */
+  background-color: #640808; /* Red button color */
+  color: white;
+  font-weight: bold;
+}
+
+.developer-card mat-card-actions button:hover {
+  background: radial-gradient(
+    rgba(215, 212, 212, 0.9) 20%,
+    transparent 15%
+  );
+  background-size: 3px 3px;
+  background-color: #7e0707; /* Darker red on hover */
+}
+
+
+
+
+/* Add some responsive behavior */
+@media (max-width: 768px) {
+  .developers-container {
+    grid-template-columns: 1fr; /* Full-width for smaller screens */
+  }
+
+  input[type="text"] {
+    width: 90%;
+  }
+}

@@ -1,0 +1,55 @@
+.camera-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 10px;
+  }
+  
+  .camera-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1e1e1e;
+    color: #eee;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .camera-img {
+    width: 100%;
+    height: auto;
+    /* aspect-ratio: 4 / 3; Ensures consistent ratio without fixing height */
+    object-fit: contain;
+    background-color: #e2caca; /* Optional: background behind transparent areas */
+  }
+  
+  
+  .camera-info {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 13px;
+  }
+  
+  .updated {
+    background-color: #04590e;
+  }
+  
+  .not-updated {
+    background-color: #670909;
+  }
+  
+  .camera-title {
+    font-size: 18px;
+    margin: 8px 2px 4px 2px;
+    color: #ddd;
+    font-weight: bold;
+  }
+  
+  .loading-container {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #aaa;
+}

@@ -1,0 +1,63 @@
+<div class="device-type-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Device Types Management</mat-card-title>
+        <mat-card-subtitle>Configure device types and their validity periods</mat-card-subtitle>
+      </mat-card-header>
+  
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="openAddDialog()">
+          <mat-icon>add</mat-icon> Add New Device Type
+        </button>
+      </mat-card-actions>
+  
+      <mat-card-content>
+        <table mat-table [dataSource]="deviceTypes" class="mat-elevation-z8">
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Device Type</th>
+            <td mat-cell *matCellDef="let item">{{item.name}}</td>
+          </ng-container>
+  
+          <!-- Validity Days Column -->
+          <ng-container matColumnDef="validityDays">
+            <th mat-header-cell *matHeaderCellDef>Validity (Days)</th>
+            <td mat-cell *matCellDef="let item">{{item.validityDays}}</td>
+          </ng-container>
+  
+          <!-- Status Column -->
+          <ng-container matColumnDef="isActive">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let item">
+              <mat-chip [color]="item.isActive ? 'primary' : 'warn'">
+                {{item.isActive ? 'Active' : 'Inactive'}}
+              </mat-chip>
+            </td>
+          </ng-container>
+  
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let item">
+              <div class="action-buttons">
+                <button mat-icon-button color="accent" (click)="openEditDialog(item)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteDeviceType(item._id!)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+  
+        <div *ngIf="deviceTypes.length === 0" class="empty-state">
+          <mat-icon>devices_other</mat-icon>
+          <p>No device types found. Add your first device type.</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

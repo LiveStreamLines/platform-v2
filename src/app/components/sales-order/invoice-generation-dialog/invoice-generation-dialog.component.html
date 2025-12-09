@@ -1,0 +1,159 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title>
+    <mat-icon>receipt</mat-icon>
+    Invoice Generation
+  </h2>
+
+  <mat-dialog-content>
+    <!-- Invoice Progress Section -->
+    <div class="progress-section" *ngIf="salesOrder.invoices && salesOrder.invoices.length > 0">
+      <h3>Invoice Progress</h3>
+      <div class="progress-info">
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getInvoiceProgress().percentage"></div>
+        </div>
+        <div class="progress-text">
+          {{ getInvoiceProgress().invoiced | currency:'AED' }} / {{ getInvoiceProgress().total | currency:'AED' }}
+          ({{ getInvoiceProgress().percentage }}%)
+        </div>
+      </div>
+      <div class="remaining-info" *ngIf="!isFullyInvoiced()">
+        <mat-icon>info</mat-icon>
+        <span>Remaining to invoice: {{ calculateTotalRemainingAmount() | currency:'AED' }}</span>
+      </div>
+      <div class="fully-invoiced" *ngIf="isFullyInvoiced()">
+        <mat-icon>check_circle</mat-icon>
+        <span>Fully invoiced</span>
+      </div>
+    </div>
+
+    <!-- Invoice Type Selection -->
+    <div class="invoice-type-section">
+      <h3>Invoice Type</h3>
+      <mat-radio-group [(ngModel)]="invoiceType" class="radio-group">
+        <mat-radio-button value="manual" class="radio-button">
+          <div class="radio-content">
+            <div class="radio-title">Manual Invoice</div>
+            <div class="radio-description">Select specific cameras and durations to invoice</div>
+          </div>
+        </mat-radio-button>
+        <mat-radio-button value="automatic" class="radio-button">
+          <div class="radio-content">
+            <div class="radio-title">Automatic Invoice</div>
+            <div class="radio-description">Generate invoices based on triggers</div>
+          </div>
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <!-- Manual Invoice Section -->
+    <div *ngIf="invoiceType === 'manual'" class="manual-section">
+      <h3>Select Cameras and Durations</h3>
+      <div class="line-items-table">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <mat-checkbox 
+                  [checked]="allSelected" 
+                  [indeterminate]="someSelected"
+                  (change)="toggleAll($event)">
+                </mat-checkbox>
+              </th>
+              <th>Camera</th>
+              <th>Total Duration</th>
+              <th>Invoiced Duration</th>
+              <th>Remaining Duration</th>
+              <th>Monthly Fee</th>
+              <th>Duration to Invoice</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of lineItems; let i = index" class="line-item-row">
+              <td>
+                <mat-checkbox 
+                  [(ngModel)]="item.include"
+                  (change)="updateSelection()"
+                  [disabled]="item.remainingDuration <= 0">
+                </mat-checkbox>
+              </td>
+              <td>{{ item.cameraName }}</td>
+              <td>{{ item.totalDuration }} months</td>
+              <td>{{ item.invoicedDuration }} months</td>
+              <td>
+                <span class="remaining-duration" [class.zero]="item.remainingDuration <= 0">
+                  {{ item.remainingDuration }} months
+                </span>
+              </td>
+              <td>{{ item.monthlyFee | currency:'AED' }}</td>
+              <td>
+                <mat-form-field *ngIf="item.include && item.remainingDuration > 0" class="duration-input">
+                  <input 
+                    matInput 
+                    type="number" 
+                    [(ngModel)]="item.selectedDuration"
+                    [max]="item.remainingDuration"
+                    [min]="1"
+                    (input)="calculateAmount(i)"
+                    placeholder="Months">
+                </mat-form-field>
+                <span *ngIf="!item.include || item.remainingDuration <= 0" class="disabled-text">
+                  {{ item.remainingDuration <= 0 ? 'Fully invoiced' : 'Not selected' }}
+                </span>
+              </td>
+              <td>{{ item.amount | currency:'AED' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="summary-section">
+        <div class="summary-item">
+          <span class="label">Total Selected Amount:</span>
+          <span class="value">{{ calculateTotalSelectedAmount() | currency:'AED' }}</span>
+        </div>
+        <div class="summary-item">
+          <span class="label">Remaining to Invoice:</span>
+          <span class="value">{{ calculateTotalRemainingAmount() | currency:'AED' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Automatic Invoice Section -->
+    <div *ngIf="invoiceType === 'automatic'" class="automatic-section">
+      <h3>Automatic Invoice Settings</h3>
+      <mat-form-field class="full-width">
+        <mat-label>Invoice Trigger</mat-label>
+        <mat-select [(ngModel)]="automaticTrigger">
+          <mat-option value="order">On Order (Full Amount)</mat-option>
+          <mat-option value="installation">On Installation (Full Amount)</mat-option>
+          <mat-option value="installments">Monthly Installments</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngIf="automaticTrigger === 'installments'" class="installment-settings">
+        <mat-form-field class="full-width">
+          <mat-label>Installment Amount</mat-label>
+          <input 
+            matInput 
+            type="number" 
+            [(ngModel)]="installmentAmount"
+            [min]="1"
+            placeholder="Monthly amount">
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button 
+      mat-raised-button 
+      color="primary" 
+      (click)="generateInvoice()"
+      [disabled]="!canGenerateInvoice()">
+      Generate Invoice
+    </button>
+  </mat-dialog-actions>
+</div> 

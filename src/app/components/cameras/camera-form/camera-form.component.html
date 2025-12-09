@@ -1,0 +1,86 @@
+<h2 *ngIf="isEditing">Add New Camera</h2>
+<h2 *ngIf="!isEditing">Edit Camera</h2>
+
+<form [formGroup]="cameraForm" (ngSubmit)="onSubmit()">
+  <!-- Developer and Project Selection -->
+  <div class="row">
+    <div class="col">
+      <label>Developer:</label>
+      <select formControlName="developer" (change)="onDeveloperChange($event)" *ngIf="!isEditing">
+        <option *ngFor="let dev of developers" [value]="dev._id">{{ dev.developerName }}</option>
+      </select>
+      <input type="text" *ngIf="isEditing" [value]="selectedDeveloper.developerName" disabled />
+    </div>
+
+    <div class="col">
+      <label>Project:</label>
+      <select formControlName="project" *ngIf="!isEditing">
+        <option *ngFor="let proj of filteredProjects" [value]="proj._id">{{ proj.projectName }}</option>
+      </select>
+      <input type="text" *ngIf="isEditing" [value]="selectedProject.projectName" disabled />
+    </div>
+  </div>
+
+  <!-- Camera Details -->
+  <div class="row">
+    <div class="col">
+      <label>Camera Name:</label>
+      <input type="text" formControlName="camera" />
+    </div>
+    <div class="col">
+      <label>Index:</label>
+      <input type="number" formControlName="cindex" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label>Description:</label>
+      <input type="text" formControlName="cameraDescription" />
+    </div>
+    <div class="col">
+      <label>Server Folder:</label>
+      <input type="text" formControlName="serverFolder" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label>Latitude:</label>
+      <input type="text" formControlName="lat" />
+    </div>
+    <div class="col">
+      <label>Longitude:</label>
+      <input type="text" formControlName="lng" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label>Country:</label>
+      <select formControlName="country">
+        <option value="UAE">UAE</option>
+        <option value="Saudi Arabia">Saudi Arabia</option>
+      </select>
+    </div>
+    <div class="col">
+      <label>Server:</label>
+      <select formControlName="server">
+        <option value="Lsl Standard Cloud">Lsl Standard Cloud</option>
+        <option value="Lsl Secondary Cloud">Lsl Secondary Cloud</option>
+      </select>
+    </div>
+  </div>
+  
+
+  <div class="row">
+    <div class="col">
+      <label>Active:</label>
+      <input type="checkbox" formControlName="isActive" />
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="cameraForm.invalid">
+    {{ isEditing ? 'Add Camera' : 'Update Camera' }}
+  </button>
+</form>

@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+$custom-theme: mat.define-theme((
+  color: (
+    primary: mat.define-palette(mat.$red-palette),
+    accent: mat.define-palette(mat.$pink-palette),
+    use-system-variables: true,
+  ),
+  typography: (
+    use-system-variables: true,
+  ),
+));

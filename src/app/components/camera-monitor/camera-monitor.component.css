@@ -1,0 +1,559 @@
+.camera-container {
+  padding: 20px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.header-section {
+  margin-bottom: 20px;
+}
+
+.filter-container {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.add-camera-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-camera-button:hover {
+  background-color: #1976d2;
+}
+
+.add-camera-button mat-icon {
+  margin-right: 4px;
+}
+
+.filter-container mat-form-field {
+  flex: 1;
+  min-width: 200px;
+  max-width: 100%;
+}
+
+.search-field {
+  flex: 2;
+  min-width: 200px;
+  max-width: 100%;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  background-color: #2d2d2d;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.camera-stats {
+  display: flex;
+  gap: 20px;
+  padding: 12px 16px;
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+}
+
+.camera-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.camera-card {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.camera-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.camera-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #363636;
+  border-bottom: 1px solid #404040;
+}
+
+.camera-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-new {
+  background-color: #2196f3;
+  color: white;
+}
+
+.status-active {
+  color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.status-inactive {
+  color: white;
+  background-color: #f44336;
+}
+
+.status-hold {
+  background-color: #ff9800;
+  color: white;
+}
+
+.status-finished {
+  background-color: #9e9e9e;
+  color: white;
+}
+
+.status-unknown {
+  background-color: #757575;
+  color: white;
+}
+
+.camera-image-container {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background-color: #363636;
+}
+
+.camera-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.camera-image-container img.loaded {
+  opacity: 1;
+}
+
+.image-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(54, 54, 54, 0.8);
+}
+
+.image-loading mat-spinner {
+  --mdc-circular-progress-active-indicator-color: #2196f3;
+}
+
+.camera-info {
+  padding: 12px 16px;
+  background-color: #363636;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 0.9rem;
+}
+
+.info-row:not(:last-child) {
+  border-bottom: 1px solid #404040;
+}
+
+.info-label {
+  color: #b0b0b0;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tag {
+  color: #b0b0b0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background-color: #404040;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+mat-card-actions {
+  padding: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: #363636;
+  border-top: 1px solid #404040;
+}
+
+mat-card-actions button {
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+mat-card-actions button:hover {
+  background-color: #404040;
+}
+
+/* Material Design Overrides */
+::ng-deep .mat-mdc-form-field {
+  --mdc-filled-text-field-container-color: #363636;
+  --mdc-filled-text-field-focus-active-indicator-color: #e0e0e0;
+  --mdc-filled-text-field-hover-state-layer-color: #404040;
+  --mdc-filled-text-field-focus-state-layer-color: #404040;
+}
+
+::ng-deep .mat-mdc-form-field-label {
+  color: #b0b0b0 !important;
+}
+
+::ng-deep .mat-mdc-select-value-text {
+  color: #e0e0e0 !important;
+}
+
+::ng-deep .mat-mdc-select-arrow {
+  color: #b0b0b0 !important;
+}
+
+::ng-deep .mat-mdc-select-panel {
+  background-color: #2d2d2d !important;
+}
+
+::ng-deep .mat-mdc-option {
+  color: #e0e0e0 !important;
+}
+
+::ng-deep .mat-mdc-option:hover:not(.mat-mdc-option-disabled) {
+  background-color: #404040 !important;
+}
+
+::ng-deep .mat-mdc-option.mat-mdc-selected {
+  background-color: #404040 !important;
+}
+
+/* Material Tooltip Override */
+::ng-deep .mat-mdc-tooltip {
+  background-color: #363636 !important;
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .camera-container {
+    padding: 10px;
+  }
+
+  .filter-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .filter-container mat-form-field {
+    width: 100%;
+  }
+
+  .camera-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.total-cameras {
+  color: #e0e0e0;
+}
+
+.filtered-cameras {
+  color: #4caf50;
+}
+
+/* Add these styles at the end of the file */
+
+::ng-deep .success-snackbar {
+  background: #4caf50;
+  color: white;
+}
+
+::ng-deep .error-snackbar {
+  background: #f44336;
+  color: white;
+}
+
+::ng-deep .mat-simple-snackbar-action {
+  color: white;
+}
+
+.sort-buttons-container {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #2d2d2d;
+  border-radius: 8px;
+}
+
+.sort-buttons-container button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  color: #e0e0e0;
+  background-color: #363636;
+  border: 1px solid #404040;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.sort-buttons-container button:hover {
+  background-color: #404040;
+}
+
+.sort-buttons-container button.active {
+  background-color: #f44336;
+  color: white;
+  border-color: #f44336;
+}
+
+.sort-buttons-container mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.camera-actions {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #363636;
+  border-top: 1px solid #404040;
+}
+
+.camera-actions button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.camera-actions button[color="primary"] {
+  background-color: #2196f3;
+  color: white;
+}
+
+.camera-actions button[color="primary"]:hover {
+  background-color: #1976d2;
+}
+
+.camera-actions button[color="accent"] {
+  background-color: #f44336;
+  color: white;
+}
+
+.camera-actions button[color="accent"]:hover {
+  background-color: #d32f2f;
+}
+
+.camera-actions mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+/* Hierarchical Layout Styles */
+.hierarchical-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.developer-section {
+  background-color: #2d2d2d;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #404040;
+}
+
+.developer-header {
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #404040;
+}
+
+.developer-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.developer-tag {
+  color: #b0b0b0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: #404040;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.project-section {
+  margin-bottom: 24px;
+  background-color: #363636;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #404040;
+}
+
+.project-header {
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #404040;
+}
+
+.project-title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.project-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #e0e0e0;
+  flex: 1;
+}
+
+.project-info-button {
+  color: #2196f3;
+  background-color: rgba(33, 150, 243, 0.1);
+  border: 1px solid rgba(33, 150, 243, 0.3);
+  transition: all 0.3s ease;
+}
+
+.project-info-button:hover {
+  background-color: rgba(33, 150, 243, 0.2);
+  border-color: rgba(33, 150, 243, 0.5);
+  transform: scale(1.05);
+}
+
+.project-info-button mat-icon {
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.project-tag {
+  color: #b0b0b0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background-color: #404040;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.developer-name mat-icon,
+.project-name mat-icon {
+  font-size: 24px;
+  height: 24px;
+  width: 24px;
+  color: #2196f3;
+}
+
+.developer-name mat-icon {
+  color: #4caf50;
+}
+
+.project-name mat-icon {
+  color: #ff9800;
+}
+
+/* Responsive adjustments for hierarchical layout */
+@media (max-width: 768px) {
+  .hierarchical-container {
+    gap: 16px;
+  }
+  
+  .developer-section {
+    padding: 16px;
+  }
+  
+  .project-section {
+    padding: 12px;
+  }
+  
+  .developer-name {
+    font-size: 1.3rem;
+  }
+  
+  .project-name {
+    font-size: 1.1rem;
+  }
+}

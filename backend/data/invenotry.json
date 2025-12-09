@@ -1,0 +1,590 @@
+[
+  {
+    "_id": "24cb2fdcf7a5a2e006f468ff",
+    "device": {
+      "type": "SIM Card",
+      "serialNumber": "0569932918 - 899711221276828-1585",
+      "model": "Etisalat"
+    },
+    "status": "available",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-27T14:48:17.380Z"
+  },
+  {
+    "_id": "846122e1fd087e963b80ead3",
+    "device": {
+      "type": "SIM Card",
+      "serialNumber": "0543429648 - 899711221274959-5323",
+      "model": "Etisalat"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-27T14:49:08.978Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "660510bd38bc891f0cf511b0",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:59:26.498Z"
+    }
+  },
+  {
+    "_id": "34626c7f6cd509cda442f764",
+    "device": {
+      "type": "SIM Card",
+      "serialNumber": "0505960886 - 899711221273851-8140",
+      "model": "Etisalat"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-27T14:58:44.433Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "127281236f876bc15c6d687e",
+      "camera": "daa696fc2d4f3ea991668d2e",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:59:45.876Z"
+    }
+  },
+  {
+    "_id": "05776787568586adf8fc10bb",
+    "device": {
+      "type": "SIM Card",
+      "serialNumber": "0509291594 - 899711221274959-4477",
+      "model": "Etisalat"
+    },
+    "status": "user_assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-27T15:05:50.031Z",
+    "currentUserAssignment": {
+      "userId": "6e90ba7d033204ba3f00c41c",
+      "userName": "muhammad ibrahim",
+      "assignedDate": "2025-06-19T10:35:55.985Z",
+      "notes": "Device assigned to User"
+    }
+  },
+  {
+    "_id": "598ba281e90d7517cf956470",
+    "device": {
+      "type": "SIM Card",
+      "serialNumber": "0509579275 - 899711221274959-4671",
+      "model": "Etisalat"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-27T15:06:49.513Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "7208f1b3aa1caf92eaef4322",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:58:57.649Z"
+    }
+  },
+  {
+    "_id": "8f9ee2f76fbd31d6827d968b",
+    "device": {
+      "type": "Charge Controller",
+      "serialNumber": "RG-A50KRVK7E3100548",
+      "model": "Raggie RG-710-SL"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-28T11:07:08.402Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "127281236f876bc15c6d687e",
+      "camera": "daa696fc2d4f3ea991668d2e",
+      "notes": "",
+      "assignedDate": "2025-05-30T14:10:46.032Z"
+    }
+  },
+  {
+    "_id": "b6cff3950c9fd0f1fd684a2e",
+    "device": {
+      "type": "Charge Controller",
+      "serialNumber": "RG-A50KLKK7E2C00385",
+      "model": "Raggie RG-710SL"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-28T11:08:00.154Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "660510bd38bc891f0cf511b0",
+      "notes": "",
+      "assignedDate": "2025-05-30T14:10:29.273Z"
+    }
+  },
+  {
+    "_id": "583ffe60a11373e98409f5d0",
+    "device": {
+      "type": "Charge Controller",
+      "serialNumber": "RG-A50KRVK7E3100419",
+      "model": "Raggie RG-710SL"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-28T11:08:49.597Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "7208f1b3aa1caf92eaef4322",
+      "notes": "",
+      "assignedDate": "2025-05-30T14:10:09.052Z"
+    }
+  },
+  {
+    "_id": "79fbf63fec1a3741ca8da4ff",
+    "device": {
+      "type": "Battery",
+      "serialNumber": "Long - 08520047",
+      "model": "WP12-12A"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-28T11:25:54.086Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "127281236f876bc15c6d687e",
+      "camera": "daa696fc2d4f3ea991668d2e",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:53:24.765Z"
+    }
+  },
+  {
+    "_id": "0a271258a30dac8be7787b39",
+    "device": {
+      "type": "Battery",
+      "serialNumber": "Long - 08271355",
+      "model": "WP12-12A"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-28T11:27:08.284Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "660510bd38bc891f0cf511b0",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:52:35.138Z"
+    }
+  },
+  {
+    "_id": "0f51e249a14c3358b854c64d",
+    "device": {
+      "type": "Battery",
+      "serialNumber": "Long - 08271356",
+      "model": "WP12-12A"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-28T11:27:27.478Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "7208f1b3aa1caf92eaef4322",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:52:07.872Z"
+    }
+  },
+  {
+    "_id": "515aadde9d78deb581a47fb1",
+    "device": {
+      "type": "Dongle",
+      "serialNumber": "MNQ7S22526001764",
+      "model": "E3372h-608"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-28T11:34:37.864Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "7208f1b3aa1caf92eaef4322",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:54:44.292Z"
+    }
+  },
+  {
+    "_id": "25d5af34289af145e6ce70aa",
+    "device": {
+      "type": "Dongle",
+      "serialNumber": "3YK7S21B30003274",
+      "model": "E8372h-155"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-28T11:36:40.070Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "660510bd38bc891f0cf511b0",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:55:07.711Z"
+    }
+  },
+  {
+    "_id": "6bb9be186e1afc2c830e1aa2",
+    "device": {
+      "type": "Dongle",
+      "serialNumber": "AX3DMO3009789",
+      "model": "D-Link DWR910M"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 356,
+    "isActive": true,
+    "createdDate": "2025-05-30T10:58:26.424Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "127281236f876bc15c6d687e",
+      "camera": "daa696fc2d4f3ea991668d2e",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:55:32.543Z"
+    }
+  },
+  {
+    "_id": "175cc2533d9cac9dd7b2dece",
+    "device": {
+      "type": "Solar",
+      "serialNumber": "RTM050M-2024112801812",
+      "model": "RTM050"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-30T13:47:00.633Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "127281236f876bc15c6d687e",
+      "camera": "daa696fc2d4f3ea991668d2e",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:48:34.477Z"
+    }
+  },
+  {
+    "_id": "67d6c369d77c3b4e3ad3f0d9",
+    "device": {
+      "type": "Solar",
+      "serialNumber": "RTM050M-2024112800944",
+      "model": "RTM050"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-30T13:47:44.311Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "7208f1b3aa1caf92eaef4322",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:49:02.709Z"
+    }
+  },
+  {
+    "_id": "12b5b72acc0ae6085843d7e0",
+    "device": {
+      "type": "Solar",
+      "serialNumber": "RTM050M-2024112801689",
+      "model": "RTM050"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-30T13:47:59.361Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "660510bd38bc891f0cf511b0",
+      "notes": "",
+      "assignedDate": "2025-05-30T13:49:22.593Z"
+    }
+  },
+  {
+    "_id": "f9a3378545287c7bf2f4699f",
+    "device": {
+      "type": "Camera",
+      "serialNumber": "9618929",
+      "model": "Nikon D5300"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-30T14:03:14.075Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "127281236f876bc15c6d687e",
+      "camera": "daa696fc2d4f3ea991668d2e",
+      "notes": "",
+      "assignedDate": "2025-05-30T14:04:10.451Z"
+    }
+  },
+  {
+    "_id": "0ab3adf5e4a032b644b2d1c9",
+    "device": {
+      "type": "Camera",
+      "serialNumber": "7505098",
+      "model": "Nikon D5300"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-30T14:05:26.592Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "7208f1b3aa1caf92eaef4322",
+      "notes": "",
+      "assignedDate": "2025-05-30T14:05:54.118Z"
+    }
+  },
+  {
+    "_id": "bca8f9e447857e9f77be8ae8",
+    "device": {
+      "type": "Camera",
+      "serialNumber": "9686752",
+      "model": "Nikon D5300"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-30T14:07:24.223Z",
+    "currentAssignment": {
+      "developer": "46acd2f3e22af1628efdea27",
+      "project": "21d3fe7c6e63b763bcce3ed0",
+      "camera": "660510bd38bc891f0cf511b0",
+      "notes": "",
+      "assignedDate": "2025-05-30T14:07:37.646Z"
+    }
+  },
+  {
+    "_id": "7bdde609065eb3c377282a85",
+    "device": {
+      "type": "Box",
+      "serialNumber": "100000002fe6800a",
+      "model": "LiveStreamLines"
+    },
+    "status": "user_assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-19T10:16:25.753Z",
+    "currentUserAssignment": {
+      "userId": "6e90ba7d033204ba3f00c41c",
+      "userName": "muhammad ibrahim ",
+      "assignedDate": "2025-06-19T10:16:52.069Z",
+      "notes": "Device assigned to User"
+    }
+  },
+  {
+    "_id": "06e79b83fe57eecde25ac627",
+    "device": {
+      "type": "Camera",
+      "serialNumber": "9749967",
+      "model": "Nikon D5300"
+    },
+    "status": "user_assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-19T10:19:40.231Z",
+    "currentUserAssignment": {
+      "userId": "6e90ba7d033204ba3f00c41c",
+      "userName": "muhammad ibrahim ",
+      "assignedDate": "2025-06-19T10:20:35.992Z",
+      "notes": "Device assigned to User"
+    }
+  },
+  {
+    "_id": "81edddbcb45f74803fca92f5",
+    "device": {
+      "type": "Lens",
+      "serialNumber": "243312",
+      "model": "Nikkor 10-20mm VR"
+    },
+    "status": "user_assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-19T10:20:12.590Z",
+    "currentUserAssignment": {
+      "userId": "6e90ba7d033204ba3f00c41c",
+      "userName": "muhammad ibrahim ",
+      "assignedDate": "2025-06-19T10:20:49.487Z",
+      "notes": "Device assigned to User"
+    }
+  },
+  {
+    "_id": "351f26cfcebd0e973938e0f0",
+    "device": {
+      "type": "Dongle",
+      "serialNumber": "J5HBYA93B2910230",
+      "model": "Hilink E3272s-153"
+    },
+    "status": "user_assigned",
+    "assignmentHistory": [],
+    "validityDays": 356,
+    "isActive": true,
+    "createdDate": "2025-06-19T10:34:35.829Z",
+    "currentUserAssignment": {
+      "userId": "6e90ba7d033204ba3f00c41c",
+      "userName": "muhammad ibrahim",
+      "assignedDate": "2025-06-19T10:34:50.372Z",
+      "notes": "Device assigned to User"
+    }
+  },
+  {
+    "_id": "436259382eaa83086353468e",
+    "device": {
+      "type": "Charge Controller",
+      "serialNumber": "RG-A50KRVK7E3100269",
+      "model": "RG-710SL"
+    },
+    "status": "user_assigned",
+    "assignmentHistory": [],
+    "validityDays": 356,
+    "isActive": true,
+    "createdDate": "2025-06-20T08:31:42.015Z",
+    "currentUserAssignment": {
+      "userId": "6e90ba7d033204ba3f00c41c",
+      "userName": "muhammad ibrahim",
+      "assignedDate": "2025-06-20T08:37:09.671Z",
+      "notes": "Device assigned to User"
+    }
+  },
+  {
+    "_id": "7ceb6389bb96b39f90d51ff7",
+    "device": {
+      "type": "Battery",
+      "serialNumber": "03520173",
+      "model": "Long WP12-12a"
+    },
+    "status": "user_assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-20T08:33:26.636Z",
+    "currentUserAssignment": {
+      "userId": "6e90ba7d033204ba3f00c41c",
+      "userName": "muhammad ibrahim",
+      "assignedDate": "2025-06-20T08:37:22.448Z",
+      "notes": "Device assigned to User"
+    }
+  },
+  {
+    "_id": "04ef2ad4581999dfeb1c5a46",
+    "device": {
+      "type": "Box",
+      "serialNumber": "TEST12345"
+    },
+    "status": "assigned",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-20T08:41:19.938Z",
+    "currentUserAssignment": null,
+    "userAssignmentHistory": [
+      {
+        "userId": "c44fac94413d1d842285980a",
+        "userName": "Michael",
+        "assignedDate": "2025-06-20T08:41:45.739Z",
+        "notes": "Device assigned to User",
+        "removedDate": "2025-06-20T08:45:04.546Z",
+        "removalReason": "Moved to project assignment"
+      }
+    ],
+    "currentAssignment": {
+      "developer": "3e7b411f42082d860818cbad",
+      "project": "2c1f2218f404eeda38bf7f47",
+      "camera": "123f42559ef2089d3e432e66",
+      "notes": "Device Installed",
+      "assignedDate": "2025-06-20T08:45:04.694Z"
+    }
+  },
+  {
+    "_id": "78a1220f5f86c374d791d012",
+    "device": {
+      "type": "Box",
+      "serialNumber": "10000000c73c74c0",
+      "model": "Livestreamlines SYS"
+    },
+    "status": "available",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-20T13:27:57.075Z"
+  },
+  {
+    "_id": "ccd61970af519f9398575f0d",
+    "device": {
+      "type": "Box",
+      "serialNumber": "100000001be485b4",
+      "model": "Livestreamlines SYS"
+    },
+    "status": "available",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-20T13:28:30.319Z"
+  },
+  {
+    "_id": "ee618f231b7d19743ee3da03",
+    "device": {
+      "type": "Box",
+      "serialNumber": "10000000d6740a1c",
+      "model": "Livestreamlines SYS"
+    },
+    "status": "available",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-20T13:28:58.881Z"
+  },
+  {
+    "_id": "f69239457872d7a344761e15",
+    "device": {
+      "type": "Box",
+      "serialNumber": "10000000185545d9",
+      "model": "Livestreamlines SYS"
+    },
+    "status": "available",
+    "assignmentHistory": [],
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-20T13:29:31.730Z"
+  }
+]

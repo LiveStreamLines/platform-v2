@@ -1,0 +1,86 @@
+[
+  {
+    "_id": "71193444b13ce0e3a6e37230",
+    "name": "camera",
+    "validityDays": 365,
+    "models": [
+      "Camera"
+    ],
+    "noSerial": false,
+    "isActive": true,
+    "createdDate": "2025-12-01T18:08:43.364Z"
+  },
+  {
+    "_id": "aa9904f7009020d0333c949a",
+    "name": "Camera",
+    "validityDays": 365,
+    "models": [
+      "Nikon D3500",
+      "Nikon D3200",
+      "Nikon D5200",
+      "Nikon D5300",
+      "Nikon D5500"
+    ],
+    "noSerial": false,
+    "isActive": true,
+    "createdDate": "2025-12-05T11:42:26.646Z"
+  },
+  {
+    "_id": "6309f3626b6bd351827ac2ad",
+    "name": "Dongle",
+    "validityDays": 550,
+    "models": [
+      "D-link 910M",
+      "Huawei E3276s"
+    ],
+    "noSerial": false,
+    "isActive": true,
+    "createdDate": "2025-12-05T11:53:20.615Z"
+  },
+  {
+    "_id": "f136bf83c5b3def61756dacd",
+    "name": "PI",
+    "validityDays": 1460,
+    "models": [
+      "4B"
+    ],
+    "noSerial": false,
+    "isActive": true,
+    "createdDate": "2025-12-05T11:55:51.476Z"
+  },
+  {
+    "_id": "6492f428461cfb363eca9d60",
+    "name": "Solar Panel",
+    "validityDays": 1825,
+    "models": [
+      "Restar50",
+      "Rstar40",
+      "Rstar30"
+    ],
+    "noSerial": false,
+    "isActive": true,
+    "createdDate": "2025-12-05T11:59:27.213Z"
+  },
+  {
+    "_id": "b033c644d5d19da432f67e4c",
+    "name": "Timer",
+    "validityDays": 365,
+    "models": [
+      "HCW-M135"
+    ],
+    "noSerial": true,
+    "isActive": true,
+    "createdDate": "2025-12-05T12:15:31.462Z"
+  },
+  {
+    "_id": "857bb7f8eace24f3fcf2ce95",
+    "name": "Enclosure",
+    "validityDays": 2000,
+    "models": [
+      "Standard"
+    ],
+    "noSerial": true,
+    "isActive": true,
+    "createdDate": "2025-12-05T12:22:55.879Z"
+  }
+]

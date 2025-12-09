@@ -1,0 +1,107 @@
+.user-form-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  background: #121111;
+}
+
+h2 {
+  font-size: 16px;
+  color: rgb(245, 241, 241)
+}
+
+fieldset {
+  border: 1px solid #3b3b3b;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.row {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+input {
+  max-width: 70%;
+}
+
+.col-4 {
+  flex: 0 0 calc(33.33% - 15px);
+}
+
+.col-6 {
+  flex: 0 0 calc(50% - 15px);
+}
+
+.col-8 {
+  flex: 0 0 calc(66.66% - 15px);
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: black;
+  color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+label {
+  display: inline;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 12px;
+  margin-right: 12px;
+}
+
+button {
+  width: 100px;
+  margin: 10px auto;
+  padding: 10px 15px;
+  border: none;
+  background: #710707;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button .reset {
+  width: 200px;
+}
+
+
+button:hover {
+  background: #7f0808;
+}
+
+mat-form-field {
+  width: 100%;
+  padding: 0;
+}
+
+.mdc-text-field--outlined .mat-mdc-form-field-infix {
+  padding: 0 !important;
+}
+
+.dropdowns {
+  margin-top: 16px;
+}
+

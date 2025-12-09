@@ -1,0 +1,62 @@
+.zoom-lens-container,
+.zoom-pan-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.zoomed-picture {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.zoom-lens {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+  pointer-events: none;
+  background-repeat: no-repeat;
+}
+
+.zoom-pan-container {
+    overflow: hidden;
+    cursor: grab;
+  }
+
+  .pan-zoomed-picture {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;    
+  }
+  
+  
+.zoom-pan-container img:active {
+    cursor: grabbing;
+  }
+
+.zoom-slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .zoom-slider-container label {
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  #zoom-scale-slider {
+    flex-grow: 1;
+    height: 6px;
+    background: #7a0a0a;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    accent-color: darkred;
+  }
+  
+
+ 

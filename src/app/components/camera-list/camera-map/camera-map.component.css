@@ -1,0 +1,55 @@
+.container {
+  position: relative;
+  margin: 20px;
+}
+
+.camera-info-popup {
+  position: absolute; 
+  color: white;
+  background: rgb(35, 34, 34);
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  transform: translate(-50%, -100%); /* Center horizontally and position above */
+}
+
+.camera-info-popup .title {
+  font-size: 15px;
+  margin: 26px 0 12px;
+}
+
+.camera-info-popup .close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgb(95, 5, 5);
+  border: 1px solid white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fefefe;
+}
+
+.camera-info-popup .close-button:hover {
+  color: red;
+}
+
+
+.camera-info-popup .view-details-button {
+  font-size: 10px;
+  display: block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #480707;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.camera-info-popup .view-details-button:hover {
+  background-color: #750c0c;
+}

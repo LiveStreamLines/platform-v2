@@ -1,0 +1,99 @@
+.home-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+/* Content area next to the sidenav */
+.content {
+  flex-grow: 1;
+  padding: 16px;
+}
+
+.cards-container {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexible column layout */
+  gap: 16px;
+  justify-content: space-around; /* Center items with space */
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 85%;
+  background-color: rgba(50, 50, 50, 0.9); /* Dark gray background */
+  box-shadow: 0 2px 10px rgba(139, 6, 6, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgb(111, 10, 10);
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;  
+}
+
+.card:hover {
+  background-color: rgba(88, 86, 86, 0.9); /* Dark gray background */
+
+  box-shadow: 0 4px 20px rgba(192, 6, 6, 0.89);
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.play-icon {
+  font-size: 60px;
+    color: #ffffff;
+    opacity: 0.8;
+    width: 60px;
+    height: 60px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.card:hover .play-icon {
+  transform: scale(1.1); /* Slightly enlarge icon on hover */
+  color: #bdbfc1; /* Darker color on hover */
+}
+
+
+.card-body {
+  margin: 1rem 0;
+}
+
+.card-body h3 {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.card-body p {
+  margin: 10px 0;
+  font-size: 10px;
+  line-height: 10px;
+  color: #ffffff;
+}
+
+.card-footer {
+  text-align: center;
+}
+
+.view-video {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #600b0b;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.view-video:hover {
+  background-color: #b30000;
+}
+
+.not-ready {
+  font-size: 0.9rem;
+  color: #999;
+}

@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="content">
+    <div class="form-section">
+      <p class="form-title">Upload Media</p>
+      <form [formGroup]="mediaForm" (ngSubmit)="submitForm()" class="form-container">
+        <!-- Group 1: Developer -->
+        <div class="control-group group">
+          <div class="group-title">Developer</div>
+          <div class="form-field">
+            <label for="developer">Select Developer</label>
+            <select
+              id="developer"
+              formControlName="developer"
+              (change)="fetchProjects($event)"
+            >
+              <option *ngFor="let dev of developers" [value]="dev._id">
+                {{ dev.developerName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Group 2: Project -->
+        <div class="control-group group">
+          <div class="group-title">Project</div>
+          <div class="form-field">
+            <label for="project">Select Project</label>
+            <select id="project" formControlName="project">
+              <option *ngFor="let proj of projects" [value]="proj._id">
+                {{ proj.projectName }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Group 3: Service -->
+        <div class="control-group group">
+          <div class="group-title">Service</div>
+          <div class="form-field">
+            <label for="service">Select Service</label>
+            <select id="service" formControlName="service">
+              <option *ngFor="let service of services" [value]="service">
+                {{ service }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Group 4: Date -->
+        <div class="control-group group">
+          <div class="group-title">Date</div>
+          <div class="form-field date">
+            <label for="date">Select Date</label>
+            <input type="date" id="date" formControlName="date" />
+            <span class="calendar-icon">
+              <i class="material-icons">calendar_today</i>
+            </span>
+          </div>
+        </div>
+
+        <!-- Group 5: Files -->
+        <div class="control-group group">
+          <div class="group-title">Files</div>
+          <div class="form-field">
+            <label for="fileUpload" class="file-label">Upload Files</label>
+            <input
+              id="fileUpload"
+              type="file"
+              (change)="onFileChange($event)"
+              multiple
+              class="file-input"
+            />
+            <div class="selected-files" *ngIf="files_List.length > 0">
+              <p>Selected Files:</p>
+              <ul>
+                <li *ngFor="let file of files_List">{{ file.name }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+         <!-- Progress Bar -->
+         <div *ngIf="uploadProgress > 0" style="margin: 30px 0">
+          <p>Upload Progress: {{ uploadProgress }}%</p>
+          <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="submit" type="submit" [disabled]="mediaForm.invalid || isUploading">
+          Submit
+        </button>
+      </form>
+
+      <!-- Success Message -->
+      <div *ngIf="uploadSuccess" class="success-message">
+        <h3>Upload Successful!</h3>
+        <button class="submit" (click)="resetForm()">Upload Another</button>
+      </div>
+    </div>
+  </div>
+</div>

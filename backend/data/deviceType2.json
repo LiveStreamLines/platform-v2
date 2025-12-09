@@ -1,0 +1,153 @@
+[
+  {
+    "_id": "2f80c11b5f4082693f154209",
+    "name": "Box",
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-04-14T23:24:13.290Z"
+  },
+  {
+    "_id": "8141eea4595b3cfe279687de",
+    "name": "PI",
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-04-14T23:24:26.263Z"
+  },
+  {
+    "_id": "edc5e0d6f4eade4b6fa062ab",
+    "name": "Camera",
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-04-14T23:24:35.948Z",
+    "models": [
+      "Nikkon D5300",
+      "Nikkon D5200"
+    ]
+  },
+  {
+    "_id": "2f35f638dda8a4ea00767c56",
+    "name": "Solar",
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-05-28T11:11:17.857Z"
+  },
+  {
+    "_id": "2e00f8466beea976754ddf03",
+    "name": "Dongle",
+    "validityDays": 356,
+    "isActive": true,
+    "createdDate": "2025-05-29T13:14:29.674Z"
+  },
+  {
+    "_id": "1fbceed489f3d98f3d4178eb",
+    "name": "SIM Card",
+    "validityDays": 356,
+    "isActive": true,
+    "createdDate": "2025-05-29T13:15:41.100Z",
+    "models": [
+      "Etisalat",
+      "Du"
+    ]
+  },
+  {
+    "_id": "9bc0383642e490b42d481840",
+    "name": "Charge Controller",
+    "validityDays": 356,
+    "isActive": true,
+    "createdDate": "2025-05-29T13:16:00.088Z"
+  },
+  {
+    "_id": "f3dc8076ec6ab14a5a10f4ca",
+    "name": "Lens",
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-09T11:54:32.260Z"
+  },
+  {
+    "_id": "cb693eb31a006e96ea7f1834",
+    "name": "Battery",
+    "validityDays": 365,
+    "isActive": true,
+    "createdDate": "2025-06-20T08:31:18.391Z",
+    "models": [
+      "Battery1",
+      "Battery2",
+      "Battery3"
+    ]
+  },
+  {
+    "_id": "58272facf20527cebe2b5ae2",
+    "name": "RTC",
+    "validityDays": 180,
+    "isActive": true,
+    "createdDate": "2025-11-11T11:19:42.661Z"
+  },
+  {
+    "_id": "f3fb2f0afc0d64a887ab926e",
+    "name": "Camera Enclouser",
+    "validityDays": 600,
+    "isActive": true,
+    "createdDate": "2025-11-11T11:20:00.211Z",
+    "models": [
+      "Old Enclousre",
+      "New Enclousre"
+    ]
+  },
+  {
+    "_id": "ec5f0538606474721a3bedc0",
+    "name": "Step Down",
+    "validityDays": 600,
+    "isActive": true,
+    "createdDate": "2025-11-11T16:19:05.535Z"
+  },
+  {
+    "_id": "97cb25b8541feea1bc3f2e89",
+    "name": "Timer",
+    "validityDays": 370,
+    "isActive": true,
+    "createdDate": "2025-11-11T16:19:21.072Z"
+  },
+  {
+    "_id": "e8ff7ddc89685f907cb54574",
+    "name": "Electrical Enclosure",
+    "validityDays": 600,
+    "isActive": true,
+    "createdDate": "2025-11-11T17:01:12.563Z"
+  },
+  {
+    "_id": "f6ac66c0067ff52cdde1dd53",
+    "name": "S1",
+    "validityDays": 100,
+    "models": [
+      "S1a",
+      "S1b",
+      "S1c"
+    ],
+    "isActive": true,
+    "createdDate": "2025-11-20T16:45:39.722Z"
+  },
+  {
+    "_id": "eabe2ceb0e8cd89cbbd683a5",
+    "name": "V1",
+    "validityDays": 50,
+    "models": [
+      "V1a",
+      "V1b",
+      "V1c"
+    ],
+    "isActive": true,
+    "createdDate": "2025-11-20T16:46:59.317Z"
+  },
+  {
+    "_id": "bb8a09c6332374414d814671",
+    "name": "R1",
+    "validityDays": 150,
+    "models": [
+      "R1a",
+      "R1b",
+      "R1c"
+    ],
+    "isActive": true,
+    "createdDate": "2025-11-20T16:48:27.418Z"
+  }
+]

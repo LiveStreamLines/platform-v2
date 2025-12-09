@@ -1,0 +1,22 @@
+<div class="modal-backdrop" (click)="closeModal()"></div>
+<div class="modal-content">
+  <!-- Close Button -->
+  <button class="close-btn" (click)="closeModal()">✖</button>
+
+  <h3 style="color: white;">Share This Photo</h3>
+  <div class="share-icons">
+    <a href="https://twitter.com/intent/tweet?url={{photoUrl}}" target="_blank" class="icon">
+      <img src="assets/icons/twitter.png" alt="Twitter" />
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{photoUrl}}" target="_blank" class="icon">
+      <img src="assets/icons/facebook.png" alt="Facebook" />
+    </a>
+    <a [href]="getEncodedWhatsAppUrl()" target="_blank" class="icon">
+      <img src="assets/icons/whatsapp.png" alt="WhatsApp" />
+    </a>
+    <a href="mailto:?subject=Check this out&body={{photoUrl}}" class="icon">
+      <img src="assets/icons/email.png" alt="Email" />
+    </a>
+  </div>
+  <button (click)="copyLink()" class="copy-btn">Copy Link</button>
+</div>

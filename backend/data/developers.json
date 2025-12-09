@@ -1,0 +1,2139 @@
+[
+  {
+    "_id": "5dc8e1c19cd85639a6deb69a",
+    "developerTag": "age",
+    "developerName": "AG Engineering",
+    "description": "AG Engineering Dubai",
+    "logo": "logos/developer/5dc8e1c19cd85639a6deb69a.png",
+    "createdDate": "2019-11-11T04:21:21.849Z",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "0575757575",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "PO.BOX: 48474",
+      "city": "Dubai",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "internalDescription": "",
+    "contacts": [],
+    "internalAttachments": [
+      {
+        "_id": "2306c832ed02c21279a2044a",
+        "name": "5dc8e1c19cd85639a6deb69a_1764703336463_935426398.png",
+        "originalName": "canvas_image (1).png",
+        "size": 3540824,
+        "type": "image/png",
+        "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/attachments/developers/5dc8e1c19cd85639a6deb69a/5dc8e1c19cd85639a6deb69a_1764703336463_935426398.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251202%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251202T192219Z&X-Amz-Expires=604800&X-Amz-Signature=8675778fa67bd723e8a46fa7bec86d1e9380ff7f0ecb27096c4eff5a92467798&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+        "s3Key": "attachments/developers/5dc8e1c19cd85639a6deb69a/5dc8e1c19cd85639a6deb69a_1764703336463_935426398.png",
+        "uploadedAt": "2025-12-02T19:22:19.901Z",
+        "uploadedBy": "amar@lsl.com"
+      },
+      {
+        "_id": "7dddbc6384a69536f712d85c",
+        "name": "5dc8e1c19cd85639a6deb69a_1764707241252_439570708.png",
+        "originalName": "WhatsApp_Image_2025-07-01_at_23.11.08_5b0d2a49-removebg-preview.png",
+        "size": 19918,
+        "type": "image/png",
+        "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/attachments/developers/5dc8e1c19cd85639a6deb69a/5dc8e1c19cd85639a6deb69a_1764707241252_439570708.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251202%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251202T202721Z&X-Amz-Expires=604800&X-Amz-Signature=76099a4bf91af6a6a3f2933d03e0ea111ae4cab14e2321aadb5cb91745e8f857&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+        "s3Key": "attachments/developers/5dc8e1c19cd85639a6deb69a/5dc8e1c19cd85639a6deb69a_1764707241252_439570708.png",
+        "uploadedAt": "2025-12-02T20:27:21.718Z",
+        "uploadedBy": "amar@lsl.com"
+      }
+    ]
+  },
+  {
+    "_id": "60d0413feba4f394c7eb217b",
+    "developerTag": "agility",
+    "developerName": "Abu Dhabi Municipality",
+    "description": "ADM",
+    "logo": "logos/developer/60d0413feba4f394c7eb217b.jpeg",
+    "createdDate": "2021-06-21T07:35:27.062Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "671de242078cf40e217529bf",
+    "developerTag": "agp",
+    "developerName": "AG Power",
+    "description": "AG Power L.L.C is an Engineering, Procurement & Construction (EPC) specialist Company established under the renowned AG Group of Projects for executing projects in the fields of EHV Substations, Power Distribution, Underground Power Cabling from 11kV to 220kV.",
+    "logo": "logos/developer/671de242078cf40e217529bf.png",
+    "createdDate": "2024-10-27T06:48:34.959Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "63490236d6140d5102e89fc6",
+    "developerTag": "alefg",
+    "developerName": "Alef Group",
+    "description": "Alef Group",
+    "logo": "logos/developer/63490236d6140d5102e89fc6.jpeg",
+    "createdDate": "2022-10-14T06:31:18.747Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "64997a72fd30da467c85b58f",
+    "developerTag": "alinsons",
+    "developerName": "Ali & Sons Contracting Company",
+    "description": "For almost four decades, Ali & Sons Contracting Company (ASC) has been at the forefront of the construction industry revolution in the UAE. As the country has exploded in growth, we have led the charge — delivering construction services of the highest quality across the UAE.",
+    "logo": "logos/developer/64997a72fd30da467c85b58f.jpeg",
+    "createdDate": "2023-06-26T11:45:54.798Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "668b756cacccfed9dadf5efc",
+    "developerTag": "amana",
+    "developerName": "AMANA CONTRACTING & STEEL BUILDING COMPANY - UAE",
+    "description": "Regional leaders in the design-build construction of industrial and commercial facilities, offering aviation fueling services, next-generation offsite volumetric modular construction and sustainable energy solutions.",
+    "logo": "logos/developer/668b756cacccfed9dadf5efc.png",
+    "createdDate": "2024-07-08T05:13:16.037Z",
+    "isActive": "undefined",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "6669d06bb9542fab690fc402",
+    "developerTag": "arm",
+    "developerName": "A.R.M. HOLDING",
+    "description": "We are a multi-focused economic enabler creating synergies and opportunities through local, regional and global investments",
+    "logo": "logos/developer/6669d06bb9542fab690fc402.jpeg",
+    "createdDate": "2024-06-12T16:44:27.449Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "5c97939115ba3a2b86b7bc42",
+    "developerTag": "asgc",
+    "developerName": "ASGC",
+    "description": "ASGC is best leading construction company in Dubai, which is established in the year 1989 with extensive range of construction experience.",
+    "logo": "logos/developer/5c97939115ba3a2b86b7bc42.png",
+    "createdDate": "2019-03-24T14:26:25.135Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "66ab1620a67238163335e3ac",
+    "developerTag": "axis",
+    "developerName": "Axis of Architecture",
+    "description": "Axis of Architecture Consulting Office is professionally committed to applying the best standards and the latest concepts to engineering consultancy, architectural, structural design, site coordination and supervision.",
+    "logo": "logos/developer/66ab1620a67238163335e3ac.jpeg",
+    "createdDate": "2024-08-01T04:59:12.611Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    },
+    "internalDescription": "",
+    "isActive": "false",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "contacts": []
+  },
+  {
+    "_id": "65e6dd09ca4a460720c64b88",
+    "developerTag": "azizi",
+    "developerName": "Azizi Developments",
+    "description": "Azizi Developments, one of Dubai’s leading real estate developers. Committed to developing lifestyle destinations and quality residential communities in Dubai, Azizi has an exciting portfolio of off-plan and completed properties to choose from.",
+    "logo": "logos/developer/65e6dd09ca4a460720c64b88.jpeg",
+    "createdDate": "2024-03-05T08:51:21.561Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "64b8397b4fa84b5de9f0adaf",
+    "developerTag": "bhc",
+    "developerName": "UAE National Company Bu Haleeba Contracting LLC",
+    "description": "Bu Haleeba Contracting is a company born from innovation and forward thinking. We don’t just build projects. We develop longstanding relationships, regularly working in partnership with the world’s most important developers and most demanding designers. This has led us to work on some of the most prestigious projects in Dubai.",
+    "logo": "logos/developer/64b8397b4fa84b5de9f0adaf.jpeg",
+    "createdDate": "2023-07-19T19:28:59.472Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "65152c246d2cf2ee4afa087a",
+    "developerTag": "bkgulf",
+    "developerName": "BK Gulf",
+    "description": "It provides integrated engineering solutions which encompass design, procurement, construction, project management, commissioning and facilities management tailored to clients’ requirements.",
+    "logo": "logos/developer/65152c246d2cf2ee4afa087a.jpeg",
+    "createdDate": "2023-09-28T07:32:52.322Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "63ce9a6352c1ac71a0f42ccc",
+    "developerTag": "bloom",
+    "developerName": "Bloom",
+    "description": "Bloom Holding is one of the UAE’s leading companies dedicated to the development of modern, sustainable communities in the UAE. We are deeply committed to developing premium real estate and enriching the lives of residents by focusing on four core segments: real estate, education, services and hospitality. Bloom Holding is driven by its vision to go beyond the buyer and investors’ expectations – developing new projects that will deliver attractive return on investment whilst also contributing to the economic potential of the UAE.  We have developed and managed more than 5000 units across the UAE, with over 5000 in the pipeline, including a leasing portfolio of 1000 premium residential homes, 630 hotel rooms, grade A office space, 11 schools and one nursery.",
+    "logo": "logos/developer/63ce9a6352c1ac71a0f42ccc.jpeg",
+    "createdDate": "2023-01-23T14:32:03.696Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "6401a39b44739de60c9db287",
+    "developerTag": "butech",
+    "developerName": "Alec Butec",
+    "description": "With an extensive experience in building water and power projects across the Middle East, ALEC and BUTEC are perfectly positioned to optimise cost efficiencies.",
+    "logo": "logos/developer/6401a39b44739de60c9db287.png",
+    "createdDate": "2023-03-03T07:36:59.030Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "63ca5306ac1edee0a5a4bd05",
+    "developerTag": "cscec",
+    "developerName": "China State Construction Engineering",
+    "description": "China State Construction Engineering Corporation Middle East (CSCME) Infrastructure Division has been operating in the region since 2006, in these 6 years the division has added significant strength to the company’s operation and value of return. This is the result of the strong financial and technical support received from China State Corporation in Beijing (CSCHQ) — among the 500 most famous brands in the world. It has acquired over the years a profound corporate culture and an exceptional multi-disciplinary construction practice.",
+    "logo": "logos/developer/63ca5306ac1edee0a5a4bd05.jpeg",
+    "createdDate": "2023-01-20T08:38:30.157Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "5e4507c89c19ec211792b31a",
+    "developerTag": "dch",
+    "developerName": "Dubai Creek Harbour",
+    "description": "Experience a unique waterfront enclave where contemporary luxury, serene nature and innovation come together. It features iconic amenities like the Dubai Creek Marina, a haven for yachting enthusiasts, and close proximity to the Ras Al Khor Wildlife Sanctuary, renowned for its rich biodiversity, including flamingos. The sanctuary’s tranquil lagoons offer a perfect setting for nature walks and birdwatching.",
+    "logo": "logos/developer/5e4507c89c19ec211792b31a.jpeg",
+    "createdDate": "2020-02-13T08:24:40.139Z",
+    "isActive": "undefined",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": ""
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    }
+  },
+  {
+    "_id": "6513d105da4daad9da895b52",
+    "developerTag": "deh",
+    "developerName": "Emirates Hills",
+    "description": "    ",
+    "logo": "logos/developer/6513d105da4daad9da895b52.jpeg",
+    "createdDate": "2023-09-27T06:51:49.753Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "5ec1ad943252762fd88366eb",
+    "developerTag": "dewa",
+    "developerName": "DEWA",
+    "description": " Dubai Electricity & Water Authority",
+    "logo": "logos/developer/5ec1ad943252762fd88366eb.png",
+    "createdDate": "2020-05-17T21:33:08.600Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "5f7408c31585014e8e12b70a",
+    "developerTag": "deyaar",
+    "developerName": "Deyaar",
+    "description": "Deyaar is one of the largest developers in Dubai, its real estate ventures span major growth corridors and prime locations, including Business Bay, Dubai Marina, Al Barsha, DIFC, Jumeirah Lake Towers, Dubai Production City, Dubai Silicon Oasis, Al Barsha South and Al Barsha Heights.",
+    "logo": "logos/developer/5f7408c31585014e8e12b70a.png",
+    "createdDate": "2020-09-30T04:25:39.769Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "64f9bf368495be9a81dd18fe",
+    "developerTag": "dfc",
+    "developerName": "Dutch Foundations Co.",
+    "description": "Dutch Foundations (DF) has achieved an enviable reputation as one of the leading ground engineering and construction companies in the GCC. The company’s success was realised through decades of technological expertise, dedication, integrity, ethics and hard work. We are proud of our record in turning the soft sands of this part of the world into solid and resilient ground capable of holding great structure.",
+    "logo": "logos/developer/64f9bf368495be9a81dd18fe.jpeg",
+    "createdDate": "2023-09-07T12:16:54.899Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "5e450d660bea5b36cc3e9a85",
+    "developerTag": "dhe",
+    "developerName": "Dubai Hills Estate",
+    "description": "Nestled in the heart of Dubai, EMAAR Dubai Hills Estate is a prestigious community that epitomises sophisticated urban living. Boasting an array of luxurious properties, including stunning villas and apartments, this development presents a golden opportunity for property investment in Dubai. The community is renowned for its commitment to excellence, offering residents a lifestyle that harmonises modernity with nature.",
+    "logo": "logos/developer/5e450d660bea5b36cc3e9a85.jpeg",
+    "createdDate": "2020-02-13T08:48:38.687Z",
+    "isActive": "undefined",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": ""
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    }
+  },
+  {
+    "_id": "672068c4629a084d3df8ce71",
+    "developerTag": "dnt",
+    "developerName": "dnata Logistics",
+    "description": "International Freight Forwarder and logistics provider in Dubai, UAE offering air, sea freight, relocation, exhibitions and warehousing solution globally.",
+    "logo": "logos/developer/672068c4629a084d3df8ce71.png",
+    "createdDate": "2024-10-29T04:47:00.199Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "5e4501ea80df12211dc58614",
+    "developerTag": "downtown",
+    "developerName": "Downtown Dubai",
+    "description": "          ",
+    "logo": "logos/developer/5e4501ea80df12211dc58614.jpeg",
+    "createdDate": "2020-02-13T07:59:38.156Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "652921b8dd4ceb76f67f877d",
+    "developerTag": "dxbm",
+    "developerName": "Dubai Marina",
+    "description": "    ",
+    "logo": "logos/developer/652921b8dd4ceb76f67f877d.jpeg",
+    "createdDate": "2023-10-13T10:53:44.656Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "66bf2431cb4166963676c7a1",
+    "developerTag": "east",
+    "developerName": "Goverment of Sharjah - Department of Housing",
+    "description": "Goverment of Sharjah - Department of Housing",
+    "logo": "logos/developer/66bf2431cb4166963676c7a1.jpeg",
+    "createdDate": "2024-08-16T10:04:33.091Z",
+    "isActive": "undefined",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": ""
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    }
+  },
+  {
+    "_id": "5f1d0c7e168fd51f8a603035",
+    "developerTag": "ebf",
+    "developerName": "Emaar Beachfront ",
+    "description": "      ",
+    "logo": "logos/developer/5f1d0c7e168fd51f8a603035.jpeg",
+    "createdDate": "2020-07-26T04:54:22.669Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "64634f0e3c26928f943c8cf0",
+    "developerTag": "emm",
+    "developerName": "Rashid Yachts and Marina",
+    "description": "Experience the epitome of coastal luxury at Rashid Yachts & Marina, the residential gem adorning the Arabian Gulf coastline in Dubai and the world’s newest yachting destination. This architectural marvel, designed to redefine sophistication, offers a fresh perspective on luxurious seafront living, setting an unparalleled standard for coastal elegance and waterfront properties.",
+    "logo": "logos/developer/64634f0e3c26928f943c8cf0.jpg",
+    "createdDate": "2023-05-16T09:38:22.826Z",
+    "isActive": "undefined",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": ""
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    }
+  },
+  {
+    "_id": "6232ce908c51af7f3dc7fde6",
+    "developerTag": "firas",
+    "developerName": "Al Firas General Contracting",
+    "description": "Established in 1988, Al Firas is a leading contracting company based in Abu Dhabi. As a trusted and known contractor, Al Firas delivers sustainable projects of high quality, including High Rise Commercial and Residential Buildings, Schools, Universities, Factories, Labour Camps and Villas. At Al Firas, we deliver projects to our clients within a specified time frame whilst adhering to excellent health, safety and environmental standards. Quality work and innovation ensure our continued success as a NEAT BUILDER in the industry.",
+    "logo": "logos/developer/6232ce908c51af7f3dc7fde6.jpeg",
+    "createdDate": "2022-03-17T06:00:48.787Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "64a66d14f1a82d0681a023d7",
+    "developerTag": "gcc",
+    "developerName": "General Construction Company LLC",
+    "description": "Since first opened in 1996, General Construction Co. LLC has earned a reputation for integrity, quality, service and attention to detail. Our growth from local builder into one of UAE’s most reputed construction companies is a reflection of the strong relationships we have forged over the years and our personalized approach to client service.",
+    "logo": "logos/developer/64a66d14f1a82d0681a023d7.jpeg",
+    "createdDate": "2023-07-06T07:28:20.177Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "673db131cfeb908d835e2900",
+    "developerTag": "ghurair",
+    "developerName": "Al Ghurair Foods-Poultry",
+    "description": "Al Ghurair Foods is a regional leader in flour milling with over 40 years of experience, and an annual capacity of over 1.5m MT and operational silos of over 230,000 MT across its wheat milling assets alone.",
+    "logo": "logos/developer/673db131cfeb908d835e2900.jpeg",
+    "createdDate": "2024-11-20T09:51:45.576Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "65cd97ff0766c590b2e4b8df",
+    "developerTag": "grande",
+    "developerName": "Emaar Grande",
+    "description": "The Grande",
+    "logo": "logos/developer/65cd97ff0766c590b2e4b8df.jpeg",
+    "createdDate": "2024-02-15T04:50:07.884Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "62175bcb587832ecc6d21be8",
+    "developerTag": "gugg",
+    "developerName": "Guggenheim Abu Dhabi",
+    "description": "Located in the heart of the Saadiyat Cultural District, the future Guggenheim Abu Dhabi museum is a collaboration between the Department of Culture and Tourism – Abu Dhabi and the Solomon R. Guggenheim Foundation. ",
+    "logo": "logos/developer/62175bcb587832ecc6d21be8.jpeg",
+    "createdDate": "2022-02-24T10:19:55.700Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "658bd5268dd51320194b2361",
+    "developerTag": "hatco",
+    "developerName": "HATCO General Contractors",
+    "description": "Al Hashemiah Contracting Co LLC - HATCO",
+    "logo": "logos/developer/658bd5268dd51320194b2361.jpeg",
+    "createdDate": "2023-12-27T07:41:26.564Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "66c2e74f078cf40e21735962",
+    "developerTag": "innovo",
+    "developerName": "Innovo Build LLC",
+    "description": "With 35 years of experience, Innovo’s portfolio reflects a broad range of projects, including high-rise towers, residential developments, villa communities, educational facilities, commercial hubs and essential urban infrastructure.",
+    "logo": "logos/developer/66c2e74f078cf40e21735962.jpeg",
+    "createdDate": "2024-08-19T06:33:51.267Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "6597ff9489bb12ed37b39364",
+    "developerTag": "kavhvm",
+    "developerName": "Kazim Abbas Vakil",
+    "description": "Kazim Abbas Vakil",
+    "logo": "logos/project/image.png",
+    "createdDate": "2024-01-05T13:09:40.352Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "5e95c318fda8ed74650aa17c",
+    "developerTag": "kharafi",
+    "developerName": "Al Kharafi Construction",
+    "description": "Al Kharafi",
+    "logo": "logos/developer/5e95c318fda8ed74650aa17c.png",
+    "createdDate": "2020-04-14T14:05:12.600Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "62f632ec8ac3cab6387b619f",
+    "developerTag": "laing",
+    "developerName": "Laing O’Rourke",
+    "description": "Laing O’Rourke",
+    "logo": "logos/developer/62f632ec8ac3cab6387b619f.jpeg",
+    "createdDate": "2022-08-12T11:01:00.553Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "6728a1705c7167474c49b7c7",
+    "developerTag": "mar",
+    "developerName": "MAR Marine and Building Contracting LLC",
+    "description": "MAR Group is known for the quality of its products and services and for its attention to safety and we are determined to maintain our high standards through continuous improvement of processes and procedures.",
+    "logo": "logos/developer/6728a1705c7167474c49b7c7.jpeg",
+    "createdDate": "2024-11-04T10:26:56.607Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "62b2a6ae7012b067f99a9369",
+    "developerTag": "miral",
+    "developerName": "Miral",
+    "description": "Miral",
+    "logo": "logos/developer/62b2a6ae7012b067f99a9369.jpeg",
+    "createdDate": "2022-06-22T05:20:46.757Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "670ff7c551239c9faf40c487",
+    "developerTag": "moc",
+    "developerName": "Ministry of Culture",
+    "description": "Ministry of Culture",
+    "logo": "logos/developer/670ff7c551239c9faf40c487.jpeg",
+    "createdDate": "2024-10-16T17:28:37.803Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    },
+    "isActive": "undefined",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "internalDescription": "",
+    "contacts": []
+  },
+  {
+    "_id": "6705673351239c9faf408a67",
+    "developerTag": "modern",
+    "developerName": "Modern Building Contracting Company LLC",
+    "description": "Modern Building Contracting Co. is one of the leading construction companies in UAE, executing projects in Dubai, Sharjah, Ajman, RAK & Lebanon.",
+    "logo": "logos/developer/6705673351239c9faf408a67.jpeg",
+    "createdDate": "2024-10-08T17:09:07.141Z",
+    "isActive": "undefined",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "67651d12ac9cbde4fa489383",
+    "developerTag": "morganti",
+    "developerName": "Morganti GCC",
+    "description": "With over 100 years of experience worldwide, Morganti is recognized as an innovative Management Company with state of the art technologies and systems to deliver the greatest results to its Clients.",
+    "logo": "logos/developer/67651d12ac9cbde4fa489383.jpeg",
+    "createdDate": "2024-12-20T07:30:26.248Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "6727f958cfeb908d835dc43d",
+    "developerTag": "naresco",
+    "developerName": "Naresco Contracting",
+    "description": "M/s. Naresco Contracting L.L.C has the vast experience of constructing and commissioning multi- storeyed Commercial and Residential buildings, Hi-rise buildings, Villas, Luxury housing complexes, Hotel apartments, Shopping Malls, Mosques, etc. Besides civil construction division, M/s. Naresco Contracting also has other in-house divisions.",
+    "logo": "logos/developer/6727f958cfeb908d835dc43d.jpeg",
+    "createdDate": "2024-11-03T22:29:44.144Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "63fc8223bf7240c8d63ea74c",
+    "developerTag": "npc",
+    "developerName": "NPC",
+    "description": "Construction of Essential Infrastructure Works for Package II (A)",
+    "logo": "logos/developer/63fc8223bf7240c8d63ea74c.jpeg",
+    "createdDate": "2023-02-27T10:12:51.741Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "668788881a7d2bdb2ece1e88",
+    "developerTag": "pggc",
+    "developerName": "Palace Group General Contracting",
+    "description": "Palace Group LLC. boasts a complete range of construction creating customized luxury homes and properties that inspire ambition and excellence.",
+    "logo": "logos/developer/668788881a7d2bdb2ece1e88.png",
+    "createdDate": "2024-07-05T05:45:44.053Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "673b122aac9cbde4fa47e5b5",
+    "developerTag": "qidd",
+    "developerName": "Qiddya City",
+    "description": "An exciting new destination city right on Riyadh’s doorstep. Within the heart of the formidable Tuwaiq mountains only 40 mins away from downtown Riyadh, Qiddiya City is conveniently connected to the capital by major highways and will be part of Riyadh's public transport network.",
+    "logo": "logos/developer/673b122aac9cbde4fa47e5b5.jpeg",
+    "createdDate": "2024-11-18T10:08:42.577Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "660bae0adde6cd14df625a7c",
+    "developerTag": "rentech",
+    "developerName": "Rentech Systems L.L.C.",
+    "description": "RENTECH SYSTEMS is an enterprise that designs and installs renewable technology systems; these systems are used to provide cost-saving solutions to our clients.",
+    "logo": "logos/developer/660bae0adde6cd14df625a7c.png",
+    "createdDate": "2024-04-02T07:04:42.600Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "65fec1c33431472c679da888",
+    "developerTag": "riyadh",
+    "developerName": "Riyadh Development Company CO.",
+    "description": "Riyadh Development Company is a full service general contractor with over 20 years of experience specialized in Commercial, Residential, Royal, and Institutional construction. ",
+    "logo": "logos/developer/65fec1c33431472c679da888.png",
+    "createdDate": "2024-03-23T11:49:23.728Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "66473ca588c3788c1811488e",
+    "developerTag": "roya",
+    "developerName": "Roya Life Style Development",
+    "description": "An ultra-luxury real estate developer with headquarters in Dubai, UAE, founded by industry leaders with over 30 years of expertise in real estate",
+    "logo": "logos/developer/66473ca588c3788c1811488e.png",
+    "createdDate": "2024-05-17T11:16:53.039Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "67289de841fb02fe3887c953",
+    "developerTag": "saleh",
+    "developerName": "Saleh Construction LLC",
+    "description": "Saleh Constructions LLC was established in 1975 by Mr. Saleh Mohammed Bin Lahej, a highly reputed UAE businessman and the founder of the Saleh Bin Lahej Group – a conglomerate diversified into a number of business segments within the United Arab Emirates and the region.",
+    "logo": "logos/developer/67289de841fb02fe3887c953.png",
+    "createdDate": "2024-11-04T10:11:52.357Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "669756e581d70631ad196eb4",
+    "developerTag": "siicon",
+    "developerName": "Saudi Icon",
+    "description": "In 2014, our company set out on an ambitious mission to offer a holistic approach to construction and turn-key solutions.",
+    "logo": "logos/developer/669756e581d70631ad196eb4.jpeg",
+    "createdDate": "2024-07-17T05:30:13.462Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "655b646e8aa9eeeabab713c6",
+    "developerTag": "sinky",
+    "developerName": "Sinky ",
+    "description": "Sinky Project",
+    "logo": "logos/developer/655b646e8aa9eeeabab713c6.jpeg",
+    "createdDate": "2023-11-20T13:51:42.398Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "64f830448495be9a81dd0e08",
+    "developerTag": "taqa",
+    "developerName": "TAQA",
+    "description": "The Industrialization & Energy Services Company (TAQA)",
+    "logo": "logos/developer/64f830448495be9a81dd0e08.jpeg",
+    "createdDate": "2023-09-06T07:54:44.137Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "63a04e557b857a64bb09bdc0",
+    "developerTag": "tornado",
+    "developerName": "Tornado Group",
+    "description": "Tornado Group",
+    "logo": "logos/developer/63a04e557b857a64bb09bdc0.jpeg",
+    "createdDate": "2022-12-19T11:43:17.569Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "6597df248dd51320194b64f0",
+    "developerTag": "trans",
+    "developerName": "TRANS EMIRATES GEN.CONT.LLC",
+    "description": "TRANS EMIRATES GEN.CONT.LLC",
+    "logo": "logos/developer/6597df248dd51320194b64f0.jpeg",
+    "createdDate": "2024-01-05T10:51:16.189Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "61b07efda523f71f039b5ddf",
+    "developerTag": "trojan",
+    "developerName": "Trojan General Contracting",
+    "description": "Trojan",
+    "logo": "logos/developer/61b07efda523f71f039b5ddf.png",
+    "createdDate": "2021-12-08T09:46:37.941Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "6502b2e493d48b29d6348bf6",
+    "developerTag": "unec",
+    "developerName": "UNEC",
+    "description": "[UNEC] is a multi-award-winning construction company with more than 40 years of expertise in the region.",
+    "logo": "logos/developer/6502b2e493d48b29d6348bf6.png",
+    "createdDate": "2023-09-14T07:14:44.198Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "6195f29777fcd3f5a930f255",
+    "developerTag": "xtream",
+    "developerName": "Xtreme Vision",
+    "description": "Xtreme Vision is a Dubai based property development company whose aim is to create remarkable places to live. ",
+    "logo": "logos/developer/6195f29777fcd3f5a930f255.png",
+    "createdDate": "2021-11-18T06:28:39.549Z",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "3e7b411f42082d860818cbad",
+    "developerName": "Live Stream Lines",
+    "developerTag": "lsl",
+    "description": "LSL",
+    "isActive": true,
+    "createdDate": "2025-01-03T06:20:41.448Z",
+    "logo": "logos/developer/3e7b411f42082d860818cbad.png",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "7392918959da980be76c55fc",
+    "developerName": "AMANA CONTRACTING & STEEL BUILDING COMPANY - KSA",
+    "developerTag": "amanaksa",
+    "description": "Regional leaders in the design-build construction of industrial and commercial facilities, offering aviation fueling services, next-generation offsite volumetric modular construction and sustainable energy solutions.",
+    "isActive": "true",
+    "createdDate": "2025-01-09T11:28:01.367Z",
+    "logo": "logos/developer/7392918959da980be76c55fc.png",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "ae15b18123b10534038ab436",
+    "developerName": "Technical Dimension CO.",
+    "developerTag": "tdco",
+    "description": "Technical Dimension Co. (TDC)",
+    "isActive": "true",
+    "createdDate": "2025-01-09T12:55:17.577Z",
+    "logo": "logos/developer/ae15b18123b10534038ab436.jpg",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "2ed296926c19a98b31ceabd0",
+    "developerName": "East Cost",
+    "developerTag": "east",
+    "description": "East Coast Contracting and Trading L.L.C has rapidly expanded and grown from strength to strength, delivering exceptional performance throughout these years. Solid history of delivering projects on time with the commitment to maintain high standards to its clients has earned East Coast the reputation it holds today.",
+    "isActive": true,
+    "createdDate": "2025-01-14T08:03:43.514Z",
+    "logo": "logos/developer/2ed296926c19a98b31ceabd0.png",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "46acd2f3e22af1628efdea27",
+    "developerName": "Emirates Council for Balanced Development",
+    "developerTag": "ECRD",
+    "description": "Emirates Council for Balanced Development",
+    "isActive": "true",
+    "createdDate": "2025-01-15T09:31:17.937Z",
+    "logo": "logos/developer/46acd2f3e22af1628efdea27.png",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": ""
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    }
+  },
+  {
+    "_id": "7614ce82f4ac54b9035a85fe",
+    "developerName": "Destination Development Company",
+    "developerTag": "alula",
+    "description": "Destination Development Company",
+    "isActive": "true",
+    "createdDate": "2025-01-20T03:40:03.191Z",
+    "logo": "logos/developer/7614ce82f4ac54b9035a85fe.png",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "6480ac5140af3da3a4a7bd94",
+    "developerName": "King Abdullah Financial District (KAFD)",
+    "developerTag": "kafd",
+    "description": "An iconic destination known for its world-class commercial offices and retail spaces, with contemporary residences, a unique entertainment offering and advanced smart city solutions, the KAFD experience welcomes you to join its vibrant community redefines urban living. ",
+    "isActive": true,
+    "createdDate": "2025-01-27T07:21:17.915Z",
+    "logo": "logos/developer/6480ac5140af3da3a4a7bd94.jpeg",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "9f4f4d8a2678f63a7ca0d638",
+    "developerName": "SYS SENSE COMPUTERS - L.L.C - O.P.C",
+    "developerTag": "sys",
+    "description": "Syssense is one of the fastest growing IT, Security & ELV solution providers in the Gulf Region.\r\n\r\nHeadquartered in Abu Dhabi, Syssense provides a comprehensive range of Low Current, IT & Security solutions and services to small, midsized and large scale businesses, all over the UAE, Oman and Qatar.",
+    "isActive": "true",
+    "createdDate": "2025-02-06T10:50:25.714Z",
+    "logo": "logos/developer/9f4f4d8a2678f63a7ca0d638.jpg",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "86daf1160c8453d80ca05348",
+    "developerName": "Henkel Polybit Ind. Ltd.",
+    "developerTag": "polybit",
+    "description": "Henkel Polybit Ind. Ltd. ",
+    "isActive": true,
+    "createdDate": "2025-02-24T09:49:45.171Z",
+    "logo": "logos/developer/86daf1160c8453d80ca05348.jpeg",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "d03c80686a1929b66327e384",
+    "developerName": "Acwa Power",
+    "developerTag": "acwa",
+    "description": "ACWA Power is a developer, investor, co-owner and operator of a portfolio of power generation, renewable energy and desalinated water production plants.",
+    "isActive": true,
+    "createdDate": "2025-02-28T09:16:43.024Z",
+    "logo": "logos/developer/d03c80686a1929b66327e384.jpeg",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "491b275ade534532cfca5e1f",
+    "developerName": "Al Ajlan Reviera",
+    "developerTag": "ajlan",
+    "description": "Al Ajlan",
+    "isActive": "true",
+    "createdDate": "2025-02-28T09:52:59.879Z",
+    "logo": "logos/developer/491b275ade534532cfca5e1f.jpeg",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "1295141451f19f15f4a34322",
+    "developerName": "Kaden",
+    "developerTag": "kaden",
+    "description": "Kaden is a real estate development company that creates innovative commercial, industrial, and mixed-use environments.\r\nThrough our comprehensive vision and expertise in the development process and evolving economic trends, we have achieved rapid success in real estate development and asset management since 2015.\r\nEvery project developed by Kaden contributes to the Vision 2030 goal of growing the economy by expanding business opportunities and attracting foreign investment to the Kingdom.",
+    "isActive": "true",
+    "createdDate": "2025-02-28T10:15:11.663Z",
+    "logo": "logos/developer/1295141451f19f15f4a34322.png",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    }
+  },
+  {
+    "_id": "a53ae089cac2baa41bf8acc2",
+    "developerName": "Building CO. (BEST) L.L.C",
+    "developerTag": "best",
+    "description": "Since 1975, BUILDING CO. (BEST) L.L.C metaphors to lead the phenomenal construction industry revolution, with its goal of excellence, the Company earned reputation of delivering an exceptional construction services in the UAE.",
+    "isActive": true,
+    "createdDate": "2025-03-03T08:43:52.999Z",
+    "logo": "logos/developer/a53ae089cac2baa41bf8acc2.jpg",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "b17941a3ff81378e69cba9aa",
+    "developerName": "Dhafra International Projects Group",
+    "developerTag": "dhafra",
+    "description": "Dhafra Int`l Projects Group has been operating since 1973. The company has a fruitful history in various sectors of the construction business which includes high rise buildings, roads and bridges, electro-mechanical works, educational facilities, hotels, factories, Military camps among others.",
+    "isActive": true,
+    "createdDate": "2025-03-10T10:56:14.154Z",
+    "logo": "logos/developer/b17941a3ff81378e69cba9aa.avif",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "fb47bef939dfcfa25a4d9943",
+    "developerName": "Bearys Global",
+    "developerTag": "bearys",
+    "description": "Bearys has forayed into the international market with its first project, Bearys Wafira, a luxury high-rise residential project in Dubai, UAE.",
+    "isActive": true,
+    "createdDate": "2025-04-28T06:33:12.361Z",
+    "logo": "logos/developer/fb47bef939dfcfa25a4d9943.jpg",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    }
+  },
+  {
+    "_id": "27aaef60e419808059f016c5",
+    "developerName": "Care Medical",
+    "developerTag": "care",
+    "description": "Care Medical",
+    "isActive": "true",
+    "createdDate": "2025-05-28T12:06:39.624Z",
+    "logo": "logos/developer/27aaef60e419808059f016c5.png",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "0f35c77efdf89a876cf1d329",
+    "developerName": "Awj Holding",
+    "developerTag": "awj",
+    "description": "Awj Holding",
+    "isActive": "true",
+    "createdDate": "2025-06-03T13:20:53.337Z",
+    "logo": "logos/developer/0f35c77efdf89a876cf1d329.jpg",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    }
+  },
+  {
+    "_id": "dfadf5973ff2454744b39e5c",
+    "developerName": "Ammar Development",
+    "developerTag": "ammar",
+    "description": "some info about him which will appear in the interface",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "5757575575",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "Dubai",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-06-23T11:34:03.956Z",
+    "logo": "logos/developer/dfadf5973ff2454744b39e5c.jpg"
+  },
+  {
+    "_id": "57346fff108736e88daafd40",
+    "developerName": "Alia Al Khaldiyah",
+    "developerTag": "alia",
+    "description": "Alia Al Khaldiyah",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-07-03T10:56:49.940Z",
+    "logo": "logos/developer/57346fff108736e88daafd40.png"
+  },
+  {
+    "_id": "dbcbc512b83432f20ef8173a",
+    "developerName": "Al Awaly Realestate",
+    "developerTag": "alawaly",
+    "description": "Al-Awali Real Estate Development Company began in 2011, driven by a passion and commitment to improving people's lives. The company expanded its vision and projects to include many cities across the Kingdom. Al-Awali aspires to excel in the real estate sector through the development, planning, and building of a prosperous future for coming generations.",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-07-10T09:21:55.746Z",
+    "logo": "logos/developer/dbcbc512b83432f20ef8173a.svg"
+  },
+  {
+    "_id": "8210b56d783fd23f4d620302",
+    "developerName": "Lacasa Living",
+    "developerTag": "lacasa",
+    "description": "Lacasa Living is a boutique developer, bringing the architectural and engineering expertise of over 400 professionals to life through a deeply personal and intentional approach.",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-08-11T10:15:15.983Z",
+    "logo": "logos/developer/8210b56d783fd23f4d620302.jpg"
+  },
+  {
+    "_id": "2f022e43c641acb7751a6f98",
+    "developerName": "Al Manea",
+    "developerTag": "manea",
+    "description": "Al Manea",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-08-25T06:02:06.693Z",
+    "logo": "logos/developer/2f022e43c641acb7751a6f98.jpg"
+  },
+  {
+    "_id": "4a147bd487d0d8d6174fc8bd",
+    "developerName": "Al Seeb Real Estate Development",
+    "developerTag": "seeb",
+    "description": "With the long Al Seeb development history, diverse portfolio and client-oriented design with a thought of making luxury being affordable, everyone can find their perfect new living or space for your next great business opportunity growth",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-09-18T13:29:49.911Z",
+    "logo": "logos/developer/4a147bd487d0d8d6174fc8bd.png"
+  },
+  {
+    "_id": "72c64da0a64b8fb9443c9ff6",
+    "developerName": "China Harbour Engineering Co. Ltd",
+    "developerTag": "china",
+    "description": "CHEC is focused on basic infrastructure construction, such as Marine Engineering, Dredging and Reclamation, Road and Bridge, Railways, Airports, Complete Plant, and other works. CHEC prides itself on providing a full service to its clients and uses its international engineering experience, global business network, talented management team and robust financial backing to offer clients a wide range of service options such as D&B, EPC, PMC, BT and BOT.",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-09-22T01:33:05.716Z",
+    "logo": "logos/developer/72c64da0a64b8fb9443c9ff6.jpeg"
+  },
+  {
+    "_id": "49fa665a6c25d08976102689",
+    "developerName": "Dubai Holding Realestate",
+    "developerTag": "dubai",
+    "description": "Dubai Holding Real Estate is recognised as the region's most transformative master developer, bringing together the exceptional heritage and expertise of Nakheel, Meraas and Dubai Properties under one visionary platform. Through bold engineering marvels and innovative communities, we have fundamentally redefined Dubai's coastline and urban landscape, creating destinations that capture the world's imagination while preparing for future generations.",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-09-24T10:58:31.586Z",
+    "logo": "logos/developer/49fa665a6c25d08976102689.png"
+  },
+  {
+    "_id": "0bc865e3c4e43fc091d89e96",
+    "developerName": "Ras Al Khaimah (RAK)",
+    "developerTag": "emrak",
+    "description": "Address Al Marjan Island is a prestigious resort-style development by Address Hotels + Resorts, situated in Ras Al Khaimah. Offering direct access to the pristine beachfront and stunning views of the Arabian Sea, this luxurious destination is also conveniently close to the island’s vibrant urban centre.",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-09-28T21:09:01.942Z",
+    "logo": "logos/developer/0bc865e3c4e43fc091d89e96.jpg"
+  },
+  {
+    "_id": "6dfedbff9a87f0514fd1f954",
+    "developerName": "CPECC",
+    "developerTag": "cpecc",
+    "description": "CPECC",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-09-29T07:45:36.946Z",
+    "logo": "logos/developer/6dfedbff9a87f0514fd1f954.jpg"
+  },
+  {
+    "_id": "f1c5f00e74efb755849be709",
+    "developerName": "Alec",
+    "developerTag": "alec",
+    "description": "ALEC Engineering & Contracting LLC (ALEC), part of the Investment Corporation of Dubai (ICD), is a large construction company with related businesses operating in the UAE and as of 2020, Saudi Arabia.",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-10-01T07:58:38.290Z",
+    "logo": "logos/developer/f1c5f00e74efb755849be709.jpg"
+  },
+  {
+    "_id": "64446feaaab56f228828be8d",
+    "developerName": "Hasenkamp",
+    "developerTag": "hasen",
+    "description": "Hasenkamp",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-10-09T19:32:28.473Z",
+    "logo": "logos/developer/64446feaaab56f228828be8d.jpeg"
+  },
+  {
+    "_id": "1b469a9e0a6bfdd422e9595d",
+    "developerName": "Shapoorji Pallonji",
+    "developerTag": "shapoorji",
+    "description": "Shapoorji Pallonji and Company Pvt. Ltd. is a global, diversified organisation of 15 major companies. We deliver end-to-end solutions in 6 business segments, including engineering & construction, infrastructure, real estate, water, energy and financial services. Our dedicated workforce of over 33,000+ people in over 40 countries is focused on sustainable development while developing megastructures and iconic landmarks.",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-10-15T07:13:11.789Z",
+    "logo": "logos/developer/1b469a9e0a6bfdd422e9595d.png"
+  },
+  {
+    "_id": "e7c88ab1f3c4fb9282bf0433",
+    "developerName": "Engineering Unit General Contracting LLC",
+    "developerTag": "engineer",
+    "description": "ENGINEERING UNIT GENERAL CONTRACTINGT LLC was founded in the year 1981 in Abu Dhabi and quickly established itself as major firm in the general contracting industry. With state-of-the-art facilities, plants and equipment, we provide end-to-end services for all construction projects, including electromechanical.",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-10-15T07:20:57.895Z",
+    "logo": "logos/developer/e7c88ab1f3c4fb9282bf0433.png"
+  },
+  {
+    "_id": "693702d6ae433ed07cd26bce",
+    "developerName": "Al Basti & Muktha LLC (ABM) ",
+    "developerTag": "basti",
+    "description": "Founded in 1974, Al Basti & Muktha LLC (ABM) is widely regarded amongst the leading building and civil construction companies in the UAE. ABM have contributed to the rapidly changing face of Dubai, driven to success by the enthusiasm and efforts of its staff and project partners.",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-10-15T08:20:38.829Z",
+    "logo": "logos/developer/693702d6ae433ed07cd26bce.jpeg"
+  },
+  {
+    "_id": "a39913c671b1a6e13902c555",
+    "developerName": "Vakson Group",
+    "developerTag": "vakson",
+    "description": "Vakson Group LLC",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": ""
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-10-17T08:00:20.761Z",
+    "logo": "logos/developer/a39913c671b1a6e13902c555.jpeg"
+  },
+  {
+    "_id": "017da1c897c1e330a346a0cf",
+    "developerName": "Hafeet Rail",
+    "developerTag": "nicc",
+    "description": "A joint 238-kilometer railway project between the UAE and Oman that will link the Sohar Port to the UAE National Rail Network. This project symbolizes the historical relations between the two countries and encapsulates the hopes and aspirations for the Gulf’s industrial and economic future. It serves as a tangible manifestation of both countries’ commitment to modernization, connectivity, and sustainability.",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-10-30T14:59:13.895Z",
+    "logo": "logos/developer/017da1c897c1e330a346a0cf.png"
+  },
+  {
+    "_id": "2b9fc51fefd835a764a2ff22",
+    "developerName": "BLOCKED",
+    "developerTag": "blocked",
+    "description": "Blocked",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": ""
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-11-06T07:42:49.083Z",
+    "logo": "logos/developer/2b9fc51fefd835a764a2ff22.png"
+  },
+  {
+    "_id": "f8e5eb9b32ea3a53610faefe",
+    "developerName": "Union Properties",
+    "developerTag": "union",
+    "description": "Union Properties",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "createdDate": "2025-11-08T12:43:54.624Z",
+    "logo": "logos/developer/f8e5eb9b32ea3a53610faefe.jpg"
+  },
+  {
+    "_id": "f4e1a1b8abef32718b2e682a",
+    "developerName": "Arabeeb Co",
+    "developerTag": "arb",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "isActive": "true",
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "internalDescription": "",
+    "internalAttachments": [],
+    "contacts": [],
+    "createdDate": "2025-12-01T10:16:27.223Z",
+    "logo": "logos/developer/f4e1a1b8abef32718b2e682a.webp"
+  },
+  {
+    "_id": "14371ca68c5993c704f59e0d",
+    "developerName": "AFRINA Construction and Urban Development Company",
+    "developerTag": "acud",
+    "description": "ACUD is a company formed in 2005 by a group of reputable professionals from the construction industry in the GCC. Its inception and existence were a direct to response the market demands in the Middle East region.",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "Saudi Arabia"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "internalDescription": "",
+    "internalAttachments": [],
+    "contacts": [],
+    "createdDate": "2025-12-03T09:21:04.748Z",
+    "logo": "logos/developer/14371ca68c5993c704f59e0d.png"
+  },
+  {
+    "_id": "9e3bdcb20242bbe2f8fb7614",
+    "developerName": "test",
+    "developerTag": "test",
+    "description": "ssdfsd",
+    "internalDescription": "",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "internalAttachments": [],
+    "contacts": [],
+    "createdDate": "2025-12-05T09:09:03.650Z",
+    "logo": "logos/developer/9e3bdcb20242bbe2f8fb7614.png"
+  },
+  {
+    "_id": "5e57f80fab961573949a5c95",
+    "developerName": "test22",
+    "developerTag": "test22",
+    "description": "sfsdf",
+    "internalDescription": "",
+    "isActive": true,
+    "email": "",
+    "phone": "",
+    "website": "",
+    "vatNumber": "",
+    "taxId": "",
+    "businessLicense": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "state": "",
+      "zipCode": "",
+      "country": "UAE"
+    },
+    "contactPerson": {
+      "name": "",
+      "position": "",
+      "email": "",
+      "phone": ""
+    },
+    "bankDetails": {
+      "bankName": "",
+      "accountNumber": "",
+      "iban": "",
+      "swiftCode": ""
+    },
+    "internalAttachments": [],
+    "contacts": [],
+    "createdDate": "2025-12-05T09:24:51.796Z",
+    "logo": "logos/developer/5e57f80fab961573949a5c95.png"
+  }
+]

@@ -1,0 +1,168 @@
+<div class="user-form-container">
+  <h2 *ngIf="isEditing">Edit User</h2>
+  <h2 *ngIf="!isEditing">Add User</h2>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" *ngIf="!submitted">
+    <!-- User Info Section -->
+    <fieldset>
+      <legend>User Info</legend>
+      <div class="row">
+        <div class="col-4">
+          <label>Name:</label>
+          <input type="text" formControlName="name" />
+        </div>
+        <div class="col-4">
+          <label>Email:</label>
+          <input type="email" formControlName="email" [disabled]="isEditing && !isSuperAdmin" />
+        </div>
+        <div class="col-4">
+          <label>Phone:</label>
+          <input type="text" formControlName="phone"/>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Permissions Section -->
+    <fieldset>
+      <legend>Permissions</legend>
+      <div class="row">
+        <div class="col-4">
+          <label>Role:</label>
+          <select formControlName="role">
+            <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+          </select>
+        </div>
+      </div>
+
+
+    <div class="dropdowns" *ngIf="!hidepermissions">
+      <div class="row">
+      <mat-form-field appearance="outline" style="--mat-primary-color: #8B0000;">
+        <mat-label>Accessible Developers</mat-label>
+        <mat-select
+          formControlName="accessibleDevelopers"
+          multiple
+          (selectionChange)="onSelectionChange('accessibleDevelopers', $event)"
+        >
+          <mat-option *ngIf="isSuperAdmin" [value]="'all'">All</mat-option>
+          <mat-option *ngFor="let dev of developers" [value]="dev._id" [disabled]="isAllDevSelected">
+            {{ dev.developerName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+
+      <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Accessible Projects</mat-label>
+        <mat-select
+          formControlName="accessibleProjects"
+          multiple
+          (selectionChange)="onSelectionChange('accessibleProjects', $event)"
+        >
+          <mat-option *ngIf="isSuperAdmin || accessibleProject[0] === 'all'" [value]="'all'">All</mat-option>
+          <mat-option *ngFor="let proj of projects" [value]="proj._id" [disabled]="isAllProjSelected">
+            {{ proj.projectName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+      
+      <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Accessible Services</mat-label>
+          <mat-select 
+              formControlName="accessibleServices" 
+              multiple
+              (selectionChange)="onSelectionChange('accessibleServices', $event)"
+          >
+            <mat-option [value]="'all'">All</mat-option>
+            <mat-option *ngFor="let service of services" [value]="service" [disabled]="isAllServiceSelected">
+              {{ service }}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+      </div>
+      
+      <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Accessible Cameras</mat-label>
+          <mat-select
+            formControlName="accessibleCameras"
+            multiple
+            (selectionChange)="onSelectionChange('accessibleCameras', $event)"
+          >
+            <mat-option *ngIf="isSuperAdmin || accessibleCamera[0] === 'all'" [value]="'all'">All</mat-option>
+            <mat-option *ngFor="let cam of cameras" [value]="cam._id" [disabled]="isAllCameraSelected">
+              {{ cam.cameraDescription }}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+      </div>
+    </div>
+      
+      <div class="row" *ngIf="!hidepermissions">
+        <div class="col-6">
+          <input style="width: 5%" type="checkbox" formControlName="canAddUser" />
+          <label> Can Add Users </label>
+        </div>
+        <div class="col-6">
+            <input style="width: 5%" type="checkbox" formControlName="canGenerateVideoAndPics" /> 
+            <label> Can Generate Video and Pics </label>
+        </div>
+      </div>
+    </fieldset>
+
+        
+    <!-- Memory Role (shown only for admin) -->
+    <mat-form-field appearance="outline" *ngIf="showAdminRoles()">
+      <mat-label>Memory Role</mat-label>
+      <mat-select formControlName="memoryRole">
+        <mat-option *ngFor="let role of memoryRoles" [value]="role.value">
+          {{ role.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Inventory Role (shown only for admin) -->
+    <mat-form-field appearance="outline" *ngIf="showAdminRoles()">
+      <mat-label>Inventory Role</mat-label>
+      <mat-select formControlName="inventoryRole">
+        <mat-option *ngFor="let role of inventoryRoles" [value]="role.value">
+          {{ role.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <div class="submit-button" style="width: 100%; display: flex;">
+    <button type="submit">Submit</button>
+    </div>
+  </form>
+
+    <!-- Success Message Section -->
+    <div *ngIf="submitted" class="success-message">
+      <h3 style="font-size: 14px;">User {{ isEditing ? 'updated' : 'added' }} successfully!</h3>
+  
+      <!-- Reset Password Section -->
+      <fieldset>
+        <legend>Adjust Password</legend>
+        <div class="row">
+          <div class="col-6">
+            <label>Send the password link to Email:</label>
+            <input type="text" [(ngModel)]="resetEmail" />
+          </div>
+          <div class="col-4">
+            <button style="width: 165px;" (click)="sendResetPasswordLink()">Send Password Link</button>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Use Current Password Button -->
+      <div *ngIf="isEditing" class="current-password">
+        <button style="width: 200px;" (click)="useCurrentPassword()">Use Current Password</button>
+      </div>
+
+    </div>
+  
+</div>

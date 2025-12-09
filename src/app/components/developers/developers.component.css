@@ -1,0 +1,57 @@
+.developer-container {
+    padding: 16px;
+}
+  
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+  
+.search-field {
+    width: 300px;
+}
+  
+.developer-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+  
+.mat-elevation-z8 {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+  
+.add-new-button {
+    font-weight: bold;
+    background-color: #6e0505;
+    color: white;   
+    padding: 8px 16px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+  }
+  
+  .add-new-button:hover {
+    background-color: #ab0c0c;
+  }
+
+  /* Styles for circular "Open" button */
+.open-circle-button {
+    background-color: #840606; /* Red background */
+    color: white; /* Icon color */
+    border-radius: 50%; /* Makes the button circular */
+    width: 40px; /* Button size */
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional shadow */
+    transition: background-color 0.3s;
+  }
+  
+  .open-circle-button:hover {
+    background-color: #d50000; /* Darker red on hover */
+  }

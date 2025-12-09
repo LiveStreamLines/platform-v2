@@ -1,0 +1,244 @@
+/* memories.component.css - Dark Theme */
+.memories-container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    color: #e0e0e0;
+  }
+  
+  /* Dark Table Styling */
+  .mat-elevation-z8 {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    background-color: #424242;
+  }
+  
+  .mat-mdc-table {
+    background-color: #424242;
+  }
+  
+  .mat-mdc-header-row {
+    background-color: #303030 !important;
+  }
+  
+  .mat-mdc-header-cell {
+    color: #ffffff !important;
+    font-weight: 500;
+  }
+  
+  .mat-mdc-cell {
+    color: #e0e0e0 !important;
+    padding: 12px 16px;
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  /* Dark Filter Section */
+  .filter-section {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+  
+  .filter-section mat-form-field {
+    min-width: 160px;
+    flex: 1;
+  }
+  
+  .filter-section ::ng-deep .mdc-text-field {
+    background-color: #303030 !important;
+    color: white !important;
+  }
+  
+  .filter-section ::ng-deep .mat-mdc-select-value {
+    color: white !important;
+  }
+  
+  .filter-section ::ng-deep .mat-mdc-select-arrow {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  /* In memories.component.css */
+.warning-filter {
+  margin-left: 16px;
+  margin-top: 16px;
+  display: block;
+}
+
+.low-memory {
+  background-color: #fff8e1;
+  border-left: 4px solid #ffa000;
+}
+
+.low-memory:hover {
+  background-color: #ffecb3;
+  transition: background-color 0.3s ease;
+}
+
+.low-memory-text {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.warning-icon {
+  font-size: 18px;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.warning-text {
+  color: #d32f2f;
+  font-size: 0.8em;
+  margin-left: 4px;
+}
+  
+  
+  /* Dark Buttons */
+  .add-button {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #1976d2 !important;
+    color: white !important;
+  }
+  
+  /* Hover Effects - Different Shades */
+  .mat-mdc-row:hover {
+    background-color: #535353 !important;
+    cursor: pointer;
+  }
+  
+  .mat-mdc-row:nth-child(even):hover {
+    background-color: #4a4a4a !important;
+  }
+  
+  /* Alternate Row Colors */
+  .mat-mdc-row:nth-child(even) {
+    background-color: #3a3a3a;
+  }
+  
+  /* Status Chips - Dark Theme */
+  mat-chip {
+    font-size: 12px;
+    font-weight: 500;
+    min-height: 24px;
+  }
+  
+  mat-chip.mat-primary {
+    background-color: #0d47a1 !important;
+    color: white !important;
+  }
+  
+  mat-chip.mat-warn {
+    background-color: #c62828 !important;
+    color: white !important;
+  }
+
+  mat-chip.mat-success {
+    background-color: #28c640c8 !important;
+    color: white !important;
+  }
+  
+  /* Empty State */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .empty-state mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    color: #535353;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  /* Button hover effects */
+  .mat-mdc-icon-button:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+  }
+  
+  /* Different colors for different actions */
+  .mat-mdc-icon-button[color="warn"] {
+    color: #ff5252 !important;
+  }
+  
+  .mat-mdc-icon-button[color="primary"] {
+    color: #4caf50 !important;
+  }
+  
+  .mat-mdc-icon-button[color="accent"] {
+    color: #2196f3 !important;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 960px) {
+    .filter-section {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .add-button {
+      margin-left: 0;
+      justify-content: center;
+    }
+    
+    .mat-elevation-z8 {
+      overflow-x: scroll;
+    }
+    
+  }
+  
+  /* Column Widths */
+  .mat-column-developer,
+  .mat-column-project,
+  .mat-column-camera {
+    min-width: 10%;
+  }
+  
+  .mat-column-user {
+    min-width: 10%;
+  }
+  
+  .mat-column-dateRange {
+    min-width: 10%;
+  }
+  
+  .mat-column-pictures {
+    text-align: center;
+    min-width: 10%;
+  }
+  
+  .mat-column-status {
+    min-width: 10%;
+  }
+  
+  .mat-column-actions {
+    min-width: 10%;
+    text-align: center;
+  }
+  
+  /* Action Buttons */
+  .mat-mdc-icon-button {
+    color: #bbbbbb !important;
+    transition: color 0.2s;
+  }
+  
+  .mat-mdc-icon-button:hover {
+    color: #ffffff !important;
+  }

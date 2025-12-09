@@ -1,0 +1,86 @@
+<!-- Sidenav menu with icons in front of each menu item -->
+<mat-nav-list>
+  <h3>Platform</h3>
+  <a mat-list-item routerLink="/home" routerLinkActive="active">
+    <mat-icon>home</mat-icon>
+    <span>Home</span>
+  </a>
+  <a mat-list-item routerLink="/gallery">
+    <mat-icon>photo</mat-icon>
+    <span>Gallery</span>
+  </a>
+
+  <a mat-list-item routerLink="/monitor" routerLinkActive="active">
+    <mat-icon>videocam</mat-icon>
+    <span>Monitor</span>
+  </a>
+
+  <a mat-list-item *ngIf="isSuper$ | async" routerLink="/camera-monitor" routerLinkActive="active">
+    <mat-icon>videocam</mat-icon>
+    <span>Camera Monitor</span>
+  </a>
+  
+  <a mat-list-item routerLink="/about">
+    <mat-icon>business</mat-icon>
+    <span>Contacts</span>
+  </a>
+
+  <a mat-list-item (click)="openManual()">
+    <mat-icon>video_library</mat-icon>
+    <span>Manual</span>
+  </a>
+ 
+  <h3 *ngIf="(isSuper$ | async)">Admin</h3>
+  <a mat-list-item *ngIf="(isSuper$ | async)" routerLink="/developers" routerLinkActive="active">
+    <mat-icon>build</mat-icon>
+    <span>Developers</span>
+  </a>
+  <a mat-list-item *ngIf="(isSuper$ | async)" routerLink="/projects" routerLinkActive="active">
+    <mat-icon>folder</mat-icon>
+    <span>Projects</span>
+  </a>
+  <a mat-list-item *ngIf="(isSuper$ | async)" routerLink="/cameras">
+    <mat-icon>videocam</mat-icon>
+    <span>Cameras</span>
+  </a>
+  <a mat-list-item *ngIf="(isSuper$ | async)" routerLink="/sales-orders" routerLinkActive="active">
+    <mat-icon>receipt</mat-icon>
+    <span>Sales Orders</span>
+  </a>
+  <a mat-list-item *ngIf="(isSuper$ | async)" routerLink="/invoices" routerLinkActive="active">
+    <mat-icon>description</mat-icon>
+    <span>Invoices</span>
+  </a>
+  <a mat-list-item *ngIf="(isSuper$ | async) || ((isAdmin$ | async) && (hasInventoryRole$ | async) && inventoryRole !== null)" routerLink="/inventory">
+    <mat-icon>inventory</mat-icon>
+    <span>Inventory</span>
+  </a>
+
+  <a mat-list-item *ngIf="(isSuper$ | async) || ((isAdmin$ | async) && (hasMemoryRole$ | async) && memoryRole !== null)" routerLink="/memories">
+    <mat-icon>collections_bookmark</mat-icon>
+    <span>Memories</span>
+  </a>
+
+  <a mat-list-item *ngIf="(isSuper$ | async) || (isAdmin$ | async)" routerLink="/maintenance">
+    <mat-icon>build</mat-icon>
+    <span>Maintenance</span>
+  </a>
+
+  <!-- <a mat-list-item *ngIf="isSuper" routerLink="/">
+    <mat-icon>notifications</mat-icon>
+    <span>Notifications</span>
+  </a>
+
+  <a mat-list-item *ngIf="isSuper || isAdmin" routerLink="/media" routerLinkActive="active">
+    <mat-icon>collections</mat-icon>
+    <span>Media Admin</span>
+  </a>
+  <a mat-list-item *ngIf="isSuper || isAdmin" routerLink="/login-history">
+    <mat-icon>history</mat-icon>
+    <span>Login History</span>
+  </a> -->
+  <a mat-list-item *ngIf="(isSuper$ | async) || (isAddingUser$ | async)" routerLink="/users">
+    <mat-icon>lock</mat-icon>
+    <span>Users & Permissions</span>
+  </a>
+</mat-nav-list>

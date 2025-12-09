@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Assign Device</h2>
+<div mat-dialog-content>
+  <form [formGroup]="assignForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Developer</mat-label>
+      <mat-select formControlName="developer" (selectionChange)="loadProjects($event.value)" required>
+        <mat-option *ngFor="let dev of developers" [value]="dev._id">
+          {{dev.developerName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Project</mat-label>
+      <mat-select formControlName="project" (selectionChange)="loadCameras($event.value)" required>
+        <mat-option *ngFor="let project of projects" [value]="project._id">
+          {{project.projectName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Camera</mat-label>
+      <mat-select formControlName="camera">
+        <mat-option *ngFor="let camera of cameras" [value]="camera._id">
+          {{camera.camera}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Notes</mat-label>
+      <textarea matInput formControlName="notes"></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onAssign()" [disabled]="!assignForm.valid">Assign</button>
+</div>

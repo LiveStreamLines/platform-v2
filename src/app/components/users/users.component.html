@@ -1,0 +1,165 @@
+<div class="user-container">
+    
+    <h1 class="page-title">Users</h1>
+    
+    <div style="margin: 15px 0">
+      <input class='search' matInput [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search by name, email, or role">
+    </div>
+
+    <!-- Developer Filter -->
+    <mat-form-field appearance="outline">
+      <mat-label>Filter by Developer</mat-label>
+      <mat-select [(ngModel)]="selectedDeveloperId" (selectionChange)="onDeveloperChange()">
+        <mat-option *ngFor="let developer of developers" [value]="developer._id">
+          {{ developer.developerName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Project Filter -->
+    <mat-form-field appearance="outline" *ngIf="projects.length">
+      <mat-label>Filter by Project</mat-label>
+      <mat-select [(ngModel)]="selectedProjectId" (selectionChange)="onProjectChange()">
+        <mat-option *ngFor="let project of projects" [value]="project._id">
+          {{ project.projectName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Camera Filter -->
+    <mat-form-field appearance="outline" *ngIf="cameras.length">
+      <mat-label>Filter by Camera</mat-label>
+      <mat-select [(ngModel)]="selectedCameraId" (selectionChange)="filterUsersByAccess()">
+        <mat-option *ngFor="let camera of cameras" [value]="camera._id">
+          {{ camera.cameraDescription }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  
+    <button class="add-new-button" mat-raised-button style="color: white; background-color: brown;" (click)="openAddUser()">Add New User</button>
+  
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  
+    <!-- User Table -->
+    <div class="mat-elevation-z8" *ngIf="!isLoading && filteredUsers.length">
+      <table mat-table [dataSource]="displayedUsers">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="header-cell-container" (click)="sortData({active: 'name', direction: currentSortColumn === 'name' ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc'})">
+              Name
+              <mat-icon *ngIf="currentSortColumn === 'name'">
+                {{ currentSortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+              </mat-icon>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let user"> {{ user.name }} </td>
+        </ng-container>
+    
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="header-cell-container" (click)="sortData({active: 'email', direction: currentSortColumn === 'email' ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc'})">
+              Email
+              <mat-icon *ngIf="currentSortColumn === 'email'">
+                {{ currentSortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+              </mat-icon>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
+        </ng-container>
+    
+        <!-- Role Column -->
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="header-cell-container" (click)="sortData({active: 'role', direction: currentSortColumn === 'role' ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc'})">
+              Role
+              <mat-icon *ngIf="currentSortColumn === 'role'">
+                {{ currentSortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+              </mat-icon>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
+        </ng-container>
+  
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="header-cell-container" (click)="sortData({active: 'status', direction: currentSortColumn === 'status' ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc'})">
+              Status
+              <mat-icon *ngIf="currentSortColumn === 'status'">
+                {{ currentSortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+              </mat-icon>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let user">
+            <span [ngClass]="getStatusClass(user.status)">
+              {{ user.status }}
+            </span>
+          </td>
+        </ng-container>
+  
+        <!-- Last Login Column -->
+        <ng-container matColumnDef="lastLogin">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="header-cell-container" (click)="sortData({active: 'lastLogin', direction: currentSortColumn === 'lastLogin' ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc'})">
+              Last Login
+              <mat-icon *ngIf="currentSortColumn === 'lastLogin'">
+                {{ currentSortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+              </mat-icon>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let user">
+            {{ formatDate(user.LastLoginTime) }}
+          </td>
+        </ng-container>
+  
+        <!-- Created Date Column -->
+        <ng-container matColumnDef="createdDate">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="header-cell-container" (click)="sortData({active: 'createdDate', direction: currentSortColumn === 'createdDate' ? (currentSortDirection === 'asc' ? 'desc' : 'asc') : 'asc'})">
+              Created Date
+              <mat-icon *ngIf="currentSortColumn === 'createdDate'">
+                {{ currentSortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+              </mat-icon>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let user">
+            {{ formatDate(user.createdDate) }}
+          </td>
+        </ng-container>
+  
+    
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-icon-button color="primary" (click)="openEditUser(user._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteUser(user._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      </table>
+  
+      <mat-paginator #paginator
+        [length]="filteredUsers.length"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
+        [pageSizeOptions]="[5, 10, 20]"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+
+  </div>
+  

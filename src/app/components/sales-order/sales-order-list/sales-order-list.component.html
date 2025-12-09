@@ -1,0 +1,158 @@
+<div class="sales-order-container">
+  <!-- Filter Controls -->
+  <div class="filter-section">
+    <!-- Customer Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Customer</mat-label>
+      <mat-select [(ngModel)]="selectedCustomerId" (selectionChange)="onCustomerChange()">
+        <mat-option [value]="null">All Customers</mat-option>
+        <mat-option *ngFor="let developer of developers" [value]="developer._id">
+          {{ developer.developerName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Status Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange()">
+        <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+          {{ status.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Order Number Search -->
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search Order Number</mat-label>
+      <input matInput [(ngModel)]="orderNumberSearch" (input)="onOrderNumberSearch()" placeholder="Start typing...">
+    </mat-form-field>
+
+    <!-- Project Name Search -->
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search Project Name</mat-label>
+      <input matInput [(ngModel)]="projectNameSearch" (input)="onProjectNameSearch()" placeholder="Start typing...">
+    </mat-form-field>
+  </div>
+
+  <!-- Create New Order Button -->
+  <button mat-raised-button color="primary" (click)="createNewOrder()" class="add-button">
+    <mat-icon>add</mat-icon> Create New Order
+  </button>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="spinner-container">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <!-- Sales Orders Table -->
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="sales-order-table">
+      <!-- Order Number Column -->
+      <ng-container matColumnDef="orderNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="orderNumber"> Order Number </th>
+        <td mat-cell *matCellDef="let order">{{ order.orderNumber }}</td>
+      </ng-container>
+
+      <!-- Customer Name Column -->
+      <ng-container matColumnDef="customerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="customerName"> Customer Name </th>
+        <td mat-cell *matCellDef="let order">{{ order.customerName }}</td>
+      </ng-container>
+
+      <!-- Project Name Column -->
+      <ng-container matColumnDef="projectName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="projectName"> Project Name </th>
+        <td mat-cell *matCellDef="let order">{{ order.projectName || 'N/A' }}</td>
+      </ng-container>
+
+      <!-- Order Date Column -->
+      <ng-container matColumnDef="orderDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="orderDate"> Order Date </th>
+        <td mat-cell *matCellDef="let order">{{ formatDate(order.orderDate) }}</td>
+      </ng-container>
+
+      <!-- Total Value Column -->
+      <ng-container matColumnDef="totalValue">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="totalValue"> Total Value </th>
+        <td mat-cell *matCellDef="let order">{{ formatCurrency(calculateTotalContractValue(order)) }}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="status"> Status </th>
+        <td mat-cell *matCellDef="let order">
+          <mat-chip [color]="getStatusColor(getDisplayStatus(order))" selected>
+            {{ getDisplayStatus(order) }}
+          </mat-chip>
+        </td>
+      </ng-container>
+
+      <!-- Invoice Progress Column -->
+      <ng-container matColumnDef="invoiceProgress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="invoiceProgress" style="max-width: 200px; min-width: 150px;"> Invoice Progress </th>
+        <td mat-cell *matCellDef="let order" style="max-width: 200px; min-width: 150px;">
+          <div *ngIf="order.invoices && order.invoices.length > 0" class="invoice-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="getInvoiceProgress(order).percentage"></div>
+            </div>
+            <div class="progress-text">
+              {{ getInvoiceProgress(order).invoiced | currency:'AED' }} / {{ getInvoiceProgress(order).total | currency:'AED' }}
+            </div>
+            <div class="invoice-count">
+              {{ order.invoices.length }} invoice{{ order.invoices.length > 1 ? 's' : '' }}
+            </div>
+          </div>
+          <span *ngIf="!order.invoices || order.invoices.length === 0" class="no-invoices">
+            No invoices
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let order">
+          <div class="action-buttons">
+            <button mat-icon-button color="primary" 
+                    (click)="viewOrder(order._id)"
+                    matTooltip="View Order">
+              <mat-icon>visibility</mat-icon>
+            </button>
+            
+            <button mat-icon-button color="accent" 
+                    (click)="editOrder(order._id)" 
+                    [disabled]="!canEdit(order)"
+                    matTooltip="Edit Order">
+              <mat-icon>edit</mat-icon>
+            </button>
+            
+            <button mat-icon-button color="warn" 
+                    (click)="deleteOrder(order._id)"
+                    matTooltip="Delete Order">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+                   showFirstLastButtons
+                   aria-label="Select page of sales orders">
+    </mat-paginator>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && dataSource.data.length === 0" class="empty-state">
+    <mat-icon>receipt</mat-icon>
+    <p>No sales orders found matching your filters.</p>
+    <button mat-raised-button color="primary" (click)="createNewOrder()">
+      Create Your First Order
+    </button>
+  </div>
+</div>
+

@@ -1,0 +1,40 @@
+<button (click)="goBack()" class="back-button">← Back</button>
+<div class="home-layout">
+  <div class="content">
+    <div *ngIf="loading">
+      <p>Loading developers...</p>
+    </div>
+
+    <div *ngIf="!loading && projects.length > 0" class="projects-container">
+      <mat-card class="project-card" 
+      [ngClass]="{ 'blocked': project.blocked && userRole !== 'Super Admin' && userRole !== 'Admin' }"
+      (click)="!project.blocked || userRole === 'Super Admin' || userRole === 'Admin' ? onProjectClick(project) : null"
+      [style.pointer-events]="project.blocked && userRole !== 'Super Admin' && userRole !== 'Admin' ? 'none' : 'auto'"
+      *ngFor="let project of filteredProjects" (click)="onProjectClick(project)">
+        <ng-container *ngIf="!project.blocked || userRole === 'Super Admin' || userRole === 'Admin'; else blockedTemplate">
+          <mat-card-title>
+            {{ project.projectName }}
+            <span *ngIf="project.blocked" class="blocked-badge">(Blocked)</span>
+          </mat-card-title>
+          <img mat-card-image [src]="project.logo" alt="{{ project.projectName }}" />
+          <mat-card-content>{{ project.description }}</mat-card-content>
+          <mat-card-actions>
+            <button mat-button>Project Services</button>
+          </mat-card-actions>
+        </ng-container>
+        <ng-template #blockedTemplate>
+          <mat-card-title>{{ project.projectName }} (Blocked)</mat-card-title>
+          <img mat-card-image [src]="project.logo" alt="{{ project.projectName }}" />
+          <mat-card-content style="font-size: 12px; line-height: normal;font-weight: bold;">This project is currently blocked <br>
+          Please Submit Your Pending Dues to Continue Our Services
+          </mat-card-content>
+        </ng-template>
+
+      </mat-card>
+    </div>
+
+    <div *ngIf="!loading && projects.length === 0">
+      <p>No projects found for this developer.</p>
+    </div>
+  </div>
+</div>

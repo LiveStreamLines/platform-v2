@@ -1,0 +1,259 @@
+/* Main container */
+.confirm-dialog-container {
+  position: relative;
+  padding: 0;
+  max-width: 450px;
+  width: 100%;
+  background: #1a1a1a !important;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: dialogSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #ffffff !important;
+}
+
+/* Close button */
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.close-button mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #e0e0e0 !important;
+}
+
+/* Dialog header */
+.dialog-header {
+  display: flex;
+  align-items: center;
+  padding: 32px 32px 24px 32px;
+  background: linear-gradient(135deg, #2d2d2d 0%, #1f1f1f 100%);
+  border-bottom: 1px solid #333333;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.icon-question {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+}
+
+.icon-warning {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+}
+
+.icon-error {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.icon-info {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+}
+
+.icon-success {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+}
+
+.dialog-icon {
+  color: white !important;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.dialog-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff !important;
+  line-height: 1.3;
+}
+
+/* Dialog content */
+.dialog-content {
+  padding: 0 32px 32px 32px;
+  background: #1a1a1a;
+}
+
+.dialog-message {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #cccccc !important;
+  font-weight: 400;
+}
+
+/* Dialog actions */
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 32px 32px 32px;
+  background: #2d2d2d;
+  border-top: 1px solid #333333;
+}
+
+/* Cancel button styling */
+.btn-cancel {
+  min-width: 100px !important;
+  height: 40px !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.2s ease !important;
+  background: transparent !important;
+  color: #cccccc !important;
+  border: 1px solid #555555 !important;
+}
+
+.btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  border-color: #777777 !important;
+  transform: translateY(-1px);
+}
+
+/* Confirm button styling */
+.btn-confirm {
+  min-width: 100px !important;
+  height: 40px !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.btn-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Dialog type specific styles */
+.dialog-type-warning .dialog-header {
+  background: linear-gradient(135deg, #3d2c1a 0%, #2d1f13 100%);
+}
+
+.dialog-type-error .dialog-header {
+  background: linear-gradient(135deg, #3d1a1a 0%, #2d1313 100%);
+}
+
+.dialog-type-info .dialog-header {
+  background: linear-gradient(135deg, #1a2d3d 0%, #13202d 100%);
+}
+
+.dialog-type-success .dialog-header {
+  background: linear-gradient(135deg, #1a3d2a 0%, #132d1f 100%);
+}
+
+/* Material Design button color overrides for dark theme */
+.btn-confirm.mat-primary {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%) !important;
+}
+
+.btn-confirm.mat-accent {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%) !important;
+}
+
+.btn-confirm.mat-warn {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important;
+}
+
+/* Override Material Design button text colors */
+.btn-confirm.mat-primary,
+.btn-confirm.mat-accent,
+.btn-confirm.mat-warn {
+  color: #ffffff !important;
+}
+
+/* Focus states for accessibility */
+.btn-cancel:focus,
+.btn-confirm:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+.close-button:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes dialogSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .confirm-dialog-container {
+    max-width: 95vw;
+    margin: 0 10px;
+  }
+  
+  .dialog-header {
+    padding: 24px 20px 20px 20px;
+  }
+  
+  .dialog-content {
+    padding: 0 20px 24px 20px;
+  }
+  
+  .dialog-actions {
+    padding: 0 20px 24px 20px;
+    flex-direction: column;
+  }
+  
+  .btn-cancel,
+  .btn-confirm {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .dialog-title {
+    font-size: 20px;
+  }
+  
+  .dialog-message {
+    font-size: 15px;
+  }
+} 

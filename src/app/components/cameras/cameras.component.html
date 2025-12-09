@@ -1,0 +1,155 @@
+<div class="camera-container">
+    <!-- Developer Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Select Developer</mat-label>
+      <mat-select [(ngModel)]="selectedDeveloperId" (selectionChange)="onDeveloperChange()">
+        <mat-option [value]="null">All Developers</mat-option>
+        <mat-option *ngFor="let developer of developers" [value]="developer._id">
+          {{ developer.developerName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <!-- Project Dropdown -->
+    <mat-form-field appearance="outline" *ngIf="projects.length && selectedDeveloperId">
+      <mat-label>Select Project</mat-label>
+      <mat-select [(ngModel)]="selectedProjectId" (selectionChange)="onProjectChange()">
+        <mat-option *ngFor="let project of projects" [value]="project._id">
+          {{ project.projectName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button class="add-new-button" mat-raised-button color="primary" (click)="openAddCamera()">Add New</button>
+
+    <!-- Search Filter -->
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search cameras</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search by name, developer, project, country, or folder" #input>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+  
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="spinner-container">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+  
+    <!-- Camera Table -->
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc" class="mat-elevation-z8" *ngIf="!isLoading && dataSource.data.length">
+      <!-- Define Columns: Name, Status, Date Created -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Camera Name </th>
+        <td mat-cell *matCellDef="let camera" [class.blocked]="camera.blocked"> {{ camera.camera }} </td>
+      </ng-container>
+
+      <!-- Developer Column (only shown when "All Developers" is selected) -->
+      <ng-container matColumnDef="developer">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Developer </th>
+        <td mat-cell *matCellDef="let camera" [class.blocked]="camera.blocked"> {{ getDeveloperName(camera.developer) }} </td>
+      </ng-container>
+
+      <!-- Project Column (only shown when "All Developers" is selected) -->
+      <ng-container matColumnDef="project">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Project </th>
+        <td mat-cell *matCellDef="let camera" [class.blocked]="camera.blocked"> {{ getProjectName(camera.project) }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+        <td mat-cell *matCellDef="let camera" [class.blocked]="camera.blocked"> {{ camera.country }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="serverFolder">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Server Folder </th>
+        <td mat-cell *matCellDef="let camera" [class.blocked]="camera.blocked"> {{ camera.serverFolder }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+        <td mat-cell *matCellDef="let camera" [class.blocked]="camera.blocked"> {{ camera.createdDate | date }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="installedDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Installation Date </th>
+        <td mat-cell *matCellDef="let camera" [class.blocked]="camera.blocked"> 
+          {{ camera.installedDate ? (camera.installedDate | date) : 'Not Installed' }} 
+        </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let camera" [class.blocked]="camera.blocked"> 
+          <div class="status-container">
+            <span class="status-badge {{ camera.status?.toLowerCase() }}">
+              {{ camera.status || 'Pending' }}
+            </span>
+            <button 
+              *ngIf="camera.status === 'Pending'"
+              mat-icon-button 
+              color="primary" 
+              class="install-icon-btn"
+              (click)="openCameraInstallationDialog(camera)"
+              matTooltip="Install Camera">
+              <mat-icon>build</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Block/Unblock Column -->
+      <ng-container matColumnDef="blockUnblock">
+        <th mat-header-cell *matHeaderCellDef> Block/Unblock </th>
+        <td mat-cell *matCellDef="let camera">
+          <button 
+            class="block-unblock-button" 
+            [class.blocked]="camera.blocked" 
+            (click)="toggleBlockStatus(camera)">
+            {{ camera.blocked ? 'Unblock' : 'Block' }}
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let camera">
+          <button mat-icon-button color="warn" class="open-circle-button" 
+                  (click)="openEditCamera(camera._id)"
+                  [disabled]="camera.blocked">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <!-- Download Column -->
+      <ng-container matColumnDef="download">
+        <th mat-header-cell *matHeaderCellDef> Download </th>
+        <td mat-cell *matCellDef="let camera">
+          <button mat-raised-button color="accent" 
+                  (click)="downloadConfig(camera)"
+                  [disabled]="camera.blocked">
+            Download
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="getCurrentDisplayedColumns()"></tr>
+      <tr mat-row *matRowDef="let row; columns: getCurrentDisplayedColumns();"></tr>
+    </table>
+
+    <!-- Pagination -->
+    <mat-paginator 
+      [pageSizeOptions]="[10, 25, 50, 100]" 
+      [pageSize]="25"
+      showFirstLastButtons 
+      aria-label="Select page of cameras"
+      *ngIf="!isLoading && dataSource.data.length">
+    </mat-paginator>
+
+    <!-- No data message -->
+    <div *ngIf="!isLoading && dataSource.data.length === 0" class="no-data-message">
+      <p>No cameras found.</p>
+    </div>
+  </div>  

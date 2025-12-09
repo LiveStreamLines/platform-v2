@@ -1,0 +1,60 @@
+<div>
+  <h1>Contacts</h1>
+</div>
+<div class="about-us-container">
+    
+    <div class="row">
+      <h2>
+        <img src="assets/uae.png" alt="UAE Flag" class="flag" />
+        UAE Office
+      </h2>
+      <div class="address">
+        <div style="margin-right:40px"><b>Head Office</b>: 712, Clover Bay, Marasi Dr, Business Bay, Dubai</div>
+        <div style="margin-right:40px"><b>Operation Office</b>: 1227, Tamani Art, Asayel St, Business Bay, Dubai</div>
+        </div>
+
+      <div class="contact-section">
+        <div class="contact-grid">
+          <div class="contact" *ngFor="let contact of uaeContacts">
+            <span class="department">{{ contact.role }}</span>
+            <p class="person">{{ contact.name }}</p>
+            <p>
+              <i class="material-icons">phone</i> {{ contact.phone }}
+            </p>
+            <p>
+              <i class="material-icons">email</i> {{ contact.email }}
+            </p>
+          </div>
+        </div>
+      </div>
+ 
+    </div>
+  
+    <div class="row">
+      <h2>
+        <img src="assets/saudi.png" alt="Saudi Flag" class="flag" />
+        Saudi Arabia Office
+      </h2>
+      <p>
+        Level 18, Faisaliah Tower, King Fahad Highway, Olaya District, P.O. Box
+        54995, Riyadh, Kingdom of Saudi Arabia
+      </p>
+      <div class="contact-section">
+          
+          <div class="contact-grid">
+            <div class="contact" *ngFor="let contact of saudiContacts">
+              <span class="department">{{ contact.role }}</span>
+              <p class="person">{{ contact.name }}</p>
+              <p>
+                <i class="material-icons">phone</i> {{ contact.phone }}
+              </p>
+              <p>
+                <i class="material-icons">email</i> {{ contact.email }}
+              </p>
+            </div>
+          </div>  
+      </div>    
+    </div>
+    
+  </div>
+  

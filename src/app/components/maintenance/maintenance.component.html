@@ -1,0 +1,214 @@
+<div class="maintenance-container">
+  <div class="header">
+    <h2>Maintenance Requests</h2>
+  </div>
+
+  <div class="filter-section">
+    <div class="filter-row">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Developer</mat-label>
+        <mat-select [(ngModel)]="selectedDeveloperId" (selectionChange)="onDeveloperChange()">
+          <mat-option [value]="null">All Developers</mat-option>
+          <mat-option *ngFor="let developer of developers" [value]="developer._id">
+            {{developer.developerName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Project</mat-label>
+        <mat-select [(ngModel)]="selectedProjectId" (selectionChange)="onProjectChange()" [disabled]="!selectedDeveloperId">
+          <mat-option [value]="null">All Projects</mat-option>
+          <mat-option *ngFor="let project of projects" [value]="project._id">
+            {{project.projectName}}
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="!selectedDeveloperId">Select a developer first</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Camera</mat-label>
+        <mat-select [(ngModel)]="selectedCameraId" (selectionChange)="onCameraChange()" [disabled]="!selectedProjectId">
+          <mat-option [value]="null">All Cameras</mat-option>
+          <mat-option *ngFor="let camera of cameras" [value]="camera._id">
+            {{camera.camera}}
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="!selectedProjectId">Select a project first</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Assigned User</mat-label>
+        <mat-select [(ngModel)]="selectedUserId" 
+                    (selectionChange)="onUserChange()"
+                    [disabled]="!isSuperAdmin">
+          <mat-option [value]="null">All Users</mat-option>
+          <mat-option *ngFor="let user of users" [value]="user._id">
+            {{user.name}} ({{user.role}})
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="!isSuperAdmin">Filter locked to your assigned tasks</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Task Type</mat-label>
+        <mat-select [(ngModel)]="selectedTaskType" (selectionChange)="onTaskTypeChange()">
+          <mat-option [value]="null">All Types</mat-option>
+          <mat-option *ngFor="let type of taskTypes" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="selectedStatus" 
+                    (selectionChange)="onStatusChange()">
+          <mat-option [value]="null">All Status</mat-option>
+          <mat-option *ngFor="let status of (isSuperAdmin ? statusOptions : limitedStatusOptions)" [value]="status.value">
+            {{status.label}}
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="!isSuperAdmin">Filter between pending and in-progress tasks</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="maintenance-list">
+    <table mat-table [dataSource]="filteredMaintenance" matSort>
+      <ng-container matColumnDef="dateOfRequest">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Request</th>
+        <td mat-cell *matCellDef="let maintenance">{{maintenance.dateOfRequest | date:'medium'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="taskType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Task Type</th>
+        <td mat-cell *matCellDef="let maintenance">{{maintenance.taskType}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="taskDescription">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+        <td mat-cell *matCellDef="let maintenance">{{maintenance.taskDescription}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="camera">
+        <th mat-header-cell *matHeaderCellDef>Camera</th>
+        <td mat-cell *matCellDef="let maintenance">
+          <div class="location-info">
+            <div class="location-item">
+              <span class="label">Developer:</span>
+              <span class="value">{{getDeveloperName(maintenance.developerId)}}</span>
+            </div>
+            <div class="location-item">
+              <span class="label">Project:</span>
+              <span class="value">{{getProjectName(maintenance.projectId)}}</span>
+            </div>
+            <div class="location-item">
+              <span class="label">Camera:</span>
+              <span class="value">{{getCameraName(maintenance.cameraId)}}</span>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="assignedUsers">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Assigned To</th>
+        <td mat-cell *matCellDef="let maintenance">
+          <div class="assigned-users">
+            <span *ngFor="let userId of maintenance.assignedUsers" class="user-chip">
+              {{getUserName(userId)}}
+            </span>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let maintenance">
+          <span class="status-badge" [ngClass]="getStatusClass(maintenance.status)">
+            {{maintenance.status}}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let maintenance">
+          <!-- Show Start button for pending tasks -->
+          <button *ngIf="maintenance.status === 'pending'"
+                  mat-icon-button 
+                  color="primary" 
+                  (click)="startTask(maintenance)" 
+                  matTooltip="Start Task">
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+
+          <!-- Show Complete button for in-progress tasks -->
+          <button *ngIf="maintenance.status === 'in-progress'"
+                  mat-icon-button 
+                  color="accent" 
+                  (click)="completeTask(maintenance)" 
+                  matTooltip="Complete Task">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+
+          <!-- Show Edit button only for super admin -->
+          <button *ngIf="isSuperAdmin"
+                  mat-icon-button 
+                  color="primary" 
+                  (click)="editMaintenance(maintenance)" 
+                  matTooltip="Edit">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>
+
+<ng-template #tableCell let-element let-column="column">
+  <ng-container [ngSwitch]="column">
+    <ng-container *ngSwitchCase="'dateOfRequest'">
+      {{element.dateOfRequest | date:'medium'}}
+    </ng-container>
+    <ng-container *ngSwitchCase="'taskType'">
+      {{element.taskType}}
+    </ng-container>
+    <ng-container *ngSwitchCase="'taskDescription'">
+      {{element.taskDescription}}
+    </ng-container>
+    <ng-container *ngSwitchCase="'camera'">
+      <div class="location-info">
+        <div class="location-item">
+          <span class="label">Developer:</span>
+          <span class="value">{{getDeveloperName(element.developerId)}}</span>
+        </div>
+        <div class="location-item">
+          <span class="label">Project:</span>
+          <span class="value">{{getProjectName(element.projectId)}}</span>
+        </div>
+        <div class="location-item">
+          <span class="label">Camera:</span>
+          <span class="value">{{getCameraName(element.cameraId)}}</span>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'assignedUsers'">
+      <div class="assigned-users">
+        <span *ngFor="let userId of element.assignedUsers" class="user-chip">
+          {{getUserName(userId)}}
+        </span>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'status'">
+      <span class="status-badge" [ngClass]="getStatusClass(element.status)">
+        {{element.status}}
+      </span>
+    </ng-container>
+  </ng-container>
+</ng-template> 

@@ -1,0 +1,57 @@
+.developer-section {
+    margin-bottom: 20px;
+  }
+  
+  .project-section {
+    margin-left: 20px;
+  }
+  
+  .camera-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .camera-card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .camera-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .camera-info {
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: white;
+  }
+  
+  .camera-info.updated {
+    background-color: green;
+  }
+  
+  .camera-info.not-updated {
+    background-color: red;
+  }
+
+  .developer-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 50px;
+  }
+
+  .project-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .camera-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }

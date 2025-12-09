@@ -1,0 +1,222 @@
+<div class="invoice-detail-container" *ngIf="!isLoading">
+  <div class="header-section">
+    <div class="back-button">
+      <button mat-icon-button (click)="onBack()" class="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="back-text">Back to Invoices</span>
+    </div>
+    
+    <div class="header-actions" *ngIf="invoice">
+      <a [routerLink]="['/invoices/print', invoice.invoiceNumber]" target="_blank">
+        <button mat-raised-button color="primary" class="print-btn">
+          <mat-icon>print</mat-icon>
+          Print Invoice
+        </button>
+      </a>
+      <button mat-raised-button color="accent" (click)="onEdit()" [disabled]="!canEdit()" class="edit-btn">
+        <mat-icon>edit</mat-icon>
+        Edit Invoice
+      </button>
+      <button mat-raised-button color="warn" (click)="onMarkAsPaid()" [disabled]="!canMarkAsPaid()" class="mark-paid-btn">
+        <mat-icon>check_circle</mat-icon>
+        Mark as Paid
+      </button>
+    </div>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    <mat-card class="error-card">
+      <mat-card-content>
+        <mat-icon color="warn">error</mat-icon>
+        {{ errorMessage }}
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="invoice-content" *ngIf="invoice && salesOrder">
+    <!-- Invoice Header -->
+    <mat-card class="invoice-header-card">
+      <mat-card-content>
+        <div class="invoice-header">
+          <div class="invoice-info">
+            <h1 class="invoice-title">Invoice #{{ invoice.invoiceNumber }}</h1>
+            <div class="invoice-meta">
+              <span class="meta-item">
+                <strong>Status:</strong> 
+                <span class="status-badge" [ngClass]="'status-' + invoice.status.toLowerCase()">
+                  {{ invoice.status }}
+                </span>
+              </span>
+              <span class="meta-item">
+                <strong>Generated:</strong> {{ invoice.generatedDate | date:'mediumDate' }}
+              </span>
+              <span class="meta-item">
+                <strong>Due Date:</strong> 
+                <span [ngClass]="{'overdue': isOverdue()}">
+                  {{ invoice.dueDate | date:'mediumDate' }}
+                </span>
+              </span>
+            </div>
+          </div>
+          
+          <div class="invoice-amounts">
+            <div class="amount-item">
+              <span class="amount-label">Subtotal:</span>
+              <span class="amount-value">${{ getTotalAmount() | number:'1.2-2' }}</span>
+            </div>
+            <div class="amount-item">
+              <span class="amount-label">VAT (5%):</span>
+              <span class="amount-value">${{ getVatAmount() | number:'1.2-2' }}</span>
+            </div>
+            <div class="amount-item total">
+              <span class="amount-label">Total:</span>
+              <span class="amount-value">${{ getGrandTotal() | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="invoice-details-grid">
+      <!-- Customer Information -->
+      <mat-card class="customer-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>person</mat-icon>
+            Customer Information
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content *ngIf="developer">
+          <div class="customer-info">
+            <div class="info-row">
+              <span class="info-label">Name:</span>
+              <span class="info-value">{{ developer.developerName }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Email:</span>
+              <span class="info-value">{{ developer.email }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Phone:</span>
+              <span class="info-value">{{ developer.phone || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Address:</span>
+              <span class="info-value">{{ getDeveloperAddress(developer) }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Sales Order Information -->
+      <mat-card class="sales-order-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>receipt</mat-icon>
+            Sales Order Information
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="sales-order-info">
+            <div class="info-row">
+              <span class="info-label">Order Number:</span>
+              <span class="info-value">{{ salesOrder.orderNumber }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Order Date:</span>
+              <span class="info-value">{{ salesOrder.orderDate | date:'mediumDate' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Status:</span>
+              <span class="info-value">{{ salesOrder.status }}</span>
+            </div>
+            <div class="info-row" *ngIf="project">
+              <span class="info-label">Project:</span>
+              <span class="info-value">{{ project.projectName }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Invoice Line Items -->
+    <mat-card class="line-items-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>list</mat-icon>
+          Invoice Line Items
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="lineItems" class="line-items-table">
+          <!-- Camera Name Column -->
+          <ng-container matColumnDef="cameraName">
+            <th mat-header-cell *matHeaderCellDef>Camera Name</th>
+            <td mat-cell *matCellDef="let item">{{ item.cameraName }}</td>
+          </ng-container>
+
+          <!-- Duration Column -->
+          <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef>Duration (Months)</th>
+            <td mat-cell *matCellDef="let item">{{ item.duration }}</td>
+          </ng-container>
+
+          <!-- Monthly Fee Column -->
+          <ng-container matColumnDef="monthlyFee">
+            <th mat-header-cell *matHeaderCellDef>Monthly Fee</th>
+            <td mat-cell *matCellDef="let item">${{ item.monthlyFee | number:'1.2-2' }}</td>
+          </ng-container>
+
+          <!-- Amount Column -->
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let item">${{ item.amount | number:'1.2-2' }}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="lineItemColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: lineItemColumns;"></tr>
+        </table>
+
+        <div class="table-summary">
+          <div class="summary-row">
+            <span class="summary-label">Subtotal:</span>
+            <span class="summary-value">${{ getTotalAmount() | number:'1.2-2' }}</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">VAT (5%):</span>
+            <span class="summary-value">${{ getVatAmount() | number:'1.2-2' }}</span>
+          </div>
+          <div class="summary-row total">
+            <span class="summary-label">Grand Total:</span>
+            <span class="summary-value">${{ getGrandTotal() | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Notes Section -->
+    <mat-card class="notes-card" *ngIf="invoice.notes">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>note</mat-icon>
+          Notes
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="notes-text">{{ invoice.notes }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="loading-container" *ngIf="isLoading">
+  <mat-card class="loading-card">
+    <mat-card-content>
+      <div class="loading-spinner">
+        <mat-icon class="spinner">hourglass_empty</mat-icon>
+        <p>Loading invoice details...</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div> 

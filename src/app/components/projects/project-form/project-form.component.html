@@ -1,0 +1,59 @@
+<div>
+    <h2 mat-dialog-title>{{ isEditMode ? 'Edit Project' : 'Add New Project' }}</h2>
+  
+    <div class="dialog-content">
+      <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Project Name</mat-label>
+          <input matInput formControlName="projectName" required />
+          <mat-error *ngIf="projectForm.get('projectName')?.hasError('required')">Name is required</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Project Tag</mat-label>
+          <input matInput formControlName="projectTag" required />
+          <mat-error *ngIf="projectForm.get('projectTag')?.hasError('required')">Tag is required</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" required></textarea>
+          <mat-error *ngIf="projectForm.get('description')?.hasError('required')">Description is required</mat-error>
+        </mat-form-field>
+    
+        <!-- Developer Dropdown -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Developer</mat-label>
+          <mat-select formControlName="developerId" [disabled]="isEditMode || (data?.developerId && !isEditMode)">
+            <mat-option *ngFor="let developer of developers" [value]="developer._id">
+              {{ developer.developerName }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="projectForm.get('developerId')?.hasError('required')">Developer is required</mat-error>
+          <mat-hint *ngIf="isEditMode || (data?.developerId && !isEditMode)">
+            {{ isEditMode ? 'Developer cannot be changed in edit mode' : 'Developer is pre-selected' }}
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Index</mat-label>
+          <input matInput formControlName="index" type="number" required />
+          <mat-error *ngIf="projectForm.get('projectTag')?.hasError('required')">Index is required</mat-error>
+        </mat-form-field>
+  
+        <mat-checkbox formControlName="isActive">Is Active</mat-checkbox>
+    
+        <div class="logo-upload">
+          <mat-label>Upload Logo:</mat-label>
+          <input type="file" (change)="onLogoChange($event)" />
+          <img *ngIf="logoPreview" [src]="logoPreview" alt="Logo Preview" class="logo-preview mat-elevation-z2" />
+        </div>
+    
+        <div class="dialog-actions">
+          <button mat-button (click)="onCancel()">Cancel</button>
+          <button mat-raised-button color="primary" type="submit">{{ isEditMode ? 'Update' : 'Add' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

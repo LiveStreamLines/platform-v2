@@ -1,0 +1,21 @@
+<div class="cards-container" *ngIf="!isLoading && dataSource.data.length > 0">
+    <div class="card" *ngFor="let element of dataSource.data">
+      <div class="card-header">
+        <mat-icon class="play-icon">photo_library</mat-icon>
+      </div>
+      <div class="card-body">
+        <h3>{{ element.developerProject }}</h3>
+        <h3>{{ element.camera }}</h3>
+        <p><strong>Dates:</strong> {{ element.dates }}</p>
+        <p><strong>Hours:</strong> {{ element.hours }}</p>
+        <p><strong>Request Time:</strong> {{ element.RequestTime | date: 'medium' }}</p>
+        <p><strong>Images:</strong> {{ element.filteredImageCount }}</p>
+        <p><strong>Status:</strong> {{ element.status }}</p>
+      </div>
+      <div class="card-footer">
+        <a *ngIf="element.zipLink" [href]="element.zipLink" target="_blank" class="view-video">Download Photos</a>
+        <span *ngIf="!element.zipLink" class="not-ready">Not Ready</span>
+      </div>
+    </div>
+  </div>
+  

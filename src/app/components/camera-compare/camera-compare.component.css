@@ -1,0 +1,106 @@
+/* Slider container and overlay styling */
+.compare-slider-container {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.compare-slider-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* transition: clip-path 0.3s ease; */
+}
+
+.left-img {
+  clip-path: inset(0 50% 0 0); /* Initially shows the left half */
+}
+
+.right-img {
+  clip-path: inset(0 0 0 50%); /* Initially shows the right half */
+}
+
+.spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Slider overlay with full-width range input */
+.slider-overlay {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Allow clicks through the overlay */
+}
+
+
+.custom-slider {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  margin: 10px 0;
+}
+
+.slider-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0); /* Uniform track color */
+  transform: translateY(-50%);
+  border-radius: 3px;
+}
+
+.slider-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  cursor: grab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 10; /* Ensure the thumb is on top */
+  pointer-events: auto; /* Ensure the thumb can receive pointer events */
+}
+
+.slider-thumb:active {
+  cursor: grabbing;
+}
+
+.thumb-content {
+  font-size: 14px;
+  font-weight: bold;
+  color: #a71010;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none; /* Prevents text selection */
+}
+
+.thumb-content .material-icons {
+  font-size: 16px;
+  color: #000;
+  user-select: none; /* Prevents text selection */
+}
+
+

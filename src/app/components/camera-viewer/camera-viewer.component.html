@@ -1,0 +1,49 @@
+
+<ng-container *ngIf="userId !== '4ab48de8153b69028d3d93db'">
+<div style="font-size: 14px">
+  <label>
+    <input type="checkbox" [(ngModel)]="showNotWorkingOnly" /> Show Not Working Only
+  </label>
+</div>
+
+<ng-container *ngFor="let developer of groupedCameras | keyvalue">
+  <ng-container *ngIf="developer.value | keyvalue">
+    <div class="developer-section">
+      <p class="developer-title">{{developer.key }}</p>
+      <ng-container *ngFor="let project of developer.value | keyvalue">
+        <ng-container *ngIf="project.value.length > 0">
+          <p class="project-title">{{ project.key }}</p>
+          <div style="font-size: 12px" class="camera-grid">
+            <ng-container *ngFor="let camera of project.value">
+              <ng-container *ngIf="!showNotWorkingOnly || !isUpdated(camera.lastPhotoTime)">
+
+                <div class="camera-card">
+                  <img [src]="getImagePath(camera)" alt="Camera Image" class="camera-image" />
+              
+                  <div 
+                    [ngClass]="{
+                        'updated': isUpdated(camera.lastPhotoTime), 
+                        'not-updated': !isUpdated(camera.lastPhotoTime)}" 
+                        class="camera-info">
+                        <p>{{ camera.cameraName }} ({{ camera.serverfolder }})</p>
+                        <p>last photo on: {{formatdate(camera.lastPhoto)}}</p>
+                        <p>{{ formatTimeDifference(camera.lastPhotoTime) }}</p>
+                  </div>
+                </div>
+
+              </ng-container>
+            </ng-container>
+            
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-container>
+
+
+</ng-container>
+
+<ng-container *ngIf="userId === '4ab48de8153b69028d3d93db'">
+  <app-ecrd></app-ecrd>
+</ng-container>

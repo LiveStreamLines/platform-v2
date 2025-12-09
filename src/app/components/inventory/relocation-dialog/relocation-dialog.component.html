@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Relocate Device</h2>
+
+<mat-dialog-content>
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading admin users...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <p class="error-message">{{ error }}</p>
+    <button mat-button color="primary" (click)="loadAdmins()">Retry</button>
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <p class="dialog-description">Select an admin to relocate this device to:</p>
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Select Administrator</mat-label>
+      <mat-select [(ngModel)]="selectedAdminId">
+        <mat-option *ngFor="let admin of admins" [value]="admin._id">
+          {{admin.name}} - {{admin.role}}
+        </mat-option>
+      </mat-select>
+      <mat-hint *ngIf="admins.length === 0">No administrators available</mat-hint>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button 
+    mat-raised-button 
+    color="primary" 
+    (click)="onConfirm()" 
+    [disabled]="!selectedAdminId || loading">
+    Confirm
+  </button>
+</mat-dialog-actions>

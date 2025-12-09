@@ -1,0 +1,29 @@
+<!-- Full-width slider for comparing two selected pictures -->
+<div class="compare-slider-container">
+  <div class="image-comparison">  
+    <img 
+        *ngIf="!loadingLeft"
+        [src]="inselectedDate1Picture" 
+        class="side-by-side" 
+        (load)="onImageLoad('left')"
+        (error)="onImageError('left')"
+        [style.display]="loadingLeft ? 'none' : 'block'"
+      />
+        
+    <img *ngIf="!loadingRight"
+          [src]="inselectedDate2Picture"
+          class="side-by-side"
+          (load)="onImageLoad('right')"
+          (error)="onImageError('right')"
+          [style.display]="loadingRight ? 'none' : 'block'"
+          />
+  
+      <div *ngIf="loadingLeft || loadingRight" class="spinner-container">
+        <p>Loading...</p>
+      </div>
+
+    </div> 
+  
+    
+  </div>
+  

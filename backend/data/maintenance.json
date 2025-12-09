@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "33485b12151229c9eb953565",
+    "taskType": "break down",
+    "taskDescription": "sdfsdfsdfsdfsdf",
+    "assignedUser": "000000000000000000000001",
+    "status": "pending",
+    "cameraId": "6669d2a0256cde6b32ce86a0",
+    "developerId": "6669d06bb9542fab690fc402",
+    "projectId": "6669d09b3f057593908a0a77",
+    "dateOfRequest": "2025-12-01T22:38:04.735Z",
+    "userComment": "",
+    "addedUserId": "000000000000000000000001",
+    "addedUserName": "Amar LSL",
+    "attachments": [
+      {
+        "_id": "e74df4a607d0c6613e31a35d",
+        "name": "33485b12151229c9eb953565_1764628701370_741149492.pdf",
+        "originalName": "5d1e2e3f6b0eb6ee964b5398_1764626558147_337907941.pdf",
+        "size": 6526760,
+        "type": "application/pdf",
+        "url": "https://s3.ap-southeast-1.idrivee2.com/attachments/attachments/maintenance/33485b12151229c9eb953565/33485b12151229c9eb953565_1764628701370_741149492.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=fMZXDwBL2hElR6rEzgCW%2F20251201%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20251201T223832Z&X-Amz-Expires=604800&X-Amz-Signature=e003ab61c49213c6d6d1819f972333cb03f36bf538ee13d77a174cfc5e5e066f&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+        "s3Key": "attachments/maintenance/33485b12151229c9eb953565/33485b12151229c9eb953565_1764628701370_741149492.pdf",
+        "uploadedAt": "2025-12-01T22:38:32.245Z",
+        "uploadedBy": "000000000000000000000001",
+        "context": "assignment"
+      }
+    ],
+    "isActive": true,
+    "createdDate": "2025-12-01T22:38:21.370Z"
+  }
+]

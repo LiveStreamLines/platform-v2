@@ -1,0 +1,384 @@
+/* Back button styling */
+
+.back-button {
+  background-color: #590606;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 10px;
+}
+
+.back-button:hover {
+  background-color: #d10b0b;
+}
+
+/* Toolbar styling */
+.camera-detail-toolbar {
+  background-color: #54090959;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.camera-detail-toolbar button {
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+.camera-detail-toolbar button.active {
+  background-color: #302c2c;
+  color: white;
+}
+
+.camera-detail-toolbar button:hover {
+  background-color: rgba(40, 37, 37, 1);
+}
+
+/* .compare-toolbar {
+  background-color: #e0e0e0;
+} */
+
+
+
+.red-outline .mat-mdc-form-field-flex {
+  height: 3.1rem;
+}
+
+
+/* Spinner for loading state */
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: white;
+}
+
+.date-time-toggle {
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 14px;
+  color: white;
+}
+
+.single {
+  position: relative;
+}
+.date-time-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 10;
+}
+
+.weather-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 10;
+}
+
+
+.content {
+  transform-origin: center;
+}
+
+.large-picture {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+mat-icon {
+  margin-right: 8px;
+}
+
+/* Date picker section styling */
+.date-selector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.mat-form-field {
+  width: 250px;
+}
+
+/* Thumbnail strip container */
+.thumbnail-strip {
+  display: flex;
+  justify-content: flex-start;  /* Align thumbnails to the left */
+  gap: 10px;
+  overflow-x: auto;
+  white-space: nowrap;  /* Ensure the thumbnails are in a single row */
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.thumbnail-strip::-webkit-scrollbar {
+  height: 8px;
+}
+
+.thumbnail-strip::-webkit-scrollbar-thumb {
+  background-color: #681111;  /* Customize the scrollbar color */
+  border-radius: 10px;
+}
+
+.thumbnail-strip::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+/* Style the share button for proper alignment */
+.share-button {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  gap: 4px; /* Space between the icon and the text */
+  padding: 4px 8px; /* Add padding for better click area */
+  font-size: 14px; /* Ensure consistent font size */
+  text-transform: none; /* Prevent Material's default uppercase */
+  background-color: #470707;
+  color: white;
+  margin-right: 10px;
+}
+
+/* Optional: style the icon */
+.share-icon {
+  font-size: 18px; /* Adjust icon size */
+  vertical-align: middle; /* Ensure proper alignment with the text */
+}
+
+/* Optional: style the text */
+.share-text {
+  line-height: 1; /* Prevent text from being pushed down */
+}
+
+/* Larger thumbnail styling */
+.thumbnail {
+  position: relative;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  flex: 0 0 auto;  /* Prevent shrinking or growing */
+}
+
+.thumbnail.selected {
+  border-color: #7a1111;  /* Highlight the selected thumbnail */
+}
+
+/* Larger Thumbnail image styling */
+.thumbnail-img {
+  width: 120px;  /* Increased width */
+  height: 120px; /* Increased height */
+  object-fit: cover;
+  border-radius: 5px;
+  transition: transform 0.2s ease;
+}
+
+.thumbnail-img:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Adjusted Thumbnail date overlay */
+.thumbnail-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 2px;  /* Smaller padding for a cleaner look */
+  background-color: rgba(0, 0, 0, 0.7); /* Black transparent background */
+  color: white;
+  font-size: 10px;  /* Reduced font size for date and time */
+  text-align: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* Centered text for camera and project */
+h2, p {
+  color: #fff;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+/* Style for the container */
+.form-field {
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Stack label and input vertically */
+  gap: 8px; /* Spacing between label and input */
+  margin-bottom: 16px;
+}
+
+/* Style for the label */
+.form-field label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fcfcfc; /* Dark gray for text */
+}
+
+/* Style for the date input */
+.native-date-picker {
+  padding: 6px 5px;
+  font-size: 14px;
+  /* border: 1px solid #ccc; Light gray border */
+  border-radius: 4px;
+  background-color: #433a3a; /* Subtle background color */
+  color: #fffefe; /* Text color */
+  transition: all 0.3s ease; /* Smooth transitions for hover/focus */
+  border-bottom: 1px;
+}
+
+/* Input hover effect */
+.native-date-picker:hover {
+  border-color: #a80e0e; /* Highlight border on hover */
+}
+
+/* Input focus effect */
+.native-date-picker:focus {
+  border-color: #871010; /* Blue border for focus */
+  box-shadow: 0 0 5px rgba(255, 38, 0, 0.788); /* Glow effect */
+  outline: none; /* Remove default outline */
+}
+
+/* Style for invalid input (optional, if validation is needed) */
+.native-date-picker:invalid {
+  border-color: #ff4d4d; /* Red border for invalid input */
+  background-color: #ffe6e6; /* Light red background */
+}
+
+/* Style for disabled input (optional) */
+.native-date-picker:disabled {
+  background-color: #e9ecef; /* Gray background */
+  color: #6c757d; /* Light gray text */
+  border-color: #ddd; /* Light gray border */
+  cursor: not-allowed;
+}
+
+/* Style the custom calendar icon */
+.calendar-icon {
+  position: absolute;
+    top: 37px;
+    right: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #eeeeee;
+    font-size: 19px;
+    background: #7f1515;
+    padding: 4px;
+}
+
+.material-icons {
+  font-size: 14px;
+  padding: 4px;
+}
+
+/* Toolbar adjustments */
+.camera-detail-toolbar {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: space-around;
+  gap: 10px;
+  background-color: #54090959;
+  color: white;
+  padding: 10px;
+}
+/* 
+/* Hide specific buttons on smaller screens */
+@media (max-width: 768px) {
+  .camera-detail-toolbar button:nth-child(2),
+  .camera-detail-toolbar button:nth-child(3),
+  .camera-detail-toolbar button:nth-child(4) {
+    display: none; /* Hide Studio, Zoom, and Compare */
+  }
+} 
+/* Make buttons more compact */
+.camera-detail-toolbar button {
+  font-size: 12px; /* Smaller font size */
+  padding: 6px 12px; /* Reduce padding */
+}
+
+/* Adjust thumbnail strip */
+.thumbnail-strip {
+  gap: 8px; /* Smaller gap between thumbnails */
+  padding: 8px;
+}
+
+.thumbnail-img {
+  width: 100px; /* Reduce thumbnail size */
+  height: 100px;
+}
+
+/* Adjust share button */
+.share-button {
+  font-size: 12px; /* Smaller font size */
+  padding: 4px 8px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .single img,
+  .large-picture {
+    max-width: 100%; /* Ensure images fit within the screen */
+    height: auto;
+  }
+
+  .thumbnail-strip {
+    overflow-x: auto; /* Enable horizontal scrolling for thumbnails */
+  }
+
+  .thumbnail-img {
+    width: 80px; /* Further reduce thumbnail size */
+    height: 80px;
+  }
+
+  .date-time-toggle label {
+    font-size: 12px; /* Adjust toggle text size */
+  }
+}
+
+/* For extra small screens */
+@media (max-width: 480px) {
+  .camera-detail-toolbar {
+    flex-direction: column; /* Stack toolbar buttons */
+  }
+
+  .camera-detail-toolbar button {
+    width: 100%; /* Full-width buttons */
+    text-align: center; /* Center align text */
+  }
+
+  .thumbnail-img {
+    width: 60px; /* Smaller thumbnails */
+    height: 60px;
+  }
+
+  .date-time-toggle {
+    font-size: 10px; /* Reduce toggle text size further */
+  }
+}
+
+

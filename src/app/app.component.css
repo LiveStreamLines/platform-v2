@@ -1,0 +1,73 @@
+.main-container {
+  height: 100vh;
+  display: flex;
+  background-image: url(../assets/effect-ondark.png);
+  background-repeat: no-repeat;
+}
+
+.mat-sidenav-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.logo-container {
+  text-align: center;
+  padding: 16px;
+}
+
+.logo {
+  max-width: 80%; /* Adjust logo size for smaller screens */
+  height: auto;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.content {
+  padding: 16px;
+  flex-grow: 1;
+}
+
+mat-sidenav {
+  width: 250px;
+}
+
+/* Mobile view styles - ensure solid black background for all mobile widths */
+@media (max-width: 1024px) {
+  mat-sidenav {
+    background-color: #000000 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Add styles for the overlay backdrop only in mobile view */
+  ::ng-deep .mat-drawer-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Desktop view styles */
+@media (min-width: 1025px) {
+  mat-sidenav {
+    background-color: transparent;
+  }
+}
+
+/* Smaller screens: Reduce width */
+@media (max-width: 768px) {
+  mat-sidenav {
+    width: 200px; /* Reduce width for tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  mat-sidenav {
+    width: 150px; /* Further reduce width for phones */
+  }
+}
+
+

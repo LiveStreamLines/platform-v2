@@ -1,0 +1,123 @@
+/* General layout for the home component */
+.home-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+/* Content area next to the sidenav */
+.content {
+  flex-grow: 1;
+  padding: 16px;
+}
+
+.projects-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Flexible column layout */
+  gap: 16px;
+  justify-content: space-around; /* Center items with space */
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  background-color: rgba(50, 50, 50, 0.9); /* Dark gray background */
+  box-shadow: 0 2px 10px rgba(139, 6, 6, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgb(111, 10, 10);
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+  /* color:rgb(111, 10, 10); */
+  background-color: rgba(88, 86, 86, 0.9); /* Dark gray background */
+
+  box-shadow: 0 4px 20px rgba(192, 6, 6, 0.89);
+}
+
+/* Card title styling */
+.project-card mat-card-title {
+  font-size: 1.5em;
+  margin-bottom: 8px;
+  color: #fff; /* White title */
+  /* text-align: center; Center the title */
+}
+
+.project-card img {
+  width: 50%; /* Image does not take full width */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 150px; /* Set max height for image */
+  object-fit: cover; /* Ensure image covers the area evenly */
+  border-radius: 8px;
+  margin: 0 auto 16px auto; /* Center the image */
+}
+
+/* Card content (description) styling */
+.project-card mat-card-content {
+  font-size: 1em;
+  color: #fff; /* White content text */
+  text-align: center;
+  flex-grow: 1; /* Make sure the content takes available space */
+  margin-bottom: 16px;
+}
+
+/* Button styling */
+.project-card mat-card-actions {
+  margin-top: auto; /* Push the button to the bottom */
+}
+
+.project-card mat-card-actions button {
+  width: 100%; /* Full width button */
+  background-color: #640808; /* Red button color */
+  color: white;
+  font-weight: bold;
+}
+
+.project-card mat-card-actions button:hover {
+  background: radial-gradient(
+    rgba(215, 212, 212, 0.9) 20%,
+    transparent 15%
+  );
+  background-size: 3px 3px;
+  background-color: #7e0707; /* Darker red on hover */
+}
+
+
+.blocked-badge {
+  color: #d9534f;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.project-card.blocked {
+  background-color: #300505;
+  border: 1px solid #ff4d4d;
+}
+
+/* Add some responsive behavior */
+@media (max-width: 768px) {
+  .projects-container {
+    grid-template-columns: 1fr; /* Full-width for smaller screens */
+  }
+}
+
+
+.back-button {
+  background-color: #590606;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 10px;
+}
+
+.back-button:hover {
+  background-color: #d10b0b;
+}

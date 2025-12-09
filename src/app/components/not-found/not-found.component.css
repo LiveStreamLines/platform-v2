@@ -1,0 +1,55 @@
+/* Center the content on the page */
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #690202, #000000);
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Large 404 error code */
+  .error-code {
+    font-size: 10rem;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Friendly error message */
+  .error-message {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    padding: 20px 0;
+  }
+  
+  /* Button styling */
+  .home-button {
+    background-color: #4e0303;
+    color: #fdfdfd;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .home-button:hover {
+    background-color: #690415;
+    color: #fff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .home-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 117, 140, 0.5);
+  }
+  

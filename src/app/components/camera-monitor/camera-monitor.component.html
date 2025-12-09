@@ -1,0 +1,240 @@
+<div class="camera-container">
+  <div class="header-section">
+    <div class="filter-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Developer</mat-label>
+        <mat-select [(ngModel)]="selectedDeveloperId" (selectionChange)="onDeveloperChange()">
+          <mat-option [value]="null">All Developers</mat-option>
+          <mat-option *ngFor="let developer of developers" [value]="developer._id">
+            {{developer.developerName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Project</mat-label>
+        <mat-select [(ngModel)]="selectedProjectId" (selectionChange)="onProjectChange()">
+          <mat-option [value]="null">All Projects</mat-option>
+          <mat-option *ngFor="let project of projects" [value]="project._id">
+            {{project.projectName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Project Status</mat-label>
+        <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange()">
+          <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+            {{option.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Update Status</mat-label>
+        <mat-select [(ngModel)]="selectedUpdateStatus" (selectionChange)="onUpdateStatusChange()">
+          <mat-option *ngFor="let option of updateStatusOptions" [value]="option.value">
+            {{option.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="search-field" appearance="fill">
+        <mat-label>Search Cameras</mat-label>
+        <input matInput [(ngModel)]="searchText" (ngModelChange)="onSearchChange()" placeholder="Search by name, description, or location...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="sort-buttons-container">
+      <button mat-button 
+              [class.active]="sortBy === 'developer'"
+              (click)="onSortChange('developer')">
+        <mat-icon>sort_by_alpha</mat-icon>
+        Sort by Developer/Project
+      </button>
+      <button mat-button 
+              [class.active]="sortBy === 'server'"
+              (click)="onSortChange('server')">
+        <mat-icon>folder</mat-icon>
+        Sort by Server
+      </button>
+    </div>
+  </div>
+
+  <div class="camera-stats" *ngIf="!isLoading">
+    <span class="total-cameras">Total Cameras: {{totalCameras}}</span>
+    <span class="filtered-cameras" *ngIf="filteredCamerasCount !== totalCameras">
+      Showing: {{filteredCamerasCount}} cameras
+    </span>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <!-- Fallback to original grid view if no hierarchical data -->
+  <div class="camera-grid" *ngIf="!isLoading && getHierarchicalDataKeys().length === 0">
+    <mat-card *ngFor="let camera of filteredCameras" class="camera-card">
+      <div class="camera-header">
+        <h3 class="camera-title">{{camera.camera}}</h3>
+        <span [class.status-active]="isUpdated(camera.lastPhoto)"
+              [class.status-inactive]="!isUpdated(camera.lastPhoto)"
+              class="status-badge">
+          {{formatTimeDifference(camera.lastPhoto)}}
+        </span>
+      </div>
+
+      <div class="camera-image-container">
+        <img [src]="getImagePath(camera)" 
+             [alt]="camera.camera"
+             (load)="onImageLoad(camera._id)"
+             [class.loaded]="imageLoaded[camera._id]">
+        <div class="image-loading" *ngIf="!imageLoaded[camera._id]">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+      </div>
+
+      <div class="camera-info">
+        <div class="info-row">
+          <span class="info-label">Developer:</span>
+          <span class="info-value" [matTooltip]="getDeveloperName(camera.developer)">
+            {{getDeveloperName(camera.developer) | slice:0:15}}{{getDeveloperName(camera.developer).length > 15 ? '...' : ''}}
+            <span class="tag">[{{getDeveloperTag(camera.developer)}}]</span>
+          </span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Project:</span>
+          <span class="info-value" [matTooltip]="getProjectName(camera.project)">
+            {{getProjectName(camera.project) | slice:0:15}}{{getProjectName(camera.project).length > 15 ? '...' : ''}}
+            <span class="tag">[{{getProjectTag(camera.project)}}]</span>
+          </span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Status:</span>
+          <span class="info-value">
+            <span class="status-badge" [ngClass]="getStatusClass(getProjectStatus(camera.project))">
+              {{getProjectStatus(camera.project)}}
+            </span>
+          </span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Location:</span>
+          <span class="info-value">{{camera.country || 'Not specified'}}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Server:</span>
+          <span class="info-value" [matTooltip]="camera.serverFolder">{{camera.serverFolder || 'Not specified'}}</span>
+        </div>
+        <div class="info-row" *ngIf="camera.lastPhoto">
+          <span class="info-label">Last Update:</span>
+          <span class="info-value">{{formatDate(camera.lastPhoto)}}</span>
+        </div>
+      </div>
+
+      <div class="camera-actions">
+        <button mat-button color="primary" (click)="createTask(camera)">
+          <mat-icon>add_task</mat-icon>
+          Create Task
+        </button>
+        <button mat-button color="accent" (click)="openEditCamera(camera._id)" *ngIf="isSuperAdmin">
+          <mat-icon>edit</mat-icon>
+          Edit Camera
+        </button>
+        <button mat-button color="primary" (click)="openCameraHistory(camera._id)">
+          <mat-icon>history</mat-icon>
+          View History
+        </button>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="hierarchical-container" *ngIf="!isLoading && getHierarchicalDataKeys().length > 0">
+    <!-- Developer/Project hierarchical view -->
+    <div *ngFor="let developerId of getHierarchicalDataKeys()" class="developer-section">
+      <div class="developer-header">
+        <h2 class="developer-name">
+          <mat-icon>person</mat-icon>
+          {{hierarchicalData[developerId].developer.developerName || 'Unknown Developer'}}
+          <span class="developer-tag">[{{hierarchicalData[developerId].developer.developerTag || 'No Tag'}}]</span>
+        </h2>
+      </div>
+      
+      <!-- Projects under this developer -->
+      <div *ngFor="let projectId of getProjectKeys(developerId)" class="project-section">
+        <div class="project-header">
+          <div class="project-title-section">
+            <h3 class="project-name">
+              <mat-icon>folder</mat-icon>
+              {{hierarchicalData[developerId].projects[projectId].project.projectName || 'Unknown Project'}}
+              <span class="project-tag">[{{hierarchicalData[developerId].projects[projectId].project.projectTag || 'No Tag'}}]</span>
+              <span class="status-badge" [ngClass]="getStatusClass(getProjectStatus(projectId))">
+                {{getProjectStatus(projectId)}}
+              </span>
+            </h3>
+            <button mat-icon-button 
+                    class="project-info-button" 
+                    (click)="openProjectInfo(projectId)"
+                    matTooltip="View Project Information">
+              <mat-icon>info</mat-icon>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Cameras under this project -->
+        <div class="camera-grid">
+          <mat-card *ngFor="let camera of hierarchicalData[developerId].projects[projectId].cameras" class="camera-card">
+            <div class="camera-header">
+              <h3 class="camera-title">{{camera.camera}}</h3>
+              <span [class.status-active]="isUpdated(camera.lastPhoto)"
+                    [class.status-inactive]="!isUpdated(camera.lastPhoto)"
+                    class="status-badge">
+                {{formatTimeDifference(camera.lastPhoto)}}
+              </span>
+            </div>
+
+            <div class="camera-image-container">
+              <img [src]="getImagePath(camera)" 
+                   [alt]="camera.camera"
+                   (load)="onImageLoad(camera._id)"
+                   [class.loaded]="imageLoaded[camera._id]">
+              <div class="image-loading" *ngIf="!imageLoaded[camera._id]">
+                <mat-spinner diameter="40"></mat-spinner>
+              </div>
+            </div>
+
+            <div class="camera-info">
+              <div class="info-row">
+                <span class="info-label">Location:</span>
+                <span class="info-value">{{camera.country || 'Not specified'}}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Server:</span>
+                <span class="info-value" [matTooltip]="camera.serverFolder">{{camera.serverFolder || 'Not specified'}}</span>
+              </div>
+              <div class="info-row" *ngIf="camera.lastPhoto">
+                <span class="info-label">Last Update:</span>
+                <span class="info-value">{{formatDate(camera.lastPhoto)}}</span>
+              </div>
+            </div>
+
+            <div class="camera-actions">
+              <button mat-button color="primary" (click)="createTask(camera)">
+                <mat-icon>add_task</mat-icon>
+                Create Task
+              </button>
+              <button mat-button color="accent" (click)="openEditCamera(camera._id)" *ngIf="isSuperAdmin">
+                <mat-icon>edit</mat-icon>
+                Edit Camera
+              </button>
+              <button mat-button color="primary" (click)="openCameraHistory(camera._id)">
+                <mat-icon>history</mat-icon>
+                View History
+              </button>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

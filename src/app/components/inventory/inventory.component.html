@@ -1,0 +1,219 @@
+<div class="inventory-container">
+  <!-- Filter Controls -->
+  <div class="filter-section">
+
+    <!-- Device Type Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Device Type</mat-label>
+      <mat-select [(ngModel)]="selectedDeviceType" (selectionChange)="onDeviceTypeChange()">
+        <mat-option>All Types</mat-option>
+        <mat-option *ngFor="let type of deviceTypes" [value]="type.name">
+          {{ type.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Developer Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Developer</mat-label>
+      <mat-select [(ngModel)]="selectedDeveloperId" (selectionChange)="onDeveloperChange()">
+        <mat-option>All Developers</mat-option>
+        <mat-option *ngFor="let developer of developers" [value]="developer._id">
+          {{ developer.developerName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Project Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Project</mat-label>
+      <mat-select [(ngModel)]="selectedProjectId" (selectionChange)="onProjectChange()" [disabled]="!selectedDeveloperId">
+        <mat-option>All Projects</mat-option>
+        <mat-option *ngFor="let project of projects" [value]="project._id">
+          {{ project.projectName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Camera Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Camera</mat-label>
+      <mat-select [(ngModel)]="selectedCameraId" (selectionChange)="onCameraChange()" [disabled]="!selectedProjectId">
+        <mat-option>All Cameras</mat-option>
+        <mat-option *ngFor="let camera of cameras" [value]="camera._id">
+          {{ camera.camera }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Status Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusChange()">
+        <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+          {{ status.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Admin Dropdown -->
+    <mat-form-field appearance="outline" *ngIf="userRole === 'Super Admin' || inventoryRole === 'stock' || inventoryRole === 'viewer'">
+      <mat-label>Assigned Admin</mat-label>
+      <mat-select [(ngModel)]="selectedAdminId" (selectionChange)="onAdminChange()">
+        <mat-option>All Admins</mat-option>
+        <mat-option *ngFor="let admin of admins" [value]="admin._id">
+          {{ admin.name }} ({{ admin.role }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Serial Number Search -->
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search Serial Number</mat-label>
+      <input matInput [(ngModel)]="serialNumberSearch" (input)="onSerialNumberSearch()" placeholder="Start typing...">
+    </mat-form-field>
+    
+  </div>
+
+  <button *ngIf="userRole === 'Super Admin' || memoryRole === 'stock'" mat-raised-button color="primary" (click)="openAddDeviceDialog()" class="add-button">
+    <mat-icon>add</mat-icon> Add Stock
+  </button>
+  <!-- Add this near your other buttons in inventory.component.html -->
+    <button *ngIf="userRole === 'Super Admin' || memoryRole === 'stock'" mat-raised-button 
+          color="primary" 
+          (click)="openDeviceTypesDialog()"
+          style="margin-left: 10px;">
+      <mat-icon>devices</mat-icon> Manage Device Types
+    </button>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="spinner-container">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <!-- Inventory Table -->
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort class="inventory-table">
+      <!-- Device Type Column -->
+      <ng-container matColumnDef="deviceType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="deviceType"> Device Type </th>
+        <td mat-cell *matCellDef="let item">{{ item.device.type }}</td>
+      </ng-container>
+
+      <!-- Serial Number Column -->
+      <ng-container matColumnDef="serialNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="serialNumber"> Serial Number </th>
+        <td mat-cell *matCellDef="let item">{{ item.device.serialNumber }}</td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="status"> Status </th>
+        <td mat-cell *matCellDef="let item">
+          <mat-chip [color]="getStatusColor(item.status)" selected>
+            {{ item.status | uppercase }}
+          </mat-chip>
+        </td>
+      </ng-container>
+
+      <!-- Assignment Column -->
+      <ng-container matColumnDef="assignment">
+        <th mat-header-cell *matHeaderCellDef> Assignment </th>
+        <td mat-cell *matCellDef="let item">
+          <div *ngIf="item.currentUserAssignment">
+            <p><strong>Assigned To:</strong> {{item.currentUserAssignment.userName}}</p>
+            <p><strong>Since:</strong> {{item.currentUserAssignment.assignedDate | date}}</p>
+            <p *ngIf="item.currentUserAssignment.notes"><strong>Notes:</strong> {{item.currentUserAssignment.notes}}</p>
+          </div>
+          <div *ngIf="item.currentAssignment && !item.currentUserAssignment">
+            <p><strong>Developer:</strong> {{getDeveloperName(item.currentAssignment.developer) | async}}</p>
+            <p><strong>Project:</strong> {{getProjectName(item.currentAssignment.project) | async}}</p>
+            <p><strong>Camera:</strong> {{getCameraName(item.currentAssignment.camera) | async}}</p>
+            <p><strong>Since:</strong> {{item.currentAssignment.assignedDate | date}}</p>
+            <p *ngIf="item.currentAssignment.notes"><strong>Notes:</strong> {{item.currentAssignment.notes}}</p>
+          </div>
+          <div *ngIf="!item.currentAssignment && !item.currentUserAssignment">
+            <mat-chip color="default">NOT ASSIGNED</mat-chip>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Age Column -->
+      <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="age"> Age (Days) </th>
+        <td mat-cell *matCellDef="let item">{{ item.ageInDays }}</td>
+      </ng-container>
+
+      <!-- Validity Column -->
+      <ng-container matColumnDef="validity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="validity"> Validity Left </th>
+        <td mat-cell *matCellDef="let item">
+          {{ getRemainingValidity(item) }} days
+          <div *ngIf="getRemainingValidity(item) <= 0" class="expired">EXPIRED</div>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let item">
+          <div class="action-buttons" *ngIf="canViewActions()">
+            <!-- Assign to Project button -->
+            <button mat-icon-button color="primary" 
+                    *ngIf="canAssignToProject(item) && !item.currentAssignment"
+                    (click)="openAssignDialog(item)"
+                    matTooltip="Assign to Project">
+              <mat-icon>assignment</mat-icon>
+            </button>
+            
+            <!-- Unassign from Project button -->
+            <button mat-icon-button color="warn" 
+                    *ngIf="canUnassignFromProject(item)"
+                    (click)="openUnassignDialog(item)"
+                    matTooltip="Unassign from Project">
+              <mat-icon>assignment_return</mat-icon>
+            </button>
+
+            <!-- Assign to User button -->
+            <button mat-icon-button color="primary" 
+                    *ngIf="canAssignToUser(item)"
+                    (click)="openAssignToUserDialog(item)"
+                    matTooltip="Assign to User">
+              <mat-icon>person_add_alt</mat-icon>
+            </button>
+
+            <!-- Unassign from User button -->
+            <button mat-icon-button color="warn" 
+                    *ngIf="canUnassignFromUser(item)"
+                    (click)="openUnassignUserDialog(item)"
+                    matTooltip="Unassign from User">
+              <mat-icon>person_remove_alt</mat-icon>
+            </button>
+            
+            <!-- Edit button -->
+            <button mat-icon-button color="accent"
+                    *ngIf="canEdit(item)"
+                    [routerLink]="['/inventory/edit', item._id]"
+                    matTooltip="View Details">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+                   showFirstLastButtons
+                   aria-label="Select page of inventory items">
+    </mat-paginator>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && dataSource.data.length === 0" class="empty-state">
+    <mat-icon>devices</mat-icon>
+    <p>No inventory items found matching your filters.</p>
+  </div>
+</div>

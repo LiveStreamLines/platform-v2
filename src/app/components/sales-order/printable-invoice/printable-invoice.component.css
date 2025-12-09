@@ -1,0 +1,245 @@
+/* A4 Layout */
+.print-invoice-a4 {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  background: #fff;
+  color: #222;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 14px;
+  padding: 24px 32px 16px 32px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 8px #eee;
+}
+
+.invoice-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+.logo-col {
+  flex: 0 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.company-logo {
+  width: 90px;
+  margin-bottom: 8px;
+}
+.company-name {
+  font-weight: bold;
+  font-size: 18px;
+  color: #b71c1c;
+}
+.company-info-col {
+  flex: 1 1 300px;
+  padding-left: 24px;
+  font-size: 13px;
+}
+.client-info-col {
+  flex: 0 0 220px;
+  font-size: 13px;
+  text-align: right;
+}
+
+.invoice-title-row {
+  margin: 18px 0 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.invoice-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #b71c1c;
+  letter-spacing: 1px;
+}
+.project-name {
+  font-size: 15px;
+  color: #333;
+}
+
+.invoice-details-table {
+  width: 100%;
+  margin-bottom: 18px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.invoice-details-table td {
+  padding: 4px 10px 4px 0;
+  border: none;
+}
+
+.line-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.line-items-table th, .line-items-table td {
+  border: 1px solid #e0e0e0;
+  padding: 8px 10px;
+  text-align: left;
+}
+.line-items-table th {
+  background: #f5f5f5;
+  font-weight: 600;
+  color: #222;
+}
+.line-items-table td {
+  color: #222;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+.summary-table td {
+  padding: 6px 10px;
+  border: none;
+}
+.summary-table .right {
+  text-align: right;
+}
+.summary-table .total-row td {
+  background: #fbe9e7;
+  color: #b71c1c;
+  font-weight: bold;
+  font-size: 16px;
+  border-top: 2px solid #b71c1c;
+}
+.amount-in-words {
+  font-size: 13px;
+  color: #444;
+  padding-top: 8px;
+}
+
+.payment-communication {
+  margin: 18px 0 10px 0;
+  font-size: 13px;
+}
+.payment-communication .section-title {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.payment-communication ul {
+  margin: 0 0 0 18px;
+  padding: 0;
+}
+.payment-communication li {
+  margin-bottom: 2px;
+}
+
+.signature-stamp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 24px 0 18px 0;
+}
+.signature-box {
+  min-width: 220px;
+  border: 1px solid #bbb;
+  padding: 12px 18px 32px 18px;
+  font-size: 13px;
+  border-radius: 4px;
+  background: #fafafa;
+}
+.stamp-placeholder {
+  height: 32px;
+  border-top: 1px dashed #bbb;
+  margin-top: 12px;
+}
+.received-stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
+}
+.stamp-circle {
+  border: 2px solid #1976d2;
+  border-radius: 50%;
+  width: 80px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1976d2;
+  font-weight: bold;
+  margin-bottom: 4px;
+  background: #e3f2fd;
+}
+.stamp-date {
+  color: #1976d2;
+  font-size: 13px;
+}
+
+.footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #888;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 8px;
+  margin-top: 18px;
+}
+.footer-left, .footer-center, .footer-right {
+  flex: 1;
+  text-align: center;
+}
+.footer-left { text-align: left; }
+.footer-right { text-align: right; }
+
+.print-btn {
+  display: block;
+  margin: 24px auto 0 auto;
+  padding: 8px 32px;
+  font-size: 16px;
+  background: #b71c1c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 2px 8px #eee;
+  transition: background 0.2s;
+}
+.print-btn:hover {
+  background: #d32f2f;
+}
+
+.loading-print-invoice, .error-print-invoice {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: #b71c1c;
+  margin-top: 60px;
+}
+
+/* Print Styles */
+@media print {
+  body, html {
+    background: #fff !important;
+  }
+  .print-invoice-a4 {
+    box-shadow: none !important;
+    border: none !important;
+    width: 100vw;
+    min-height: 100vh;
+    padding: 0 0 0 0;
+  }
+  .print-btn {
+    display: none !important;
+  }
+  .footer-row {
+    color: #888 !important;
+    border-top: 1px solid #e0e0e0 !important;
+  }
+} 

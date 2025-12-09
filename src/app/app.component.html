@@ -1,0 +1,27 @@
+<div *ngIf="headerService.showHeaderAndSidenav">
+  <mat-sidenav-container class="main-container">
+    <!-- Sidenav on the left -->
+    <mat-sidenav #sidenav [mode]="sidenavMode" [opened]="sidenavOpened" class="responsive-sidenav" (click)="sidenavMode === 'over' && sidenav.close()">
+      <!-- Logo at the top of sidenav -->
+      <div class="logo-container">
+        <img src="assets/lsl.svg" alt="Logo" class="logo" />
+      </div>  
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+  
+    <!-- Main content on the right side -->
+    <mat-sidenav-content class="main-content">
+      <!-- Header at the top, but after the sidenav -->
+      <app-header [sidenav]="sidenav"></app-header>
+  
+      <!-- Routed content below the header -->
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>  
+</div>
+
+<div *ngIf="!headerService.showHeaderAndSidenav">
+  <router-outlet></router-outlet>
+</div>

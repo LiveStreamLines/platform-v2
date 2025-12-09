@@ -1,0 +1,378 @@
+.dialog-container {
+  min-width: 800px;
+  max-width: 1200px;
+  background: #1a1d24;
+  color: #e0e6ed;
+}
+
+.dialog-container h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: #e0e6ed;
+}
+
+.dialog-container h2 mat-icon {
+  color: #4a9eff;
+}
+
+/* Progress Section */
+.progress-section {
+  background: #23272f;
+  border: 1px solid #353a45;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.progress-section h3 {
+  margin: 0 0 12px 0;
+  color: #e0e6ed;
+  font-size: 16px;
+}
+
+.progress-info {
+  margin-bottom: 12px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #353a45;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #8bc34a);
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 14px;
+  color: #b0b8c4;
+  text-align: center;
+}
+
+.remaining-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ff9800;
+  font-size: 14px;
+}
+
+.remaining-info mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.fully-invoiced {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #4caf50;
+  font-size: 14px;
+}
+
+.fully-invoiced mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Invoice Type Section */
+.invoice-type-section {
+  margin-bottom: 24px;
+}
+
+.invoice-type-section h3 {
+  margin: 0 0 16px 0;
+  color: #e0e6ed;
+  font-size: 16px;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radio-button {
+  border: 1px solid #353a45;
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  background: #23272f;
+  color: #e0e6ed;
+}
+
+.radio-button:hover {
+  border-color: #4a9eff;
+  background: #2a2f38;
+}
+
+.radio-button.mat-radio-checked {
+  border-color: #4a9eff;
+  background: #1e3a5f;
+}
+
+.radio-content {
+  margin-left: 8px;
+}
+
+.radio-title {
+  font-weight: 500;
+  color: #e0e6ed;
+  margin-bottom: 4px;
+}
+
+.radio-description {
+  font-size: 12px;
+  color: #b0b8c4;
+}
+
+/* Manual Section */
+.manual-section h3 {
+  margin: 0 0 16px 0;
+  color: #e0e6ed;
+  font-size: 16px;
+}
+
+.line-items-table {
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+
+.line-items-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #23272f;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  border: 1px solid #353a45;
+}
+
+.line-items-table th {
+  background: #353a45;
+  padding: 12px 8px;
+  text-align: left;
+  font-weight: 500;
+  color: #e0e6ed;
+  border-bottom: 1px solid #4a4f5c;
+}
+
+.line-items-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #2a2f38;
+  vertical-align: middle;
+  color: #e0e6ed;
+}
+
+.line-items-table tr:last-child td {
+  border-bottom: none;
+}
+
+.line-item-row:hover {
+  background: #2a2f38;
+}
+
+.remaining-duration {
+  font-weight: 500;
+  color: #e0e6ed;
+}
+
+.remaining-duration.zero {
+  color: #888;
+  font-style: italic;
+}
+
+.duration-input {
+  width: 80px;
+}
+
+.duration-input input {
+  text-align: center;
+  color: #e0e6ed;
+}
+
+.duration-input ::ng-deep .mat-form-field-label {
+  color: #b0b8c4;
+}
+
+.duration-input ::ng-deep .mat-form-field-underline {
+  background-color: #353a45;
+}
+
+.duration-input ::ng-deep .mat-form-field-ripple {
+  background-color: #4a9eff;
+}
+
+.disabled-text {
+  color: #888;
+  font-style: italic;
+  font-size: 12px;
+}
+
+/* Summary Section */
+.summary-section {
+  background: #23272f;
+  border: 1px solid #353a45;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.summary-item:not(:last-child) {
+  border-bottom: 1px solid #2a2f38;
+}
+
+.summary-item .label {
+  color: #b0b8c4;
+  font-size: 14px;
+}
+
+.summary-item .value {
+  color: #e0e6ed;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Automatic Section */
+.automatic-section h3 {
+  margin: 0 0 16px 0;
+  color: #e0e6ed;
+  font-size: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-width ::ng-deep .mat-form-field-label {
+  color: #b0b8c4;
+}
+
+.full-width ::ng-deep .mat-form-field-underline {
+  background-color: #353a45;
+}
+
+.full-width ::ng-deep .mat-form-field-ripple {
+  background-color: #4a9eff;
+}
+
+.full-width ::ng-deep input {
+  color: #e0e6ed;
+}
+
+.full-width ::ng-deep .mat-select-value {
+  color: #e0e6ed;
+}
+
+.full-width ::ng-deep .mat-select-arrow {
+  color: #b0b8c4;
+}
+
+.installment-settings {
+  margin-top: 16px;
+  padding: 16px;
+  background: #23272f;
+  border: 1px solid #353a45;
+  border-radius: 8px;
+}
+
+/* Dialog Actions */
+mat-dialog-actions {
+  background: #23272f;
+  border-top: 1px solid #353a45;
+  padding: 16px 24px;
+  margin: 24px -24px -24px -24px;
+}
+
+mat-dialog-actions button {
+  margin-left: 8px;
+}
+
+mat-dialog-actions button[mat-button] {
+  color: #b0b8c4;
+  border: 1px solid #353a45;
+}
+
+mat-dialog-actions button[mat-raised-button] {
+  background: #4a9eff;
+  color: white;
+}
+
+mat-dialog-actions button[mat-raised-button]:disabled {
+  background: #353a45;
+  color: #888;
+}
+
+/* Checkbox Styling */
+mat-checkbox ::ng-deep .mat-checkbox-frame {
+  border-color: #353a45;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-checkmark-path {
+  stroke: #4a9eff;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-background {
+  background-color: #23272f;
+}
+
+mat-checkbox ::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: #4a9eff;
+}
+
+/* Radio Button Styling */
+mat-radio-button ::ng-deep .mat-radio-outer-circle {
+  border-color: #353a45;
+}
+
+mat-radio-button ::ng-deep .mat-radio-inner-circle {
+  background-color: #4a9eff;
+}
+
+mat-radio-button ::ng-deep .mat-radio-checked .mat-radio-outer-circle {
+  border-color: #4a9eff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dialog-container {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .line-items-table {
+    font-size: 12px;
+  }
+
+  .line-items-table th,
+  .line-items-table td {
+    padding: 8px 4px;
+  }
+
+  .summary-section {
+    padding: 12px;
+  }
+
+  .summary-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+} 

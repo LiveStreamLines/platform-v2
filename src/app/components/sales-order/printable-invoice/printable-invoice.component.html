@@ -1,0 +1,133 @@
+<div class="print-invoice-a4" *ngIf="invoice && salesOrder && developer">
+  <!-- Header -->
+  <div class="invoice-header-row">
+    <div class="logo-col">
+      <img src="/assets/logo.png" alt="Company Logo" class="company-logo" />
+    </div>
+    <div class="company-info-col">
+      <div class="company-info" style="text-align: right;">
+        <div>Live stream lines security And Alarm Trading LLC</div>
+        <div>Marasi Drive Stree, Business Bay</div>
+        <div>712, Clover Bay Tower</div>
+        <div>Dubai DU</div>
+        <div>United Arab Emirates</div>
+        <div>TRN: 100579283100003</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Info (right, below header) -->
+  <div class="client-info-col" style="text-align: right; margin-top: 8px;">
+    <div class="client-info">
+      <div>{{ developer.developerName }}</div>
+      <div>{{ developer.address.city }}, {{ developer.address.country }}</div>
+      <div>VAT: {{ developer.vatNumber }}</div>
+    </div>
+  </div>
+
+  <!-- Invoice Title -->
+  <div class="invoice-title-row">
+    <div class="invoice-title">TAX Invoice {{ invoice.invoiceNumber }}</div>
+    <div class="project-name"><b>Project:</b> {{ project?.projectName || salesOrder.projectName }}</div>
+  </div>
+
+  <!-- Invoice Details Table -->
+  <table class="invoice-details-table">
+    <tr>
+      <td><b>Invoice Date:</b> {{ invoice.generatedDate | date:'dd/MM/yyyy' }}</td>
+      <td><b>Due Date:</b> {{ invoice.dueDate | date:'dd/MM/yyyy' }}</td>
+      <td><b>Source:</b> {{ salesOrder.orderNumber }}</td>
+      <td><b>Reference:</b> {{ invoice.invoiceSequence | number:'5.0' }}</td>
+    </tr>
+  </table>
+
+  <!-- Line Items Table -->
+  <table class="line-items-table">
+    <thead>
+      <tr>
+        <th>DESCRIPTION</th>
+        <th>QUANTITY</th>
+        <th>UNIT PRICE</th>
+        <th>VAT</th>
+        <th>VAT AMOUNT</th>
+        <th>AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ invoice.description }}</td>
+        <td>1.00 Units</td>
+        <td>{{ invoice.amount | number:'1.2-2' }} AED</td>
+        <td>VAT 5%</td>
+        <td>{{ invoice.vat | number:'1.2-2' }} AED</td>
+        <td>{{ invoice.amount | number:'1.2-2' }} AED</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Summary Table -->
+  <table class="summary-table">
+    <tr>
+      <td>Untaxed Amount</td>
+      <td class="right">{{ invoice.amount | number:'1.2-2' }} AED</td>
+    </tr>
+    <tr>
+      <td>VAT 5% on {{ invoice.amount | number:'1.2-2' }} AED</td>
+      <td class="right">{{ invoice.vat | number:'1.2-2' }} AED</td>
+    </tr>
+    <tr class="total-row">
+      <td>Total</td>
+      <td class="right">{{ (invoice.grandTotal ? +invoice.grandTotal : (+invoice.amount + +invoice.vat)) | number:'1.2-2' }} AED</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="amount-in-words">
+        <b>Total amount in words:</b> {{ (invoice.grandTotal ? +invoice.grandTotal : (+invoice.amount + +invoice.vat)) | amountToWords:'AED' }}
+      </td>
+    </tr>
+  </table>
+
+  <!-- Bank Info Section -->
+  <div class="bank-info-section" style="margin-bottom: 12px;">
+    <div style="font-size:13px;">
+      <b>All cheque payments will be made payable to Live Stream Lines Security and Alarm Trading L.L.C</b><br>
+      For Bank Transfer, please note the details:<br>
+      Account Title: Live Stream Lines Security and Alarm Trading L.L.C<br>
+      Account No.: 370/4060473014/0/AED/01<br>
+      IBAN No.: AE2403400003704060473014<br>
+      Bank Name: Emirates Islamic<br>
+      Bank Account Type: Current - Business<br>
+      Branch: Al Barsha Mall, Dubai, United Arab Emirates
+    </div>
+  </div>
+
+  <!-- Payment Communication -->
+  <div class="payment-communication">
+    <div class="section-title">Payment Communication: {{ invoice.invoiceNumber }}</div>
+    <ul>
+      <li>25% Advance payment against security cheque</li>
+      <li>50% after installation against security cheque</li>
+      <li>25% Monthly installment collected every 6 months</li>
+    </ul>
+  </div>
+
+  <!-- Signature and Stamps -->
+  <div class="signature-stamp-row">
+    <div class="signature-box">
+      <div>Signature And Stamps</div>
+      <div class="stamp-placeholder">&nbsp;</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-row">
+    <div class="footer-left">info&#64;livestreamlines.com</div>
+    <div class="footer-center">Page: 1/1</div>
+    <div class="footer-right">www.livestreamlines.com</div>
+  </div>
+
+  <!-- Print Button (hidden in print) -->
+  <button class="print-btn" (click)="printInvoice()">Print Invoice</button>
+</div>
+
+<div *ngIf="isLoading" class="loading-print-invoice">Loading invoice...</div>
+<div *ngIf="errorMessage" class="error-print-invoice">{{ errorMessage }}</div> 
