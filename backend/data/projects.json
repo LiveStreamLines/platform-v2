@@ -3041,5 +3041,19 @@
     "internalAttachments": [],
     "createdDate": "2025-12-08T13:43:36.462Z",
     "logo": "logos/project/8738037dbba499a6a95bf4e9.jpg"
+  },
+  {
+    "_id": "b4ef3eb7986e42f065e783bf",
+    "projectName": "Avaition City Project",
+    "projectTag": "aviation",
+    "description": "Avaition City Project",
+    "developer": "5dc8e1c19cd85639a6deb69a",
+    "index": "0",
+    "isActive": true,
+    "status": "new",
+    "internalDescription": "",
+    "internalAttachments": [],
+    "createdDate": "2025-12-10T05:49:21.863Z",
+    "logo": ""
   }
 ]

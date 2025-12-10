@@ -73,7 +73,14 @@ export class MediaComponent {
   ngOnInit(): void {
     this.fetchDevelopers();
     this.mediaForm.get('developer')?.valueChanges.subscribe(developerId => {
-      this.fetchProjects(developerId);
+      if (developerId) {
+        this.fetchProjects(developerId);
+      } else {
+        // If developer is cleared, disable and reset project
+        this.mediaForm.get('project')?.disable();
+        this.mediaForm.get('project')?.reset();
+        this.projects = [];
+      }
     });
   }
 
@@ -88,9 +95,11 @@ export class MediaComponent {
     const target = event.target as HTMLSelectElement;
     this.mediaForm.get('project')?.reset();
     this.mediaForm.get('project')?.disable();
-    if (target) {
+    if (target && target.value) {
       const developerId = target.value;
       this.loadProjectsByDeveloper(developerId);
+    } else {
+      this.projects = [];
     }
   }
 
@@ -99,9 +108,16 @@ export class MediaComponent {
     this.projectService.getProjectsByDeveloper(developerId).subscribe({
       next: projects => {
         this.projects = projects;
-        this.mediaForm.get('project')?.enable();
+        if (projects.length > 0) {
+          this.mediaForm.get('project')?.enable();
+        } else {
+          this.mediaForm.get('project')?.disable();
+        }
       },
-      error: err => console.error('Error fetching projects:', err)
+      error: err => {
+        console.error('Error fetching projects:', err);
+        this.mediaForm.get('project')?.disable();
+      }
     });
   }
  
@@ -137,18 +153,20 @@ export class MediaComponent {
             const totalProgress = Math.round((event.loaded / event.total) * 100);
             
             if (totalProgress >= 100) {
-              // HTTP upload to backend is complete
-              // Now backend is processing and uploading to S3
-              this.uploadProgress = 90;
+              // HTTP upload to backend is complete (10%)
+              // Now backend is processing and uploading to S3 (remaining 90%)
+              this.uploadProgress = 10;
               this.isProcessing = true;
+              // Animate progress from 10% to 90% during processing
+              this.animateProcessingProgress();
             } else {
-              // Show progress up to 90% for HTTP upload to backend
-              this.uploadProgress = Math.round(totalProgress * 0.9);
+              // Show progress up to 10% for HTTP upload to backend
+              this.uploadProgress = Math.round(totalProgress * 0.1);
               this.isProcessing = false;
             }
           } else if (event.loaded) {
             // If total is not available, show some progress
-            this.uploadProgress = 50;
+            this.uploadProgress = 5;
           }
         } else if (event.type === HttpEventType.Response) {
           // Backend has finished processing and S3 upload
@@ -198,6 +216,23 @@ export class MediaComponent {
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+  }
+
+  private animateProcessingProgress(): void {
+    // Animate progress from 10% to 90% during S3 upload processing
+    let currentProgress = 10;
+    const targetProgress = 90;
+    const interval = setInterval(() => {
+      if (currentProgress < targetProgress && this.isProcessing) {
+        currentProgress += 2; // Increment by 2% each interval
+        if (currentProgress > targetProgress) {
+          currentProgress = targetProgress;
+        }
+        this.uploadProgress = currentProgress;
+      } else {
+        clearInterval(interval);
+      }
+    }, 200); // Update every 200ms for smooth animation
   }
 
 }

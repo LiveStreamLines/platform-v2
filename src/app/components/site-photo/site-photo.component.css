@@ -91,6 +91,15 @@
   background-color: rgba(50, 30, 30, 0.9);
 }
 
+.calendar-day.clickable {
+  cursor: pointer;
+}
+
+.calendar-day.clickable:hover {
+  transform: scale(1.02);
+  z-index: 1;
+}
+
 .day-number {
   font-weight: 600;
   color: #ffffff;

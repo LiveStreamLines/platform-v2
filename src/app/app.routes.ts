@@ -45,6 +45,7 @@ import { InvoiceEditComponent } from './components/sales-order/invoice-edit/invo
 import { PrintableInvoiceComponent } from './components/sales-order/printable-invoice/printable-invoice.component';
 import { DroneShootingComponent } from './components/drone-shooting/drone-shooting.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { MediaViewerComponent } from './components/media-viewer/media-viewer.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -80,6 +81,7 @@ export const routes: Routes = [
   { path: 'gallery/video-request', component: VideoRequestComponent,  canActivate: [AuthGuard]},
   { path: 'gallery/photo-request', component: PhotoRequestComponent,  canActivate: [AuthGuard]},
   { path: 'media', component: MediaComponent,  canActivate: [AuthGuard]},
+  { path: 'media/viewer', component: MediaViewerComponent, canActivate: [AuthGuard]},
   { path: 'about', component: AboutUsComponent, canActivate:[AuthGuard]},
   { path: 'monitor', component: CameraViewerComponent, canActivate:[AuthGuard]},
   { path: 'camera-monitor', component: CameraMonitorComponent, 

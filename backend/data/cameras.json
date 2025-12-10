@@ -9525,5 +9525,37 @@
     "server": "Lsl Standard Cloud",
     "internalAttachments": [],
     "createdDate": "2025-12-08T13:46:38.219Z"
+  },
+  {
+    "_id": "faefcec6996e76f73d76eb9e",
+    "developer": "5dc8e1c19cd85639a6deb69a",
+    "project": "b4ef3eb7986e42f065e783bf",
+    "camera": "camera1",
+    "cameraDescription": "Camera 1",
+    "cindex": 0,
+    "serverFolder": "0639",
+    "lat": "0",
+    "lng": "0",
+    "isActive": true,
+    "country": "UAE",
+    "server": "Lsl Standard Cloud",
+    "internalAttachments": [],
+    "createdDate": "2025-12-10T05:50:08.752Z"
+  },
+  {
+    "_id": "b6fbbdf37ab9072bba8246ae",
+    "developer": "5dc8e1c19cd85639a6deb69a",
+    "project": "b4ef3eb7986e42f065e783bf",
+    "camera": "camera2",
+    "cameraDescription": "Camera 2",
+    "cindex": 0,
+    "serverFolder": "0641",
+    "lat": "0",
+    "lng": "0",
+    "isActive": true,
+    "country": "UAE",
+    "server": "Lsl Standard Cloud",
+    "internalAttachments": [],
+    "createdDate": "2025-12-10T05:50:41.959Z"
   }
 ]

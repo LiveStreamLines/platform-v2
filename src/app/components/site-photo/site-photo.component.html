@@ -28,6 +28,8 @@
       [class.empty-day]="day === null"
       [class.today]="isToday(day)"
       [class.has-media]="day !== null && getMediaForDate(day).length > 0"
+      [class.clickable]="day !== null && getMediaForDate(day).length > 0"
+      (click)="day !== null && getMediaForDate(day).length > 0 && openMediaViewer(day)"
     >
       <div class="day-number" *ngIf="day !== null">{{ getDayNumber(day) }}</div>
       <div class="day-media" *ngIf="day !== null && getMediaForDate(day).length > 0">
@@ -37,15 +39,7 @@
             <div class="media-info">
               <span class="media-project">{{ item.developerProject }}</span>
               <div class="media-files">
-                <a 
-                  *ngFor="let file of item.files; let i = index" 
-                  [href]="getFileUrl(item, file)" 
-                  target="_blank"
-                  class="file-link"
-                  (click)="$event.stopPropagation()"
-                >
-                  {{ i === 0 ? 'Download' : '' }}
-                </a>
+                <span class="file-count">{{ item.files?.length || 0 }} file(s)</span>
               </div>
             </div>
           </div>

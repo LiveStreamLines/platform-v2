@@ -1,0 +1,150 @@
+<div class="media-viewer-container" *ngIf="!isLoading">
+  <!-- Header -->
+  <div class="viewer-header">
+    <button mat-icon-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="header-info">
+      <h2 class="viewer-title">Media Viewer</h2>
+      <p class="viewer-subtitle" *ngIf="date">
+        {{ formatDate(date) }} - {{ service }}
+      </p>
+    </div>
+    <div class="file-counter" *ngIf="allFiles.length > 0">
+      {{ currentFileIndex + 1 }} / {{ allFiles.length }}
+    </div>
+  </div>
+
+  <div class="viewer-content" *ngIf="allFiles.length > 0">
+    <!-- Thumbnail Sidebar -->
+    <div class="thumbnail-sidebar">
+      <div class="sidebar-header">
+        <h3>Files</h3>
+        <span class="file-count">{{ allFiles.length }} file(s)</span>
+      </div>
+      <div class="thumbnails-list">
+        <div 
+          class="thumbnail-item" 
+          *ngFor="let file of allFiles; let i = index"
+          [class.active]="i === currentFileIndex"
+          (click)="selectFile(i)"
+        >
+          <div class="thumbnail-preview">
+            <img 
+              *ngIf="file.type === 'image'" 
+              [src]="file.url" 
+              [alt]="file.originalName"
+              class="thumbnail-image"
+              (error)="onImageError($event)"
+            />
+            <div *ngIf="file.type === 'video'" class="thumbnail-video">
+              <mat-icon class="video-icon">play_circle</mat-icon>
+            </div>
+            <div *ngIf="file.type === 'unknown'" class="thumbnail-unknown">
+              <mat-icon>description</mat-icon>
+            </div>
+          </div>
+          <div class="thumbnail-info">
+            <span class="thumbnail-name" [title]="file.originalName">
+              {{ file.originalName }}
+            </span>
+            <span class="thumbnail-type">{{ file.type }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Media Display -->
+    <div class="main-media-display">
+      <div class="media-viewer" *ngIf="currentFile">
+        <!-- Navigation Buttons -->
+        <button 
+          mat-icon-button 
+          class="nav-button prev-button"
+          (click)="previousFile()"
+          [disabled]="currentFileIndex === 0"
+          *ngIf="allFiles.length > 1"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+
+        <button 
+          mat-icon-button 
+          class="nav-button next-button"
+          (click)="nextFile()"
+          [disabled]="currentFileIndex === allFiles.length - 1"
+          *ngIf="allFiles.length > 1"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+
+        <!-- Media Content -->
+        <div class="media-content">
+          <!-- Image Display -->
+          <div class="image-container" *ngIf="currentFile.type === 'image'">
+            <img 
+              [src]="currentFile.url" 
+              [alt]="currentFile.originalName"
+              class="media-image"
+            />
+          </div>
+
+          <!-- Video Display -->
+          <div class="video-container" *ngIf="currentFile.type === 'video'">
+            <video 
+              [src]="getSafeUrl(currentFile.url)" 
+              controls
+              class="media-video"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <!-- Unknown/Download -->
+          <div class="unknown-container" *ngIf="currentFile.type === 'unknown'">
+            <mat-icon class="unknown-icon">description</mat-icon>
+            <p class="unknown-text">Preview not available</p>
+            <a 
+              [href]="currentFile.url" 
+              target="_blank" 
+              class="download-button"
+            >
+              <mat-icon>download</mat-icon>
+              Download File
+            </a>
+          </div>
+        </div>
+
+        <!-- File Info -->
+        <div class="file-info">
+          <div class="info-item">
+            <span class="info-label">File Name:</span>
+            <span class="info-value">{{ currentFile.originalName }}</span>
+          </div>
+          <div class="info-item" *ngIf="currentFile.media">
+            <span class="info-label">Project:</span>
+            <span class="info-value">{{ currentFile.media.developer }} - {{ currentFile.media.project }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && allFiles.length === 0">
+    <mat-icon class="empty-icon">folder_open</mat-icon>
+    <h3>No media files found</h3>
+    <p>No media files available for this date.</p>
+    <button mat-raised-button (click)="goBack()" class="back-button-large">
+      <mat-icon>arrow_back</mat-icon>
+      Go Back
+    </button>
+  </div>
+</div>
+
+<!-- Loading State -->
+<div class="loading-container" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+  <p>Loading media...</p>
+</div>
+

@@ -8,6 +8,7 @@ import { MediaService } from '../../services/media.service';
 import { MatIcon } from '@angular/material/icon';
 import { environment } from '../../../environment/environments';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-site-photo',
@@ -44,7 +45,11 @@ export class SitePhotoComponent implements OnInit {
   dayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   yearMonths: { month: number; monthName: string; date: Date; mediaCount: number }[] = [];
 
-  constructor( private mediaService: MediaService, private authService: AuthService){}
+  constructor( 
+    private mediaService: MediaService, 
+    private authService: AuthService,
+    private router: Router
+  ){}
 
   ngOnInit(): void {
     this.userRole = this.authService.getUserRole();
@@ -61,7 +66,7 @@ export class SitePhotoComponent implements OnInit {
         .filter(request => 
           (this.accessibleDevelopers.includes(request.developerId) || this.accessibleDevelopers.includes('all') || this.userRole === 'Super Admin')  &&
           (this.accessibleProjects.includes(request.projectId) || this.accessibleProjects.includes('all') || this.userRole === 'Super Admin') &&
-          request.service === 'Site Photography'
+          request.service === 'Site Photography & Videography'
         )
         .map((request) => {
           // Handle both old format (string) and new format (object with url)
@@ -266,5 +271,19 @@ export class SitePhotoComponent implements OnInit {
       return `${this.serverUrl}/${item.developerTag}/${item.projectTag}/${file}`;
     }
     return '';
+  }
+
+  openMediaViewer(date: Date): void {
+    if (!date) return;
+    const dateKey = this.formatDateKey(date);
+    const mediaForDate = this.getMediaForDate(date);
+    if (mediaForDate.length > 0) {
+      this.router.navigate(['/media/viewer'], {
+        queryParams: {
+          date: dateKey,
+          service: 'Site Photography & Videography'
+        }
+      });
+    }
   }
 }

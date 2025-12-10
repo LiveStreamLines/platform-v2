@@ -8,6 +8,7 @@ import { MediaService } from '../../services/media.service';
 import { MatIcon } from '@angular/material/icon';
 import { environment } from '../../../environment/environments';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-drone-shooting',
@@ -44,7 +45,11 @@ export class DroneShootingComponent implements OnInit {
   dayNames: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   yearMonths: { month: number; monthName: string; date: Date; mediaCount: number }[] = [];
 
-  constructor( private mediaService: MediaService, private authService: AuthService){}
+  constructor( 
+    private mediaService: MediaService, 
+    private authService: AuthService,
+    private router: Router
+  ){}
 
   ngOnInit(): void {
     this.userRole = this.authService.getUserRole();
@@ -266,5 +271,19 @@ export class DroneShootingComponent implements OnInit {
       return `${this.serverUrl}/${item.developerTag}/${item.projectTag}/${file}`;
     }
     return '';
+  }
+
+  openMediaViewer(date: Date): void {
+    if (!date) return;
+    const dateKey = this.formatDateKey(date);
+    const mediaForDate = this.getMediaForDate(date);
+    if (mediaForDate.length > 0) {
+      this.router.navigate(['/media/viewer'], {
+        queryParams: {
+          date: dateKey,
+          service: 'Drone Shooting'
+        }
+      });
+    }
   }
 } 

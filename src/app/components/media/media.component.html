@@ -44,7 +44,6 @@
               formControlName="project"
               class="form-select"
               [class.error]="mediaForm.get('project')?.invalid && mediaForm.get('project')?.touched"
-              [disabled]="!mediaForm.get('developer')?.value"
             >
               <option value="" disabled>Select Project</option>
               <option *ngFor="let proj of projects" [value]="proj._id">
