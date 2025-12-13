@@ -1,0 +1,279 @@
+:host {
+  display: block;
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+h2[mat-dialog-title] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  margin: 0;
+  padding: 20px 24px;
+  border-bottom: 1px solid #404040;
+  background-color: #252525;
+}
+
+h2[mat-dialog-title] mat-icon {
+  color: #2196F3;
+}
+
+mat-dialog-content {
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background-color: #1a1a1a;
+}
+
+.user-info {
+  background-color: #2d2d2d;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.user-detail {
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.user-detail:last-child {
+  margin-bottom: 0;
+}
+
+.user-detail strong {
+  color: #b0b0b0;
+  margin-right: 8px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #b0b0b0;
+}
+
+.loading-container p {
+  margin-top: 16px;
+  color: #b0b0b0;
+}
+
+.access-content {
+  color: #ffffff;
+}
+
+.access-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  font-size: 18px;
+}
+
+.access-section h3 mat-icon {
+  color: #2196F3;
+}
+
+.all-access-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.all-access-badge mat-icon {
+  color: white;
+}
+
+.all-projects-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.all-projects-badge mat-icon {
+  color: white;
+}
+
+.no-access {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #b0b0b0;
+  text-align: center;
+}
+
+.no-access mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: #666;
+}
+
+.developer-item {
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #404040;
+}
+
+.developer-item:last-child {
+  margin-bottom: 0;
+}
+
+.developer-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #404040;
+}
+
+.developer-header mat-icon {
+  color: #2196F3;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.developer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.developer-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.developer-tag {
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+.projects-list {
+  margin-left: 36px;
+}
+
+.projects-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #b0b0b0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.projects-header mat-icon {
+  color: #2196F3;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.project-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background-color: #333333;
+  border-radius: 6px;
+  border-left: 3px solid #2196F3;
+}
+
+.project-item mat-icon {
+  color: #b0b0b0;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.project-name {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.project-tag {
+  font-size: 12px;
+  color: #b0b0b0;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  border-top: 1px solid #404040;
+  background-color: #252525;
+  margin: 0;
+}
+
+mat-dialog-actions button {
+  color: #ffffff;
+}
+
+mat-dialog-actions button mat-icon {
+  margin-right: 4px;
+}
+
+/* Scrollbar styling */
+mat-dialog-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+mat-dialog-content::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+mat-dialog-content::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+
+mat-dialog-content::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Material Dialog Override */
+::ng-deep .mat-mdc-dialog-container {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  background-color: #1a1a1a !important;
+}
+

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { customerRoutes } from './app.routes.customer';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './services/auth.guard';  // Import the AuthGuard
@@ -46,6 +47,11 @@ import { PrintableInvoiceComponent } from './components/sales-order/printable-in
 import { DroneShootingComponent } from './components/drone-shooting/drone-shooting.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { MediaViewerComponent } from './components/media-viewer/media-viewer.component';
+
+// Customer Portal Routes (New Design)
+//export const routes: Routes = customerRoutes;
+
+// Legacy Routes (commented out - can be removed after migration)
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -115,3 +121,6 @@ export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }  // Use the NotFoundComponent for 404
 ];
+
+// Uncomment the line below and comment out the routes above to use the new customer portal design:
+// export const routes: Routes = customerRoutes;

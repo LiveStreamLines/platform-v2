@@ -1,0 +1,49 @@
+<div class="space-y-6">
+  <div>
+    <h1 class="text-3xl font-bold text-gray-900">Cameras</h1>
+    <p class="text-gray-600 mt-1">View and monitor your cameras</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex items-center space-x-4">
+    <select [(ngModel)]="filters.status" (change)="loadCameras()" class="px-4 py-2 border border-gray-300 rounded-lg">
+      <option value="">All Status</option>
+      <option value="online">Online</option>
+      <option value="offline">Offline</option>
+    </select>
+    <button (click)="loadCameras()" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+      Apply Filters
+    </button>
+  </div>
+
+  @if (isLoading) {
+    <div class="flex items-center justify-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+    </div>
+  } @else if (cameras.length === 0) {
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+      <span class="material-icons text-gray-400 text-6xl mb-4">videocam_off</span>
+      <p class="text-gray-600">No cameras found</p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (camera of cameras; track camera.id) {
+        <a [routerLink]="['/cameras', camera.id]" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+          <div class="flex items-start justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">{{ camera.name }}</h3>
+            <span class="px-2 py-1 text-xs rounded-full"
+                  [class.bg-green-100]="camera.status === 'online'"
+                  [class.text-green-800]="camera.status === 'online'"
+                  [class.bg-red-100]="camera.status === 'offline'"
+                  [class.text-red-800]="camera.status === 'offline'">
+              {{ camera.status }}
+            </span>
+          </div>
+          <p class="text-sm text-gray-600 mb-2">{{ camera.location || 'No location' }}</p>
+          <p class="text-xs text-gray-500">Type: {{ camera.type }}</p>
+        </a>
+      }
+    </div>
+  }
+</div>
+

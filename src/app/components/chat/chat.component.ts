@@ -12,10 +12,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ChatService, ChatMessage, Conversation } from '../../services/chat.service';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../services/users.service';
+import { UserAccessModalComponent, UserAccessData } from './user-access-modal/user-access-modal.component';
 
 @Component({
   selector: 'app-chat',
@@ -33,7 +35,8 @@ import { UserService } from '../../services/users.service';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
@@ -58,7 +61,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private chatService: ChatService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -421,5 +426,36 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (minutes < 1440) return `${Math.floor(minutes / 60)}h ago`;
     
     return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  openUserAccessModal(): void {
+    if (!this.selectedConversation || !this.isAdmin) {
+      return;
+    }
+
+    const userId = this.selectedConversation.userId;
+    
+    // Fetch user details
+    this.userService.getUserById(userId).subscribe({
+      next: (user) => {
+        const dialogData: UserAccessData = {
+          userId: user._id,
+          userName: user.name,
+          userEmail: user.email,
+          accessibleDevelopers: user.accessibleDevelopers || [],
+          accessibleProjects: user.accessibleProjects || []
+        };
+
+        this.dialog.open(UserAccessModalComponent, {
+          width: '600px',
+          maxWidth: '90vw',
+          data: dialogData,
+          panelClass: 'user-access-dialog'
+        });
+      },
+      error: (error) => {
+        console.error('Error fetching user details:', error);
+      }
+    });
   }
 }

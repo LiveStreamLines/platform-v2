@@ -1,0 +1,43 @@
+@if (isLoading) {
+  <div class="flex items-center justify-center py-12">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+  </div>
+} @else if (conversation) {
+  <div class="max-w-4xl mx-auto space-y-6">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">{{ conversation.subject }}</h1>
+    </div>
+
+    <!-- Messages -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 space-y-4 max-h-96 overflow-y-auto">
+      @for (message of messages; track message.id) {
+        <div class="flex" [class.justify-end]="message.senderType === 'customer'">
+          <div [class.bg-primary-600]="message.senderType === 'customer'"
+               [class.text-white]="message.senderType === 'customer'"
+               [class.bg-gray-200]="message.senderType !== 'customer'"
+               [class.text-gray-900]="message.senderType !== 'customer'"
+               class="max-w-md px-4 py-2 rounded-lg">
+            <p class="text-sm font-medium mb-1">{{ message.senderName }}</p>
+            <p>{{ message.content }}</p>
+            <p class="text-xs mt-1 opacity-75">{{ message.timestamp | date:'short' }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Message Input -->
+    <div class="flex space-x-4">
+      <input
+        [(ngModel)]="newMessage"
+        (keyup.enter)="sendMessage()"
+        type="text"
+        placeholder="Type your message..."
+        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg"
+      >
+      <button (click)="sendMessage()" class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+        Send
+      </button>
+    </div>
+  </div>
+}
+

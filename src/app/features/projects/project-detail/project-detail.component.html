@@ -1,0 +1,72 @@
+@if (isLoading) {
+  <div class="flex items-center justify-center py-12">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+  </div>
+} @else if (project) {
+  <div class="space-y-6">
+    <!-- Header -->
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">{{ project.name }}</h1>
+      <p class="text-gray-600 mt-1">{{ project.location }}</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="border-b border-gray-200">
+      <nav class="flex space-x-8">
+        @for (tab of ['overview', 'cameras', 'media', 'timelapse', 'services', 'memories', 'weather']; track tab) {
+          <button
+            (click)="setTab(tab)"
+            [class.border-primary-600]="activeTab === tab"
+            [class.text-primary-600]="activeTab === tab"
+            [class.text-gray-500]="activeTab !== tab"
+            class="py-4 px-1 border-b-2 font-medium text-sm transition-colors"
+          >
+            {{ tab.charAt(0).toUpperCase() + tab.slice(1) }}
+          </button>
+        }
+      </nav>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      @switch (activeTab) {
+        @case ('overview') {
+          <div class="space-y-4">
+            <h2 class="text-xl font-semibold">Project Overview</h2>
+            <p class="text-gray-700">{{ project.description || 'No description available' }}</p>
+            <div class="grid grid-cols-3 gap-4 mt-6">
+              <div>
+                <p class="text-sm text-gray-600">Cameras</p>
+                <p class="text-2xl font-bold">{{ project.stats?.cameraCount || 0 }}</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Recent Uploads</p>
+                <p class="text-2xl font-bold">{{ project.stats?.recentUploads || 0 }}</p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-600">Active Services</p>
+                <p class="text-2xl font-bold">{{ project.stats?.activeServices || 0 }}</p>
+              </div>
+            </div>
+          </div>
+        }
+        @case ('cameras') {
+          <div>
+            <h2 class="text-xl font-semibold mb-4">Cameras</h2>
+            <a [routerLink]="['/cameras']" [queryParams]="{projectId: project.id}" class="text-primary-600 hover:text-primary-700">
+              View all cameras →
+            </a>
+          </div>
+        }
+        @default {
+          <p class="text-gray-600">Content for {{ activeTab }} tab coming soon...</p>
+        }
+      }
+    </div>
+  </div>
+} @else {
+  <div class="text-center py-12">
+    <p class="text-gray-600">Project not found</p>
+  </div>
+}
+

@@ -22,7 +22,7 @@
     "addedUserId": "123456789",
     "addedUserName": "Ammar Omer",
     "status": "active",
-    "LastLoginTime": "2025-12-09T12:13:01.490Z",
+    "LastLoginTime": "2025-12-13T07:37:28.105Z",
     "hasUaeAccess": false,
     "hasSaudiAccess": false,
     "canManageDevProjCam": "",
@@ -18830,7 +18830,7 @@
     "memoryRole": "viewer",
     "inventoryRole": "tech",
     "status": "active",
-    "LastLoginTime": "2025-12-09T12:13:48.196Z"
+    "LastLoginTime": "2025-12-10T14:26:06.243Z"
   },
   {
     "_id": "512bc6cee5d46fc86de794eb",
@@ -41448,14 +41448,15 @@
     "createdDate": "2025-11-18T11:24:43.661Z",
     "logo": "logos/user/3abbc8f3612f125a2d4979bb.jpg",
     "password": "lsl@1234",
-    "LastLoginTime": "2025-11-29T07:59:18.432Z",
+    "LastLoginTime": "2025-12-10T14:25:32.760Z",
     "image": "logos/user/3abbc8f3612f125a2d4979bb.jpg",
     "country": "UAE",
     "resetPasswordToken": null,
     "resetPasswordExpires": null,
     "canSeeAllInventory": false,
     "canAssignToUser": false,
-    "canTogglePhotoDirtyBetterView": false
+    "canTogglePhotoDirtyBetterView": false,
+    "manual": true
   },
   {
     "_id": "2181991388c9248ac725eaec",
@@ -45910,7 +45911,7 @@
     "isActive": true,
     "createdDate": "2025-12-09T12:50:11.800Z",
     "logo": "",
-    "LastLoginTime": "2025-12-09T12:50:55.445Z",
+    "LastLoginTime": "2025-12-10T14:33:51.244Z",
     "manual": true
   }
 ]

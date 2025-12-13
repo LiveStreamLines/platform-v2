@@ -1,0 +1,18 @@
+@if (isLoading) {
+  <div class="flex items-center justify-center py-12">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+  </div>
+} @else if (media) {
+  <div class="max-w-4xl mx-auto">
+    @if (media.type === 'video' || media.type === 'timelapse') {
+      <video [src]="media.url" controls class="w-full rounded-lg"></video>
+    } @else {
+      <img [src]="media.url" [alt]="media.type" class="w-full rounded-lg">
+    }
+    <div class="mt-4 bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+      <p class="font-semibold">{{ media.projectName }}</p>
+      <p class="text-sm text-gray-600">{{ media.timestamp | date:'short' }}</p>
+    </div>
+  </div>
+}
+

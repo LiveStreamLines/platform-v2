@@ -1,0 +1,79 @@
+<h2 mat-dialog-title>
+  <mat-icon>account_circle</mat-icon>
+  User Access Information
+</h2>
+
+<mat-dialog-content>
+  <div class="user-info">
+    <div class="user-detail">
+      <strong>Name:</strong> {{ data.userName }}
+    </div>
+    <div class="user-detail">
+      <strong>Email:</strong> {{ data.userEmail }}
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading access information...</p>
+  </div>
+
+  <div *ngIf="!isLoading" class="access-content">
+    <div class="access-section">
+      <h3>
+        <mat-icon>business</mat-icon>
+        Developers & Projects
+      </h3>
+      
+      <div *ngIf="hasAllDevelopers" class="all-access-badge">
+        <mat-icon>check_circle</mat-icon>
+        <span>Access to All Developers</span>
+      </div>
+
+      <div *ngIf="developersWithProjects.length === 0 && !hasAllDevelopers && !isLoading" class="no-access">
+        <mat-icon>info</mat-icon>
+        <p>No developers or projects assigned to this user.</p>
+      </div>
+
+      <div *ngFor="let item of developersWithProjects" class="developer-item">
+        <div class="developer-header">
+          <mat-icon>business</mat-icon>
+          <div class="developer-info">
+            <span class="developer-name">{{ item.developer.developerName }}</span>
+            <span class="developer-tag">{{ item.developer.developerTag }}</span>
+          </div>
+        </div>
+
+        <div class="projects-list">
+          <div *ngIf="hasAllProjects && item.projects.length > 0" class="all-projects-badge">
+            <mat-icon>check_circle</mat-icon>
+            <span>Access to All Projects ({{ item.projects.length }} total)</span>
+          </div>
+          
+          <div *ngIf="!hasAllProjects && item.projects.length > 0" class="projects-header">
+            <mat-icon>folder</mat-icon>
+            <span>Projects ({{ item.projects.length }})</span>
+          </div>
+
+          <div *ngIf="!hasAllProjects" class="project-items">
+            <div *ngFor="let project of item.projects" class="project-item">
+              <mat-icon>folder_open</mat-icon>
+              <div class="project-info">
+                <span class="project-name">{{ project.projectName }}</span>
+                <span class="project-tag">{{ project.projectTag }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onClose()">
+    <mat-icon>close</mat-icon>
+    Close
+  </button>
+</mat-dialog-actions>
+

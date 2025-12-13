@@ -81,6 +81,14 @@
             <h3>{{ isAdmin ? selectedConversation.userName : 'Support Team' }}</h3>
             <span *ngIf="isAdmin" class="user-email">{{ selectedConversation.userEmail }}</span>
           </div>
+          <button 
+            *ngIf="isAdmin" 
+            mat-icon-button 
+            (click)="openUserAccessModal()" 
+            matTooltip="View user access"
+            class="access-button">
+            <mat-icon>info</mat-icon>
+          </button>
         </div>
         <div *ngIf="isAdmin" class="chat-actions">
           <mat-form-field appearance="outline" class="status-select">

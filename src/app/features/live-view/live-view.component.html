@@ -1,0 +1,60 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Live View</h1>
+      <p class="text-gray-600 mt-1">Monitor your cameras in real-time</p>
+    </div>
+    <div class="flex items-center space-x-2">
+      <button
+        (click)="changeLayout('1')"
+        [class.bg-primary-600]="layout === '1'"
+        [class.text-white]="layout === '1'"
+        [class.text-gray-700]="layout !== '1'"
+        class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+      >
+        1 Camera
+      </button>
+      <button
+        (click)="changeLayout('2')"
+        [class.bg-primary-600]="layout === '2'"
+        [class.text-white]="layout === '2'"
+        [class.text-gray-700]="layout !== '2'"
+        class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+      >
+        2 Cameras
+      </button>
+      <button
+        (click)="changeLayout('4')"
+        [class.bg-primary-600]="layout === '4'"
+        [class.text-white]="layout === '4'"
+        [class.text-gray-700]="layout !== '4'"
+        class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors"
+      >
+        4 Cameras
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div
+      [class.grid-cols-1]="layout === '1'"
+      [class.grid-cols-2]="layout === '2'"
+      [class.grid-cols-2]="layout === '4'"
+      class="grid gap-4"
+    >
+      @for (i of cameraArray; track i) {
+        <div class="aspect-video bg-gray-900 rounded-lg flex items-center justify-center relative">
+          <div class="text-center text-gray-400">
+            <span class="material-icons text-6xl mb-2">videocam</span>
+            <p class="text-sm">Camera {{ i }}</p>
+            <p class="text-xs mt-1">Live feed placeholder</p>
+          </div>
+          <div class="absolute top-2 right-2">
+            <span class="px-2 py-1 bg-green-500 text-white text-xs rounded-full">Online</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+

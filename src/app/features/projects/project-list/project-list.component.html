@@ -1,0 +1,37 @@
+<div class="space-y-6">
+  <div>
+    <h1 class="text-3xl font-bold text-gray-900">Projects</h1>
+    <p class="text-gray-600 mt-1">View and manage your construction projects</p>
+  </div>
+
+  @if (isLoading) {
+    <div class="flex items-center justify-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+    </div>
+  } @else if (projects.length === 0) {
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+      <span class="material-icons text-gray-400 text-6xl mb-4">folder_open</span>
+      <p class="text-gray-600">No projects found</p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (project of projects; track project.id) {
+        <a [routerLink]="['/projects', project.id]" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow">
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ project.name }}</h3>
+          <p class="text-gray-600 text-sm mb-4">{{ project.location }}</p>
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-1 text-xs rounded-full"
+                  [class.bg-green-100]="project.status === 'active'"
+                  [class.text-green-800]="project.status === 'active'"
+                  [class.bg-gray-100]="project.status !== 'active'"
+                  [class.text-gray-800]="project.status !== 'active'">
+              {{ project.status }}
+            </span>
+            <span class="text-sm text-gray-500">{{ project.stats?.cameraCount || 0 }} cameras</span>
+          </div>
+        </a>
+      }
+    </div>
+  }
+</div>
+

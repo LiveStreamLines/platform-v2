@@ -1,0 +1,52 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Time-lapse Videos</h1>
+      <p class="text-gray-600 mt-1">View and manage your time-lapse requests</p>
+    </div>
+    <a routerLink="/timelapse/request" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+      Request New Time-lapse
+    </a>
+  </div>
+
+  @if (isLoading) {
+    <div class="flex items-center justify-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+    </div>
+  } @else if (timelapses.length === 0) {
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+      <span class="material-icons text-gray-400 text-6xl mb-4">movie</span>
+      <p class="text-gray-600 mb-4">No time-lapse videos yet</p>
+      <a routerLink="/timelapse/request" class="text-primary-600 hover:text-primary-700">Request your first time-lapse →</a>
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (timelapse of timelapses; track timelapse.id) {
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+          <div class="aspect-video bg-gray-200 flex items-center justify-center">
+            <span class="material-icons text-gray-400 text-4xl">movie</span>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold mb-2">{{ timelapse.cameraName || 'Camera' }}</h3>
+            <p class="text-sm text-gray-600 mb-2">{{ timelapse.dateRange.start | date:'short' }} - {{ timelapse.dateRange.end | date:'short' }}</p>
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-1 text-xs rounded-full"
+                    [class.bg-yellow-100]="timelapse.status === 'pending'"
+                    [class.text-yellow-800]="timelapse.status === 'pending'"
+                    [class.bg-blue-100]="timelapse.status === 'in-progress'"
+                    [class.text-blue-800]="timelapse.status === 'in-progress'"
+                    [class.bg-green-100]="timelapse.status === 'ready'"
+                    [class.text-green-800]="timelapse.status === 'ready'">
+                {{ timelapse.status }}
+              </span>
+              @if (timelapse.status === 'ready') {
+                <a [routerLink]="['/timelapse', timelapse.id]" class="text-primary-600 hover:text-primary-700 text-sm">View →</a>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+

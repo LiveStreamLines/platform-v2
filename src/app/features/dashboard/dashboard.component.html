@@ -1,0 +1,166 @@
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div>
+    <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+    <p class="text-gray-600 mt-1">Overview of your projects and activity</p>
+  </div>
+
+  @if (isLoading) {
+    <div class="flex items-center justify-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+    </div>
+  } @else {
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Projects Card -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Active Projects</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2">{{ stats.projects }}</p>
+          </div>
+          <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+            <span class="material-icons text-primary-600 text-2xl">folder</span>
+          </div>
+        </div>
+        <a routerLink="/projects" class="text-sm text-primary-600 hover:text-primary-700 mt-4 inline-block">
+          View all projects →
+        </a>
+      </div>
+
+      <!-- Cameras Card -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Cameras</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2">{{ stats.cameras }}</p>
+          </div>
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+            <span class="material-icons text-blue-600 text-2xl">videocam</span>
+          </div>
+        </div>
+        <a routerLink="/cameras" class="text-sm text-primary-600 hover:text-primary-700 mt-4 inline-block">
+          View cameras →
+        </a>
+      </div>
+
+      <!-- Recent Time-lapses Card -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Recent Time-lapses</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2">{{ stats.recentTimelapses }}</p>
+          </div>
+          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+            <span class="material-icons text-purple-600 text-2xl">movie</span>
+          </div>
+        </div>
+        <a routerLink="/timelapse" class="text-sm text-primary-600 hover:text-primary-700 mt-4 inline-block">
+          View time-lapses →
+        </a>
+      </div>
+
+      <!-- Recent Media Card -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Recent Media</p>
+            <p class="text-3xl font-bold text-gray-900 mt-2">{{ stats.recentMedia }}</p>
+          </div>
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+            <span class="material-icons text-green-600 text-2xl">photo_library</span>
+          </div>
+        </div>
+        <a routerLink="/media" class="text-sm text-primary-600 hover:text-primary-700 mt-4 inline-block">
+          View media library →
+        </a>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Recent Time-lapses -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Recent Time-lapses</h2>
+        @if (recentTimelapses.length === 0) {
+          <p class="text-gray-500 text-sm">No time-lapses yet</p>
+        } @else {
+          <div class="space-y-3">
+            @for (timelapse of recentTimelapses; track timelapse.id) {
+              <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg">
+                <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                  <span class="material-icons text-gray-400">movie</span>
+                </div>
+                <div class="flex-1">
+                  <p class="font-medium text-sm">{{ timelapse.cameraName || 'Camera' }}</p>
+                  <p class="text-xs text-gray-500">{{ timelapse.dateRange.start | date:'short' }}</p>
+                </div>
+                <span class="px-2 py-1 text-xs rounded-full"
+                      [class.bg-yellow-100]="timelapse.status === 'pending'"
+                      [class.text-yellow-800]="timelapse.status === 'pending'"
+                      [class.bg-blue-100]="timelapse.status === 'in-progress'"
+                      [class.text-blue-800]="timelapse.status === 'in-progress'"
+                      [class.bg-green-100]="timelapse.status === 'ready'"
+                      [class.text-green-800]="timelapse.status === 'ready'">
+                  {{ timelapse.status }}
+                </span>
+              </div>
+            }
+          </div>
+        }
+        <a routerLink="/timelapse" class="text-sm text-primary-600 hover:text-primary-700 mt-4 inline-block">
+          View all time-lapses →
+        </a>
+      </div>
+
+      <!-- Recent Media -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Recent Media</h2>
+        @if (recentMedia.length === 0) {
+          <p class="text-gray-500 text-sm">No media yet</p>
+        } @else {
+          <div class="grid grid-cols-4 gap-2">
+            @for (item of recentMedia; track item.id) {
+              <div class="aspect-square bg-gray-200 rounded-lg overflow-hidden">
+                @if (item.thumbnailUrl) {
+                  <img [src]="item.thumbnailUrl" [alt]="item.type" class="w-full h-full object-cover">
+                } @else {
+                  <div class="w-full h-full flex items-center justify-center">
+                    <span class="material-icons text-gray-400">{{ item.type === 'video' ? 'videocam' : 'image' }}</span>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+        <a routerLink="/media" class="text-sm text-primary-600 hover:text-primary-700 mt-4 inline-block">
+          View media library →
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <h2 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a routerLink="/live-view" class="flex flex-col items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <span class="material-icons text-primary-600 text-3xl mb-2">videocam</span>
+          <span class="text-sm font-medium text-gray-700">Live View</span>
+        </a>
+        <a routerLink="/timelapse/request" class="flex flex-col items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <span class="material-icons text-primary-600 text-3xl mb-2">add_circle</span>
+          <span class="text-sm font-medium text-gray-700">Request Time-lapse</span>
+        </a>
+        <a routerLink="/services" class="flex flex-col items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <span class="material-icons text-primary-600 text-3xl mb-2">build</span>
+          <span class="text-sm font-medium text-gray-700">Services</span>
+        </a>
+        <a routerLink="/memories/create" class="flex flex-col items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+          <span class="material-icons text-primary-600 text-3xl mb-2">collections</span>
+          <span class="text-sm font-medium text-gray-700">Create Memory</span>
+        </a>
+      </div>
+    </div>
+  }
+</div>
+

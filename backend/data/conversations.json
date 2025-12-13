@@ -101,5 +101,119 @@
     "updatedAt": "2025-12-09T14:37:16.509Z",
     "isActive": true,
     "createdDate": "2025-12-09T13:27:43.462Z"
+  },
+  {
+    "_id": "023c1b95e3f819ea7d315986",
+    "userId": "e9cd87aea8be8c052f2b2203",
+    "status": "open",
+    "messages": [
+      {
+        "_id": "9433a9f28ac2d7e846a12c86",
+        "senderId": "e9cd87aea8be8c052f2b2203",
+        "senderName": "Ammar",
+        "receiverId": "admin",
+        "receiverName": "Admin",
+        "content": "hello",
+        "replyTo": null,
+        "read": true,
+        "readAt": "2025-12-10T14:30:42.821Z",
+        "createdAt": "2025-12-10T14:30:35.254Z"
+      },
+      {
+        "_id": "7dd9d4a124f32bb0d5487fc6",
+        "senderId": "123456789",
+        "senderName": "Ammar Omer",
+        "receiverId": "e9cd87aea8be8c052f2b2203",
+        "receiverName": "Ammar",
+        "content": "what do you want",
+        "replyTo": null,
+        "read": false,
+        "createdAt": "2025-12-10T14:30:53.159Z"
+      },
+      {
+        "_id": "7045ecd4a87e56f2412f0f79",
+        "senderId": "e9cd87aea8be8c052f2b2203",
+        "senderName": "Ammar",
+        "receiverId": "admin",
+        "receiverName": "Admin",
+        "content": "I just want to say hi",
+        "replyTo": null,
+        "read": true,
+        "readAt": "2025-12-10T14:31:15.944Z",
+        "createdAt": "2025-12-10T14:31:14.504Z"
+      },
+      {
+        "_id": "dfeb6598bf69e91224e29921",
+        "senderId": "123456789",
+        "senderName": "Ammar Omer",
+        "receiverId": "e9cd87aea8be8c052f2b2203",
+        "receiverName": "User",
+        "content": "then we recieved your hi",
+        "replyTo": null,
+        "read": false,
+        "createdAt": "2025-12-10T14:31:39.231Z"
+      }
+    ],
+    "createdAt": "2025-12-10T14:30:35.250Z",
+    "updatedAt": "2025-12-10T14:31:39.231Z",
+    "isActive": true,
+    "createdDate": "2025-12-10T14:30:35.252Z"
+  },
+  {
+    "_id": "7218d0bd5b68bc07563cd4d0",
+    "userId": "653c34b5b3284783c4cf3dc1",
+    "status": "open",
+    "messages": [
+      {
+        "_id": "c6f988b8d43e9cb3a3cf2233",
+        "senderId": "653c34b5b3284783c4cf3dc1",
+        "senderName": "Ammar Another",
+        "receiverId": "admin",
+        "receiverName": "Admin",
+        "content": "Hello Lsl Team",
+        "replyTo": null,
+        "read": true,
+        "readAt": "2025-12-10T14:34:32.469Z",
+        "createdAt": "2025-12-10T14:34:12.019Z"
+      },
+      {
+        "_id": "a5ef391d4e08d2226cfb4c2e",
+        "senderId": "123456789",
+        "senderName": "Ammar Omer",
+        "receiverId": "653c34b5b3284783c4cf3dc1",
+        "receiverName": "Ammar Another",
+        "content": "Hello Mr. Ammar Another",
+        "replyTo": null,
+        "read": false,
+        "createdAt": "2025-12-10T14:34:54.607Z"
+      },
+      {
+        "_id": "4bcba52bad8b921d57704f26",
+        "senderId": "123456789",
+        "senderName": "Ammar Omer",
+        "receiverId": "653c34b5b3284783c4cf3dc1",
+        "receiverName": "Ammar Another",
+        "content": "how we can serve you today",
+        "replyTo": null,
+        "read": false,
+        "createdAt": "2025-12-10T14:35:06.413Z"
+      },
+      {
+        "_id": "6df072323d37e57f869b4753",
+        "senderId": "653c34b5b3284783c4cf3dc1",
+        "senderName": "Ammar Another",
+        "receiverId": "admin",
+        "receiverName": "Admin",
+        "content": "I am asking about adding some users",
+        "replyTo": null,
+        "read": true,
+        "readAt": "2025-12-10T14:35:26.944Z",
+        "createdAt": "2025-12-10T14:35:25.780Z"
+      }
+    ],
+    "createdAt": "2025-12-10T14:34:12.017Z",
+    "updatedAt": "2025-12-10T14:35:26.944Z",
+    "isActive": true,
+    "createdDate": "2025-12-10T14:34:12.018Z"
   }
 ]
