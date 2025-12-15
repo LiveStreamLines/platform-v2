@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -30,7 +30,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './video-request.component.html',
   styleUrls: ['./video-request.component.css'],
 })
-export class VideoRequestComponent implements OnInit {
+export class VideoRequestComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'developerProject',
     'duration',
@@ -47,6 +47,7 @@ export class VideoRequestComponent implements OnInit {
   userRole: string | null = null;
   accessibleProjects: string[] = []; // List of accessible project IDs
   accessibleDevelopers: string[] =[]; // List of accessible devloper IDs
+  private progressPollingInterval: any;
    
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -61,6 +62,18 @@ export class VideoRequestComponent implements OnInit {
     this.accessibleProjects = this.authService.getAccessibleProjects();  
     this.accessibleDevelopers = this.authService.getAccessibleDevelopers();
     this.fetchVideoRequests();
+    
+    // Poll for progress updates every 2 seconds for in-progress videos
+    this.progressPollingInterval = setInterval(() => {
+      this.fetchVideoRequests();
+    }, 2000);
+  }
+
+  ngOnDestroy(): void {
+    // Clear polling interval when component is destroyed
+    if (this.progressPollingInterval) {
+      clearInterval(this.progressPollingInterval);
+    }
   }
 
   fetchVideoRequests(): void {
@@ -82,6 +95,8 @@ export class VideoRequestComponent implements OnInit {
           RequestTime: request.RequestTime,
           filteredImageCount: request.filteredImageCount,
           status: request.status,
+          progress: request.progress || 0,
+          progressMessage: request.progressMessage || '',
           videoLink: request.status === 'ready' ? `${this.serverUrl}/${request.developerTag}/${request.projectTag}/${request.camera}/videos/video_${request.id}.mp4` : null, // Set to null initially
           resolution: request.resolution
         }));

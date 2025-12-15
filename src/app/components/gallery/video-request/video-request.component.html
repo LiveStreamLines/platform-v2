@@ -15,7 +15,18 @@
           <p><strong>Request Time:</strong> {{ element.RequestTime | date: 'medium' }}</p>
           <p><strong>Images:</strong> {{ element.filteredImageCount }}</p>
           <p><strong>Resolution:</strong> {{ element.resolution }}</p>
-          <p><strong>Status:</strong> {{ element.status }}</p>
+          <p><strong>Status:</strong> {{ element.status }} 
+            <span *ngIf="(element.status === 'starting' || element.status === 'queued' || element.status === 'processing') && element.progress !== undefined" class="status-percentage">({{ element.progress }}%)</span>
+          </p>
+          
+          <!-- Progress Bar for in-progress videos -->
+          <div *ngIf="(element.status === 'starting' || element.status === 'queued' || element.status === 'processing') && element.progress !== undefined" class="progress-section">
+            <p *ngIf="element.progressMessage" class="progress-message">{{ element.progressMessage }}</p>
+            <div class="progress-bar-container">
+              <div class="progress-bar" [style.width.%]="element.progress"></div>
+            </div>
+            <p class="progress-percentage"><strong>{{ element.progress }}%</strong></p>
+          </div>
         </div>
         <div class="card-footer">
           <a *ngIf="element.videoLink" [href]="element.videoLink" target="_blank" class="view-video">View Video</a>
