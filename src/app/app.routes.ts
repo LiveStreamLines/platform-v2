@@ -47,6 +47,8 @@ import { PrintableInvoiceComponent } from './components/sales-order/printable-in
 import { DroneShootingComponent } from './components/drone-shooting/drone-shooting.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { MediaViewerComponent } from './components/media-viewer/media-viewer.component';
+import { CameraE2TestComponent } from './components/camera-e2-test/camera-e2-test.component';
+import { CameraPicsS3TestComponent } from './components/camera-pics-s3-test/camera-pics-s3-test.component';
 
 // Customer Portal Routes (New Design)
 //export const routes: Routes = customerRoutes;
@@ -118,6 +120,8 @@ export const routes: Routes = [
   { path: 'invoices/view/:invoiceNumber', component: InvoiceDetailComponent, canActivate: [AuthGuard], data: {roles: ['Super Admin', 'Admin']} },
   { path: 'invoices/edit/:invoiceNumber', component: InvoiceEditComponent, canActivate: [AuthGuard], data: {roles: ['Super Admin', 'Admin']} },
   { path: 'invoices/print/:invoiceNumber', component: PrintableInvoiceComponent, canActivate: [AuthGuard], data: {roles: ['Super Admin', 'Admin']} },
+  { path: 'camera-e2-test', component: CameraE2TestComponent, canActivate: [AuthGuard] },
+  { path: 'camera-pics-s3-test', component: CameraPicsS3TestComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }  // Use the NotFoundComponent for 404
 ];

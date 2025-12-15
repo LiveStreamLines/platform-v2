@@ -1,0 +1,104 @@
+<div class="test-container">
+  <h2>Camera E2 Bucket Test</h2>
+  <p>Test component to fetch and display images from iDrive E2 bucket</p>
+
+  <mat-card class="input-card">
+    <mat-card-header>
+      <mat-card-title>Query Parameters</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Project ID</mat-label>
+          <input matInput [(ngModel)]="projectId" placeholder="rta">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Camera ID</mat-label>
+          <input matInput [(ngModel)]="cameraId" placeholder="camera1">
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Day 1 (YYYYMMDD)</mat-label>
+          <input matInput [(ngModel)]="day1" placeholder="20240101">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Time 1 (HHMMSS)</mat-label>
+          <input matInput [(ngModel)]="time1" placeholder="120000">
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Day 2 (YYYYMMDD) - Optional</mat-label>
+          <input matInput [(ngModel)]="day2" placeholder="20240101">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Time 2 (HHMMSS) - Optional</mat-label>
+          <input matInput [(ngModel)]="time2" placeholder="130000">
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="loadImages()" [disabled]="loading">
+        <span *ngIf="loading">
+          <mat-spinner diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+          Loading...
+        </span>
+        <span *ngIf="!loading">Load Images</span>
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="error" class="error-message">
+    <mat-card class="error-card">
+      <mat-card-content>
+        <strong>Error:</strong> {{ error }}
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="response" class="response-info">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Response Info</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Count:</strong> {{ response.count }}</p>
+        <p><strong>Date Range:</strong> {{ response.dateRange.start }} to {{ response.dateRange.end }}</p>
+        <p><strong>Path:</strong> {{ response.path }}</p>
+        <p><strong>Bucket:</strong> {{ response.bucket }}</p>
+        <p><strong>Source:</strong> {{ response.source }}</p>
+        <p><strong>Auto Calculated:</strong> {{ response.autoCalculated ? 'Yes' : 'No' }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="images.length > 0" class="images-section">
+    <h3>Images ({{ images.length }})</h3>
+    <div class="images-grid">
+      <mat-card *ngFor="let image of images" class="image-card">
+        <mat-card-content>
+          <p class="image-timestamp">{{ formatTimestamp(image) }}</p>
+          <div class="image-placeholder">
+            <p>Image: {{ image }}</p>
+            <p class="note">Note: Image URL needs to be configured</p>
+            <p class="url-preview">{{ getImageUrl(image) }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && images.length === 0 && !error && response" class="no-images">
+    <mat-card>
+      <mat-card-content>
+        <p>No images found for the specified date range.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

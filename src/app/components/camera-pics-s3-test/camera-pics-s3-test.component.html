@@ -1,0 +1,358 @@
+<div class="test-container">
+  <h2>Camera Pictures S3 Test</h2>
+  <p>Test component for cameraPicsControllerS3Test endpoints (iDrive E2 bucket)</p>
+
+  <!-- Common Input Form -->
+  <mat-card class="input-card">
+    <mat-card-header>
+      <mat-card-title>Common Parameters</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Developer ID</mat-label>
+          <input matInput [(ngModel)]="developerId" placeholder="cscec">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Project ID</mat-label>
+          <input matInput [(ngModel)]="projectId" placeholder="rta">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Camera ID</mat-label>
+          <input matInput [(ngModel)]="cameraId" placeholder="camera1">
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Date 1 (YYYYMMDD) - Optional</mat-label>
+          <input matInput [(ngModel)]="date1" placeholder="20240101">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Date 2 (YYYYMMDD) - Optional</mat-label>
+          <input matInput [(ngModel)]="date2" placeholder="20240131">
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Tabs for different endpoints -->
+  <mat-tab-group>
+    <!-- Tab 1: Get Camera Pictures -->
+    <mat-tab label="Get Camera Pictures">
+      <div class="tab-content">
+        <button mat-raised-button color="primary" (click)="getCameraPictures()" [disabled]="loadingPictures">
+          <span *ngIf="loadingPictures">
+            <mat-spinner diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+            Loading...
+          </span>
+          <span *ngIf="!loadingPictures">Get Camera Pictures</span>
+        </button>
+
+        <div *ngIf="picturesError" class="error-message">
+          <mat-card class="error-card">
+            <mat-card-content>
+              <strong>Error:</strong> {{ picturesError }}
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div *ngIf="picturesResponse" class="response-section">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Response</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p><strong>Path:</strong> {{ picturesResponse.path }}</p>
+              
+              <div *ngIf="picturesResponse.firstPhoto" class="photo-section">
+                <h4>First Photo:</h4>
+                <p>{{ formatTimestamp(picturesResponse.firstPhoto) }}</p>
+                <img [src]="getImageUrlWithFetch(picturesResponse.firstPhoto)" 
+                     [alt]="picturesResponse.firstPhoto"
+                     (error)="onImageError($event)"
+                     class="preview-image"
+                     *ngIf="hasImageUrl(picturesResponse.firstPhoto)">
+                <div *ngIf="!hasImageUrl(picturesResponse.firstPhoto)" class="image-loading">
+                  <mat-spinner diameter="40"></mat-spinner>
+                  <p>Loading image...</p>
+                </div>
+              </div>
+
+              <div *ngIf="picturesResponse.lastPhoto" class="photo-section">
+                <h4>Last Photo:</h4>
+                <p>{{ formatTimestamp(picturesResponse.lastPhoto) }}</p>
+                <img [src]="getImageUrlWithFetch(picturesResponse.lastPhoto)" 
+                     [alt]="picturesResponse.lastPhoto"
+                     (error)="onImageError($event)"
+                     class="preview-image"
+                     *ngIf="hasImageUrl(picturesResponse.lastPhoto)">
+                <div *ngIf="!hasImageUrl(picturesResponse.lastPhoto)" class="image-loading">
+                  <mat-spinner diameter="40"></mat-spinner>
+                  <p>Loading image...</p>
+                </div>
+              </div>
+
+              <div *ngIf="picturesResponse.date1Photos && picturesResponse.date1Photos.length > 0" class="photo-section">
+                <h4>Date 1 Photos ({{ picturesResponse.date1Photos.length }}):</h4>
+                
+                <!-- Large preview image -->
+                <div class="large-preview-container" *ngIf="selectedDate1Image">
+                  <div class="large-preview-wrapper">
+                    <img [src]="getImageUrlWithFetch(selectedDate1Image)" 
+                         [alt]="selectedDate1Image"
+                         (error)="onImageError($event)"
+                         class="large-preview-image"
+                         *ngIf="hasImageUrl(selectedDate1Image)">
+                    <div *ngIf="!hasImageUrl(selectedDate1Image)" class="image-loading-large">
+                      <mat-spinner diameter="50"></mat-spinner>
+                      <p>Loading image...</p>
+                    </div>
+                    <p class="large-preview-timestamp">{{ formatTimestamp(selectedDate1Image) }}</p>
+                  </div>
+                </div>
+
+                <!-- Thumbnail strip -->
+                <div class="thumbnail-strip-container">
+                  <div class="thumbnail-strip">
+                    <div *ngFor="let photo of picturesResponse.date1Photos" 
+                         class="thumbnail-item"
+                         [class.selected]="selectedDate1Image === photo"
+                         (click)="selectDate1Image(photo)">
+                      <img [src]="getImageUrlWithFetch(photo)" 
+                           [alt]="photo"
+                           (error)="onImageError($event)"
+                           class="thumbnail-image"
+                           *ngIf="hasImageUrl(photo)">
+                      <div *ngIf="!hasImageUrl(photo)" class="thumbnail-loading">
+                        <mat-spinner diameter="20"></mat-spinner>
+                      </div>
+                      <p class="thumbnail-timestamp">{{ formatTimestamp(photo) }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="picturesResponse.date2Photos && picturesResponse.date2Photos.length > 0" class="photo-section">
+                <h4>Date 2 Photos ({{ picturesResponse.date2Photos.length }}):</h4>
+                
+                <!-- Large preview image -->
+                <div class="large-preview-container" *ngIf="selectedDate2Image">
+                  <div class="large-preview-wrapper">
+                    <img [src]="getImageUrlWithFetch(selectedDate2Image)" 
+                         [alt]="selectedDate2Image"
+                         (error)="onImageError($event)"
+                         class="large-preview-image"
+                         *ngIf="hasImageUrl(selectedDate2Image)">
+                    <div *ngIf="!hasImageUrl(selectedDate2Image)" class="image-loading-large">
+                      <mat-spinner diameter="50"></mat-spinner>
+                      <p>Loading image...</p>
+                    </div>
+                    <p class="large-preview-timestamp">{{ formatTimestamp(selectedDate2Image) }}</p>
+                  </div>
+                </div>
+
+                <!-- Thumbnail strip -->
+                <div class="thumbnail-strip-container">
+                  <div class="thumbnail-strip">
+                    <div *ngFor="let photo of picturesResponse.date2Photos" 
+                         class="thumbnail-item"
+                         [class.selected]="selectedDate2Image === photo"
+                         (click)="selectDate2Image(photo)">
+                      <img [src]="getImageUrlWithFetch(photo)" 
+                           [alt]="photo"
+                           (error)="onImageError($event)"
+                           class="thumbnail-image"
+                           *ngIf="hasImageUrl(photo)">
+                      <div *ngIf="!hasImageUrl(photo)" class="thumbnail-loading">
+                        <mat-spinner diameter="20"></mat-spinner>
+                      </div>
+                      <p class="thumbnail-timestamp">{{ formatTimestamp(photo) }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Tab 2: Camera Preview Slideshow -->
+    <mat-tab label="Camera Preview">
+      <div class="tab-content">
+        <div class="slideshow-controls">
+          <h3>Select Time Range</h3>
+          <div class="range-buttons">
+            <button mat-raised-button 
+                    color="primary" 
+                    (click)="loadSlideshow('30days')" 
+                    [disabled]="loadingSlideshow"
+                    [class.active]="selectedRangeType === '30days'">
+              <span *ngIf="loadingSlideshow && selectedRangeType === '30days'">
+                <mat-spinner diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+              </span>
+              Last 30 Days
+            </button>
+            
+            <button mat-raised-button 
+                    color="primary" 
+                    (click)="loadSlideshow('quarter')" 
+                    [disabled]="loadingSlideshow"
+                    [class.active]="selectedRangeType === 'quarter'">
+              <span *ngIf="loadingSlideshow && selectedRangeType === 'quarter'">
+                <mat-spinner diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+              </span>
+              Last Quarter
+            </button>
+            
+            <button mat-raised-button 
+                    color="primary" 
+                    (click)="loadSlideshow('6months')" 
+                    [disabled]="loadingSlideshow"
+                    [class.active]="selectedRangeType === '6months'">
+              <span *ngIf="loadingSlideshow && selectedRangeType === '6months'">
+                <mat-spinner diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+              </span>
+              Last 6 Months
+            </button>
+            
+            <button mat-raised-button 
+                    color="primary" 
+                    (click)="loadSlideshow('1year')" 
+                    [disabled]="loadingSlideshow"
+                    [class.active]="selectedRangeType === '1year'">
+              <span *ngIf="loadingSlideshow && selectedRangeType === '1year'">
+                <mat-spinner diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+              </span>
+              1 Year
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="slideshowError" class="error-message">
+          <mat-card class="error-card">
+            <mat-card-content>
+              <strong>Error:</strong> {{ slideshowError }}
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div *ngIf="slideshowResponse" class="slideshow-container">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>
+                {{ slideshowResponse.description }} ({{ slideshowResponse.count }} images)
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <!-- Large Image Display -->
+              <div class="slideshow-image-container" *ngIf="slideshowImages.length > 0">
+                <div class="slideshow-image-wrapper">
+                  <button mat-icon-button 
+                          class="nav-button prev-button" 
+                          (click)="previousImage()" 
+                          [disabled]="!canGoPrevious()"
+                          *ngIf="slideshowImages.length > 1">
+                    <mat-icon>chevron_left</mat-icon>
+                  </button>
+                  
+                  <div class="main-image-display">
+                    <div *ngIf="!hasImageUrl(getCurrentSlideshowImage())" class="slideshow-loading">
+                      <mat-spinner diameter="50"></mat-spinner>
+                      <p>Loading images...</p>
+                    </div>
+                    <img [src]="currentImageUrl" 
+                         [alt]="getCurrentSlideshowImage()"
+                         (error)="onImageError($event)"
+                         (load)="onImageLoad()"
+                         class="slideshow-main-image"
+                         [style.display]="currentImageUrl ? 'block' : 'none'"
+                         *ngIf="getCurrentSlideshowImage() && currentSlideshowIndex >= 0"
+                         [attr.data-index]="currentSlideshowIndex">
+                    <p class="slideshow-timestamp" *ngIf="getCurrentSlideshowImage()">
+                      {{ formatTimestamp(getCurrentSlideshowImage()) }}
+                    </p>
+                    <p class="slideshow-counter" *ngIf="slideshowImages.length > 0">
+                      Image {{ currentSlideshowIndex + 1 }} of {{ slideshowImages.length }}
+                    </p>
+                  </div>
+                  
+                  <button mat-icon-button 
+                          class="nav-button next-button" 
+                          (click)="nextImage()" 
+                          [disabled]="!canGoNext()"
+                          *ngIf="slideshowImages.length > 1">
+                    <mat-icon>chevron_right</mat-icon>
+                  </button>
+                </div>
+
+                <!-- Slider -->
+                <div class="slideshow-slider-container" *ngIf="slideshowImages.length > 1">
+                  <mat-slider 
+                    [min]="0" 
+                    [max]="slideshowImages.length - 1" 
+                    [step]="1" 
+                    [discrete]="true"
+                    (input)="onSlideshowSliderChange($event)"
+                    class="slideshow-slider">
+                    <input matSliderThumb [value]="currentSlideshowIndex" (input)="onSlideshowSliderChange($any($event.target).value)">
+                  </mat-slider>
+                  <div class="slider-labels">
+                    <span>First</span>
+                    <span>Last</span>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="slideshowImages.length === 0 && !loadingSlideshow" class="no-images-message">
+                <p>No images found for the selected time range.</p>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Tab 3: Generate Weekly Video -->
+    <mat-tab label="Generate Video">
+      <div class="tab-content">
+        <button mat-raised-button color="primary" (click)="generateWeeklyVideo()" [disabled]="loadingVideo">
+          <span *ngIf="loadingVideo">
+            <mat-spinner diameter="20" style="display: inline-block; margin-right: 8px;"></mat-spinner>
+            Generating...
+          </span>
+          <span *ngIf="!loadingVideo">Generate Weekly Video</span>
+        </button>
+
+        <div *ngIf="videoError" class="error-message">
+          <mat-card class="error-card">
+            <mat-card-content>
+              <strong>Error:</strong> {{ videoError }}
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div *ngIf="videoResponse" class="response-section">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Video Generated</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p><strong>Message:</strong> {{ videoResponse.message }}</p>
+              <p><strong>Video Path:</strong> {{ videoResponse.videoPath }}</p>
+              <button mat-raised-button color="accent" (click)="openVideo()" *ngIf="videoResponse.videoPath">
+                Open Video
+              </button>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+  </mat-tab-group>
+</div>
+
