@@ -1,0 +1,302 @@
+<div class="studio-wrapper">
+  <!-- Top Toolbar -->
+  <div class="top-toolbar">
+    <div class="toolbar-section">
+      <h3 class="studio-title">Image Studio</h3>
+    </div>
+    <div class="toolbar-section tools-section">
+      <button 
+        class="tool-btn" 
+        [class.active]="currentTool === 'text'"
+        (click)="selectTool('text')"
+        matTooltip="Add Text">
+        <mat-icon>text_fields</mat-icon>
+        <span>Text</span>
+      </button>
+      <button 
+        class="tool-btn" 
+        [class.active]="currentTool === 'rectangle'"
+        (click)="selectTool('rectangle')"
+        matTooltip="Rectangle">
+        <mat-icon>crop_square</mat-icon>
+        <span>Rectangle</span>
+      </button>
+      <button 
+        class="tool-btn" 
+        [class.active]="currentTool === 'circle'"
+        (click)="selectTool('circle')"
+        matTooltip="Circle">
+        <mat-icon>radio_button_unchecked</mat-icon>
+        <span>Circle</span>
+      </button>
+      <button 
+        class="tool-btn" 
+        [class.active]="currentTool === 'arrow'"
+        (click)="selectTool('arrow')"
+        matTooltip="Arrow">
+        <mat-icon>arrow_forward</mat-icon>
+        <span>Arrow</span>
+      </button>
+      <button 
+        class="tool-btn" 
+        [class.active]="currentTool === 'watermark'"
+        (click)="addWatermark()"
+        matTooltip="Add Image">
+        <mat-icon>add_photo_alternate</mat-icon>
+        <span>Image</span>
+      </button>
+      <input
+        #watermarkInput
+        type="file"
+        accept="image/*"
+        (change)="handleWatermarkUpload($event)"
+        style="display: none"
+      />
+      <button 
+        class="tool-btn" 
+        [class.active]="currentTool === 'effect'"
+        (click)="selectTool('effect')"
+        matTooltip="Effects">
+        <mat-icon>tune</mat-icon>
+        <span>Effects</span>
+      </button>
+    </div>
+    <div class="toolbar-section actions-section">
+      <button class="action-btn clear-btn" (click)="clearCanvas()" matTooltip="Clear All">
+        <mat-icon>refresh</mat-icon>
+        <span>Clear</span>
+      </button>
+      <button class="action-btn download-btn" (click)="processCanvas()" [disabled]="loadingCanvas" matTooltip="Download">
+        <mat-icon *ngIf="!loadingCanvas">download</mat-icon>
+        <mat-spinner *ngIf="loadingCanvas" diameter="20"></mat-spinner>
+        <span>Download</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Canvas Area -->
+    <div class="canvas-container">
+      <div class="canvas-wrapper">
+        <canvas
+          #canvas
+          (click)="onCanvasClick($event)"
+          (mousedown)="onCanvasMouseDown($event)"
+          (mousemove)="onCanvasMouseMove($event)"
+          (mouseup)="onCanvasMouseUp()">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Properties Panel -->
+    <div class="properties-panel" [class.collapsed]="!hasActiveSelection()">
+      <div class="panel-header">
+        <h4>Properties</h4>
+      </div>
+      
+      <div class="panel-content">
+        <!-- Text Properties -->
+        <div *ngIf="currentTool === 'text' && selectedTextIndex !== null" class="property-group">
+          <h5 class="property-title">Text Properties</h5>
+          <div class="property-item">
+            <label>Content</label>
+            <input 
+              type="text" 
+              class="property-input"
+              [(ngModel)]="textValue" 
+              (input)="updateText()" 
+              placeholder="Enter text...">
+          </div>
+          <div class="property-item">
+            <label>Font Size: {{ fontSize }}px</label>
+            <input 
+              type="range" 
+              class="property-slider"
+              min="20" 
+              max="120" 
+              [(ngModel)]="fontSize" 
+              (input)="updateText()">
+          </div>
+          <div class="property-item">
+            <label>Color</label>
+            <div class="color-input-wrapper">
+              <input 
+                type="color" 
+                class="property-color"
+                [(ngModel)]="fontColor" 
+                (input)="updateText()">
+              <span class="color-value">{{ fontColor }}</span>
+            </div>
+          </div>
+          <button class="property-action-btn delete-btn" (click)="removeText()">
+            <mat-icon>delete</mat-icon>
+            <span>Delete Text</span>
+          </button>
+        </div>
+
+        <!-- Shape Properties -->
+        <div *ngIf="(currentTool === 'rectangle' || currentTool === 'circle') && selectedShapeIndex !== null" class="property-group">
+          <h5 class="property-title">{{ getCurrentShape()?.type === 'rectangle' ? 'Rectangle' : 'Circle' }} Properties</h5>
+          <div class="property-item" *ngIf="getCurrentShape()">
+            <label>Fill Color</label>
+            <div class="color-input-wrapper">
+              <input 
+                type="color" 
+                class="property-color"
+                [ngModel]="getCurrentShape()?.fillColor" 
+                (ngModelChange)="getCurrentShape().fillColor = $event; updateShape()">
+              <span class="color-value">{{ getCurrentShape()?.fillColor }}</span>
+            </div>
+          </div>
+          <div class="property-item" *ngIf="getCurrentShape()">
+            <label>Border Color</label>
+            <div class="color-input-wrapper">
+              <input 
+                type="color" 
+                class="property-color"
+                [ngModel]="getCurrentShape()?.borderColor" 
+                (ngModelChange)="getCurrentShape().borderColor = $event; updateShape()">
+              <span class="color-value">{{ getCurrentShape()?.borderColor }}</span>
+            </div>
+          </div>
+          <div class="property-item" *ngIf="getCurrentShape()">
+            <label>Border Width: {{ getCurrentShape()?.borderWidth }}px</label>
+            <input 
+              type="range" 
+              class="property-slider"
+              min="1" 
+              max="30" 
+              [ngModel]="getCurrentShape()?.borderWidth" 
+              (ngModelChange)="getCurrentShape().borderWidth = $event; updateShape()">
+          </div>
+          <div class="property-actions" *ngIf="getCurrentShape()">
+            <button 
+              class="property-action-btn move-btn" 
+              [class.active]="getCurrentShape()?.moveMode"
+              (click)="toggleShapeMove()">
+              <mat-icon>open_with</mat-icon>
+              <span>{{ getCurrentShape()?.moveMode ? 'Moving' : 'Move' }}</span>
+            </button>
+            <button class="property-action-btn delete-btn" (click)="deleteShape()">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Arrow Properties -->
+        <div *ngIf="currentTool === 'arrow' && selectedShapeIndex !== null && getCurrentShape()?.type === 'arrow'" class="property-group">
+          <h5 class="property-title">Arrow Properties</h5>
+          <div class="property-item" *ngIf="getCurrentShape()">
+            <label>Color</label>
+            <div class="color-input-wrapper">
+              <input 
+                type="color" 
+                class="property-color"
+                [ngModel]="getCurrentShape()?.color" 
+                (ngModelChange)="getCurrentShape().color = $event; updateShape()">
+              <span class="color-value">{{ getCurrentShape()?.color }}</span>
+            </div>
+          </div>
+          <div class="property-item" *ngIf="getCurrentShape()">
+            <label>Line Width: {{ getCurrentShape()?.lineWidth }}px</label>
+            <input 
+              type="range" 
+              class="property-slider"
+              min="1" 
+              max="30" 
+              [ngModel]="getCurrentShape()?.lineWidth" 
+              (ngModelChange)="getCurrentShape().lineWidth = $event; updateShape()">
+          </div>
+          <div class="property-actions" *ngIf="getCurrentShape()">
+            <button 
+              class="property-action-btn move-btn" 
+              [class.active]="getCurrentShape()?.moveMode"
+              (click)="toggleShapeMove()">
+              <mat-icon>open_with</mat-icon>
+              <span>{{ getCurrentShape()?.moveMode ? 'Moving' : 'Move' }}</span>
+            </button>
+            <button class="property-action-btn delete-btn" (click)="deleteShape()">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Watermark Properties -->
+        <div *ngIf="currentTool === 'watermark' && currentWatermark" class="property-group">
+          <h5 class="property-title">Image Properties</h5>
+          <div class="property-item">
+            <label>Opacity: {{ Math.round(currentWatermark.opacity * 100) }}%</label>
+            <input 
+              type="range" 
+              class="property-slider"
+              min="0" 
+              max="1" 
+              step="0.1" 
+              [(ngModel)]="currentWatermark.opacity" 
+              (ngModelChange)="updateWatermark()">
+          </div>
+          <div class="property-actions">
+            <button 
+              class="property-action-btn move-btn" 
+              [class.active]="currentWatermark.moveMode"
+              (click)="toggleWatermarkMove()">
+              <mat-icon>open_with</mat-icon>
+              <span>{{ currentWatermark.moveMode ? 'Moving' : 'Move' }}</span>
+            </button>
+            <button class="property-action-btn delete-btn" (click)="deleteWatermark()">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Effects Properties -->
+        <div *ngIf="currentTool === 'effect'" class="property-group">
+          <h5 class="property-title">Image Effects</h5>
+          <div class="property-item">
+            <label>Brightness: {{ (brightness * 100).toFixed(0) }}%</label>
+            <input 
+              type="range" 
+              class="property-slider"
+              min="0" 
+              max="2" 
+              step="0.1" 
+              [(ngModel)]="brightness" 
+              (ngModelChange)="applyEffects()">
+          </div>
+          <div class="property-item">
+            <label>Contrast: {{ (contrast * 100).toFixed(0) }}%</label>
+            <input 
+              type="range" 
+              class="property-slider"
+              min="0" 
+              max="2" 
+              step="0.1" 
+              [(ngModel)]="contrast" 
+              (ngModelChange)="applyEffects()">
+          </div>
+          <div class="property-item">
+            <label>Saturation: {{ (saturation * 100).toFixed(0) }}%</label>
+            <input 
+              type="range" 
+              class="property-slider"
+              min="0" 
+              max="2" 
+              step="0.1" 
+              [(ngModel)]="saturation" 
+              (ngModelChange)="applyEffects()">
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!hasActiveSelection()" class="empty-state">
+          <mat-icon class="empty-icon">edit</mat-icon>
+          <p>Select a tool and add elements to edit their properties</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,29 +3,28 @@
   <div class="content">
 
     <div class="cards-container" *ngIf="!isLoading && dataSource.data.length > 0">
-      <div class="card" *ngFor="let element of dataSource.data">
+      <div class="card" *ngFor="let element of dataSource.data; trackBy: trackByRequestId">
         <div class="card-header">
           <mat-icon class="play-icon">play_circle</mat-icon>
         </div>
         <div class="card-body">
           <h3>{{ element.developerProject }}</h3>
           <h3> {{ element.camera }}</h3>
+          <p><strong>Requested by:</strong> {{ element.userName }}</p>
           <p><strong>Duration:</strong> {{ element.duration }}</p>
           <p><strong>Hours:</strong> {{ element.hours }}</p>
           <p><strong>Request Time:</strong> {{ element.RequestTime | date: 'medium' }}</p>
           <p><strong>Images:</strong> {{ element.filteredImageCount }}</p>
           <p><strong>Resolution:</strong> {{ element.resolution }}</p>
-          <p><strong>Status:</strong> {{ element.status }} 
-            <span *ngIf="(element.status === 'starting' || element.status === 'queued' || element.status === 'processing') && element.progress !== undefined" class="status-percentage">({{ element.progress }}%)</span>
-          </p>
+          <p><strong>Status:</strong> {{ element.status }}</p>
           
-          <!-- Progress Bar for in-progress videos -->
-          <div *ngIf="(element.status === 'starting' || element.status === 'queued' || element.status === 'processing') && element.progress !== undefined" class="progress-section">
+          <!-- Progress Section - Always show progress if available -->
+          <div *ngIf="element.progress !== undefined && element.progress !== null" class="progress-section">
+            <p><strong>Progress:</strong> {{ element.progress }}%</p>
             <p *ngIf="element.progressMessage" class="progress-message">{{ element.progressMessage }}</p>
             <div class="progress-bar-container">
               <div class="progress-bar" [style.width.%]="element.progress"></div>
             </div>
-            <p class="progress-percentage"><strong>{{ element.progress }}%</strong></p>
           </div>
         </div>
         <div class="card-footer">

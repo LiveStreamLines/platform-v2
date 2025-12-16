@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { StudioTestComponent } from '../studio-test/studio-test.component';
 
 interface CameraPicturesResponse {
   firstPhoto: string;
@@ -59,12 +61,21 @@ interface SlideshowResponse {
     MatListModule,
     MatChipsModule,
     MatSliderModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule,
+    StudioTestComponent
   ],
   templateUrl: './camera-pics-s3-test.component.html',
   styleUrl: './camera-pics-s3-test.component.css'
 })
-export class CameraPicsS3TestComponent implements OnInit {
+export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
+  ngOnDestroy() {
+    // Clean up slideshow interval when component is destroyed
+    if (this.slideshowInterval) {
+      clearInterval(this.slideshowInterval);
+      this.slideshowInterval = null;
+    }
+  }
   // Common inputs
   developerId: string = 'cscec';
   projectId: string = 'rta';
@@ -77,6 +88,12 @@ export class CameraPicsS3TestComponent implements OnInit {
   loadingPreview: boolean = false;
   loadingVideo: boolean = false;
   loadingSlideshow: boolean = false;
+
+  // Error states
+  picturesError: string = '';
+  previewError: string = '';
+  videoError: string = '';
+  slideshowError: string = '';
 
   // Responses
   picturesResponse: CameraPicturesResponse | null = null;
@@ -92,12 +109,37 @@ export class CameraPicsS3TestComponent implements OnInit {
   slideshowImages: string[] = [];
   currentSlideshowIndex: number = 0;
   selectedRangeType: string = '';
+  isSlideshowPlaying: boolean = false;
+  slideshowInterval: any = null;
+  slideshowIntervalDelay: number = 250; // 0.25 seconds between images
 
-  // Errors
-  picturesError: string = '';
-  previewError: string = '';
-  videoError: string = '';
-  slideshowError: string = '';
+  // Image filters
+  imageSaturation: number = 200; // 200% saturation
+  imageContrast: number = 150; // 150% contrast
+  filtersEnabled: boolean = true; // Toggle for filters
+
+  // Studio image source
+  studioImageSrc: string = '';
+  selectedHour: number = 12; // Default hour (0-23)
+
+  // Image Comparison state
+  comparisonImages1: string[] = [];
+  comparisonImages2: string[] = [];
+  selectedComparisonImage1: string | null = null;
+  selectedComparisonImage2: string | null = null;
+  comparisonSliderValue: number = 50; // 0-100, 50 is middle
+  loadingComparison: boolean = false;
+  comparisonError: string = '';
+  isDraggingComparison: boolean = false;
+  comparisonMode: 'slider' | 'rectangle' = 'slider';
+  rectangleX: number = 50; // percentage from left
+  rectangleY: number = 50; // percentage from top
+  rectangleSize: number = 400; // size in pixels
+  isDraggingRectangle: boolean = false;
+  rectangleDragStartX: number = 0;
+  rectangleDragStartY: number = 0;
+  rectangleWrapperWidth: number = 1000; // will be updated dynamically
+  rectangleWrapperHeight: number = 600; // will be updated dynamically
 
   constructor(
     private http: HttpClient,
@@ -110,6 +152,11 @@ export class CameraPicsS3TestComponent implements OnInit {
     const today = new Date();
     this.date1 = this.formatDate(today);
     this.date2 = this.formatDate(today);
+    
+    // Initialize rectangle wrapper dimensions (will be updated on first drag)
+    // Use approximate values based on typical wrapper size
+    this.rectangleWrapperWidth = 1000;
+    this.rectangleWrapperHeight = 600;
   }
 
   formatDate(date: Date): string {
@@ -384,6 +431,9 @@ export class CameraPicsS3TestComponent implements OnInit {
 
   // Slideshow methods
   loadSlideshow(rangeType: string) {
+    // Pause any running slideshow
+    this.pauseSlideshow();
+    
     this.loadingSlideshow = true;
     this.slideshowError = '';
     this.slideshowResponse = null;
@@ -501,6 +551,393 @@ export class CameraPicsS3TestComponent implements OnInit {
   // Check if can go next
   canGoNext(): boolean {
     return this.currentSlideshowIndex < this.slideshowImages.length - 1;
+  }
+
+  // Toggle slideshow play/pause
+  toggleSlideshowPlay(): void {
+    if (this.isSlideshowPlaying) {
+      this.pauseSlideshow();
+    } else {
+      this.playSlideshow();
+    }
+  }
+
+  // Start automatic slideshow
+  playSlideshow(): void {
+    if (this.slideshowImages.length <= 1) return;
+    
+    this.isSlideshowPlaying = true;
+    
+    // Clear any existing interval
+    if (this.slideshowInterval) {
+      clearInterval(this.slideshowInterval);
+    }
+    
+    // Set up interval to automatically advance
+    this.slideshowInterval = setInterval(() => {
+      if (this.currentSlideshowIndex < this.slideshowImages.length - 1) {
+        this.nextImage();
+      } else {
+        // Reached the end, loop back to the beginning
+        this.currentSlideshowIndex = 0;
+        this.updateCurrentImageUrl();
+        this.onSlideshowIndexChange();
+      }
+    }, this.slideshowIntervalDelay);
+  }
+
+  // Pause automatic slideshow
+  pauseSlideshow(): void {
+    this.isSlideshowPlaying = false;
+    if (this.slideshowInterval) {
+      clearInterval(this.slideshowInterval);
+      this.slideshowInterval = null;
+    }
+  }
+
+  // Image Comparison methods
+  loadComparisonImages() {
+    if (!this.date1 || !this.date2) {
+      this.comparisonError = 'Please select both dates (Date 1 and Date 2) in the "Get Camera Pictures" tab first';
+      return;
+    }
+
+    this.loadingComparison = true;
+    this.comparisonError = '';
+    this.comparisonImages1 = [];
+    this.comparisonImages2 = [];
+    this.selectedComparisonImage1 = null;
+    this.selectedComparisonImage2 = null;
+    this.comparisonSliderValue = 50;
+
+    // Load images for date1
+    const url1 = `${environment.backend}/api/camerapics-s3-test/${this.developerId}/${this.projectId}/${this.cameraId}/pictures/`;
+    const body1 = { date1: this.date1 };
+
+    this.http.post<CameraPicturesResponse>(url1, body1, { headers: this.getAuthHeaders() }).subscribe({
+      next: (response1) => {
+        if (response1.date1Photos && response1.date1Photos.length > 0) {
+          this.comparisonImages1 = response1.date1Photos;
+          this.selectedComparisonImage1 = response1.date1Photos[0];
+          // Pre-fetch all images
+          response1.date1Photos.forEach((photo: string) => {
+            this.fetchImageUrl(photo);
+          });
+        }
+
+        // Load images for date2
+        const url2 = `${environment.backend}/api/camerapics-s3-test/${this.developerId}/${this.projectId}/${this.cameraId}/pictures/`;
+        const body2 = { date1: this.date2 };
+
+        this.http.post<CameraPicturesResponse>(url2, body2, { headers: this.getAuthHeaders() }).subscribe({
+          next: (response2) => {
+            if (response2.date1Photos && response2.date1Photos.length > 0) {
+              this.comparisonImages2 = response2.date1Photos;
+              this.selectedComparisonImage2 = response2.date1Photos[0];
+              // Pre-fetch all images
+              response2.date1Photos.forEach((photo: string) => {
+                this.fetchImageUrl(photo);
+              });
+            }
+            this.loadingComparison = false;
+            // Update wrapper dimensions after images load
+            setTimeout(() => this.updateRectangleWrapperDimensions(), 100);
+          },
+          error: (err) => {
+            this.loadingComparison = false;
+            this.comparisonError = err.error?.error || err.message || 'Failed to load comparison images for date 2';
+            console.error('Error loading comparison images for date 2:', err);
+          }
+        });
+      },
+      error: (err) => {
+        this.loadingComparison = false;
+        this.comparisonError = err.error?.error || err.message || 'Failed to load comparison images for date 1';
+        console.error('Error loading comparison images for date 1:', err);
+      }
+    });
+  }
+
+  updateRectangleWrapperDimensions(): void {
+    // Find the wrapper element and update dimensions
+    const wrapper = document.querySelector('.comparison-image-wrapper.rectangle-mode') as HTMLElement;
+    if (wrapper) {
+      const rect = wrapper.getBoundingClientRect();
+      this.rectangleWrapperWidth = rect.width;
+      this.rectangleWrapperHeight = rect.height;
+      this.cdr.markForCheck();
+    }
+  }
+
+  selectComparisonImage1(timestamp: string): void {
+    this.selectedComparisonImage1 = timestamp;
+  }
+
+  selectComparisonImage2(timestamp: string): void {
+    this.selectedComparisonImage2 = timestamp;
+  }
+
+  // Get CSS filter string for images
+  getImageFilter(): string {
+    if (!this.filtersEnabled) {
+      return ''; // No filter when toggled off
+    }
+    const saturation = this.imageSaturation / 100;
+    const contrast = this.imageContrast / 100;
+    return `saturate(${saturation}) contrast(${contrast})`;
+  }
+
+  // Toggle filters on/off
+  toggleFilters(): void {
+    this.filtersEnabled = !this.filtersEnabled;
+  }
+
+  // Studio methods
+  loadImageForStudio(): void {
+    // Image will be loaded automatically by the studio component when studioImageSrc changes
+  }
+
+  setStudioImageFromSlideshow(): void {
+    const currentImage = this.getCurrentSlideshowImage();
+    if (currentImage) {
+      this.studioImageSrc = this.getImageUrlWithFetch(currentImage);
+    }
+  }
+
+  setStudioImageFromComparison(): void {
+    if (this.selectedComparisonImage1) {
+      this.studioImageSrc = this.getImageUrlWithFetch(this.selectedComparisonImage1);
+    }
+  }
+
+  setStudioImageFromDate1(): void {
+    if (this.selectedDate1Image) {
+      this.studioImageSrc = this.getImageUrlWithFetch(this.selectedDate1Image);
+    }
+  }
+
+  setStudioImageFromDate2(): void {
+    if (this.selectedDate2Image) {
+      this.studioImageSrc = this.getImageUrlWithFetch(this.selectedDate2Image);
+    }
+  }
+
+  // Get image by hour from date1
+  getImageByHour(): void {
+    if (!this.date1 || !this.picturesResponse) {
+      return;
+    }
+
+    // Search in date1Photos for the closest image to the target hour
+    let closestImage: string | null = null;
+    let minDifference = Infinity;
+
+    if (this.picturesResponse.date1Photos && this.picturesResponse.date1Photos.length > 0) {
+      this.picturesResponse.date1Photos.forEach((photo: string) => {
+        // Photo is in format YYYYMMDDHHMMSS
+        if (photo.startsWith(this.date1)) {
+          const photoHour = parseInt(photo.slice(8, 10)); // Extract hour from timestamp
+          const difference = Math.abs(photoHour - this.selectedHour);
+          
+          if (difference < minDifference) {
+            minDifference = difference;
+            closestImage = photo;
+          }
+        }
+      });
+    }
+
+    if (closestImage) {
+      this.studioImageSrc = this.getImageUrlWithFetch(closestImage);
+      // Pre-fetch the image URL if not already cached
+      if (!this.hasImageUrl(closestImage)) {
+        this.fetchImageUrl(closestImage);
+      }
+    } else {
+      // If no image found in date1Photos, try to fetch from API with specific hour
+      this.fetchImageByHourFromAPI();
+    }
+  }
+
+  // Fetch image by hour from API
+  private fetchImageByHourFromAPI(): void {
+    if (!this.date1) return;
+
+    const hourStr = String(this.selectedHour).padStart(2, '0');
+    const time1 = `${hourStr}0000`; // HHMMSS format
+    const time2 = `${hourStr}5959`; // End of the same hour
+
+    const url = `${environment.backend}/api/camerapics-s3-test/${this.developerId}/${this.projectId}/${this.cameraId}/pictures/`;
+    const body = {
+      date1: this.date1,
+      time1: time1,
+      time2: time2
+    };
+
+    this.http.post<any>(url, body, { headers: this.getAuthHeaders() }).subscribe({
+      next: (response) => {
+        if (response.images && response.images.length > 0) {
+          // Get the first image from that hour (or closest to the start of the hour)
+          const selectedImage = response.images[0];
+          this.studioImageSrc = this.getImageUrlWithFetch(selectedImage);
+          // Pre-fetch the image URL
+          this.fetchImageUrl(selectedImage);
+        } else {
+          console.warn(`No images found for hour ${this.selectedHour} on date ${this.date1}`);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching image by hour:', err);
+      }
+    });
+  }
+
+  onComparisonSliderChange(event: any): void {
+    let newValue: number;
+    
+    if (typeof event === 'number') {
+      newValue = Math.round(event);
+    } else if (typeof event === 'string') {
+      newValue = Math.round(parseFloat(event));
+    } else if (event?.value !== undefined) {
+      newValue = Math.round(event.value);
+    } else if (event?.target?.value !== undefined) {
+      newValue = Math.round(parseFloat(event.target.value));
+    } else {
+      return;
+    }
+    
+    this.comparisonSliderValue = Math.max(0, Math.min(100, newValue));
+    this.cdr.markForCheck();
+    this.cdr.detectChanges();
+  }
+
+  getComparisonClipPath(): string {
+    // When slider is at 50, both images are 50% visible
+    // When slider moves right (>50), image1 shows more (clip-path increases)
+    // When slider moves left (<50), image2 shows more (clip-path decreases)
+    const percentage = this.comparisonSliderValue;
+    return `inset(0 ${100 - percentage}% 0 0)`;
+  }
+
+  getRectangleClipPath(): string {
+    // Calculate the clip path for image2 based on rectangle position
+    // The rectangle is positioned at rectangleX% and rectangleY% (center position)
+    // We need to clip image2 to show only the rectangle area at that position
+    
+    if (this.rectangleWrapperWidth === 0 || this.rectangleWrapperHeight === 0) {
+      // If dimensions not set yet, use approximate values
+      this.rectangleWrapperWidth = 1000;
+      this.rectangleWrapperHeight = 600;
+    }
+    
+    const x = this.rectangleX; // center X position in percentage
+    const y = this.rectangleY; // center Y position in percentage
+    
+    // Calculate half-size in percentage
+    const halfWidthPercent = (this.rectangleSize / this.rectangleWrapperWidth) * 50;
+    const halfHeightPercent = (this.rectangleSize / this.rectangleWrapperHeight) * 50;
+    
+    // Calculate clip-path insets (top, right, bottom, left)
+    const top = Math.max(0, y - halfHeightPercent);
+    const right = Math.max(0, 100 - x - halfWidthPercent);
+    const bottom = Math.max(0, 100 - y - halfHeightPercent);
+    const left = Math.max(0, x - halfWidthPercent);
+    
+    return `inset(${top}% ${right}% ${bottom}% ${left}%)`;
+  }
+
+  // Rectangle overlay drag handlers
+  onRectangleDragStart(event: MouseEvent): void {
+    event.stopPropagation();
+    const rectangle = (event.currentTarget as HTMLElement);
+    const wrapper = rectangle.closest('.comparison-image-wrapper') as HTMLElement;
+    if (!wrapper) return;
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const rect = rectangle.getBoundingClientRect();
+    
+    // Store wrapper dimensions for clip-path calculation
+    this.rectangleWrapperWidth = wrapperRect.width;
+    this.rectangleWrapperHeight = wrapperRect.height;
+    
+    // Calculate initial offset from mouse to rectangle center
+    this.rectangleDragStartX = event.clientX - (rect.left + rect.width / 2);
+    this.rectangleDragStartY = event.clientY - (rect.top + rect.height / 2);
+    this.isDraggingRectangle = true;
+
+    // Set up mouse move and mouse up listeners
+    const mouseMoveListener = (moveEvent: MouseEvent) => {
+      if (this.isDraggingRectangle) {
+        const newX = moveEvent.clientX - wrapperRect.left - this.rectangleDragStartX;
+        const newY = moveEvent.clientY - wrapperRect.top - this.rectangleDragStartY;
+        
+        // Calculate percentage positions
+        const xPercent = (newX / wrapperRect.width) * 100;
+        const yPercent = (newY / wrapperRect.height) * 100;
+        
+        // Constrain to wrapper bounds
+        const halfWidthPercent = (this.rectangleSize / wrapperRect.width) * 50;
+        const halfHeightPercent = (this.rectangleSize / wrapperRect.height) * 50;
+        
+        this.rectangleX = Math.max(halfWidthPercent, Math.min(100 - halfWidthPercent, xPercent));
+        this.rectangleY = Math.max(halfHeightPercent, Math.min(100 - halfHeightPercent, yPercent));
+        
+        // Update wrapper dimensions in case of resize
+        this.rectangleWrapperWidth = wrapperRect.width;
+        this.rectangleWrapperHeight = wrapperRect.height;
+        
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      }
+    };
+
+    const mouseUpListener = () => {
+      this.isDraggingRectangle = false;
+      window.removeEventListener('mousemove', mouseMoveListener);
+      window.removeEventListener('mouseup', mouseUpListener);
+    };
+
+    window.addEventListener('mousemove', mouseMoveListener);
+    window.addEventListener('mouseup', mouseUpListener);
+    
+    event.preventDefault();
+  }
+
+  // Direct drag handlers for comparison slider
+  onComparisonDragStart(event: MouseEvent): void {
+    const wrapper = (event.currentTarget as HTMLElement);
+    const rect = wrapper.getBoundingClientRect();
+    
+    // Update immediately on click
+    const x = event.clientX - rect.left;
+    const percentage = (x / rect.width) * 100;
+    this.comparisonSliderValue = Math.max(0, Math.min(100, percentage));
+    this.isDraggingComparison = true;
+    
+    // Set up mouse move and mouse up listeners
+    const mouseMoveListener = (moveEvent: MouseEvent) => {
+      if (this.isDraggingComparison) {
+        const x = moveEvent.clientX - rect.left;
+        const percentage = (x / rect.width) * 100;
+        this.comparisonSliderValue = Math.max(0, Math.min(100, percentage));
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+      }
+    };
+
+    const mouseUpListener = () => {
+      this.isDraggingComparison = false;
+      window.removeEventListener('mousemove', mouseMoveListener);
+      window.removeEventListener('mouseup', mouseUpListener);
+    };
+
+    window.addEventListener('mousemove', mouseMoveListener);
+    window.addEventListener('mouseup', mouseUpListener);
+    
+    event.preventDefault();
+    this.cdr.markForCheck();
+    this.cdr.detectChanges();
   }
 }
 

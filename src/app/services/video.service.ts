@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';  // To access the auth token
   providedIn: 'root',
 })
 export class VideoService {
-  private apiUrl = environment.backend + '/api/video/';
+  private apiUrl = environment.images + '/api/video/';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

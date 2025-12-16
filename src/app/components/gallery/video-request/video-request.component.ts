@@ -48,6 +48,7 @@ export class VideoRequestComponent implements OnInit, OnDestroy {
   accessibleProjects: string[] = []; // List of accessible project IDs
   accessibleDevelopers: string[] =[]; // List of accessible devloper IDs
   private progressPollingInterval: any;
+  private videoRequestsMap: Map<string, any> = new Map(); // Map to track existing requests by ID
    
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -61,11 +62,17 @@ export class VideoRequestComponent implements OnInit, OnDestroy {
     this.userRole = this.authService.getUserRole();
     this.accessibleProjects = this.authService.getAccessibleProjects();  
     this.accessibleDevelopers = this.authService.getAccessibleDevelopers();
-    this.fetchVideoRequests();
+    this.fetchVideoRequests(true); // Initial load
     
     // Poll for progress updates every 2 seconds for in-progress videos
     this.progressPollingInterval = setInterval(() => {
-      this.fetchVideoRequests();
+      // Only poll if there are in-progress videos
+      const hasInProgress = this.dataSource.data.some(item => 
+        item.status === 'starting' || item.status === 'queued' || item.status === 'processing'
+      );
+      if (hasInProgress) {
+        this.fetchVideoRequests(false); // Update only, don't show loading
+      }
     }, 2000);
   }
 
@@ -76,30 +83,81 @@ export class VideoRequestComponent implements OnInit, OnDestroy {
     }
   }
 
-  fetchVideoRequests(): void {
-    this.isLoading = true;
+  fetchVideoRequests(showLoading: boolean = true): void {
+    if (showLoading) {
+      this.isLoading = true;
+    }
     this.videoRequestService.getVideoRequests().subscribe({
       next: (data) => {
-        this.dataSource.data = data
-        .filter(request => 
-          (this.accessibleDevelopers.includes(request.developerID) || this.accessibleDevelopers[0] === 'all' || this.userRole === 'Super Admin')  &&
-          (this.accessibleProjects.includes(request.projectID) || this.accessibleProjects[0] === 'all' || this.userRole === 'Super Admin')
-        )
-        .sort((a, b) => new Date(b.RequestTime).getTime() - new Date(a.RequestTime).getTime()) // Sort by RequestTime descending
-        .map((request) => ({
-          developerProject: `${request.developer} (${request.project})`,
-          camera: request.camera,
-          duration: `${this.formatDate(request.startDate)} to ${this.formatDate(request.endDate)}`,
-          //duration: `${request.startDate} to ${request.endDate}`,
-          hours: `${request.startHour} to ${request.endHour}`,
-          RequestTime: request.RequestTime,
-          filteredImageCount: request.filteredImageCount,
-          status: request.status,
-          progress: request.progress || 0,
-          progressMessage: request.progressMessage || '',
-          videoLink: request.status === 'ready' ? `${this.serverUrl}/${request.developerTag}/${request.projectTag}/${request.camera}/videos/video_${request.id}.mp4` : null, // Set to null initially
-          resolution: request.resolution
-        }));
+        const filteredData = data
+          .filter(request => 
+            (this.accessibleDevelopers.includes(request.developerID) || this.accessibleDevelopers[0] === 'all' || this.userRole === 'Super Admin')  &&
+            (this.accessibleProjects.includes(request.projectID) || this.accessibleProjects[0] === 'all' || this.userRole === 'Super Admin')
+          )
+          .sort((a, b) => new Date(b.RequestTime).getTime() - new Date(a.RequestTime).getTime());
+
+        // Update existing items or add new ones
+        const updatedData = filteredData.map((request) => {
+          const requestId = request._id || request.id;
+          const existingItem = this.videoRequestsMap.get(requestId);
+          
+          // Create the mapped item
+          const mappedItem = {
+            id: requestId, // Store ID for tracking
+            developerProject: `${request.developer} (${request.project})`,
+            camera: request.camera,
+            duration: `${this.formatDate(request.startDate)} to ${this.formatDate(request.endDate)}`,
+            hours: `${request.startHour} to ${request.endHour}`,
+            RequestTime: request.RequestTime,
+            filteredImageCount: request.filteredImageCount,
+            status: request.status,
+            progress: request.progress || 0,
+            progressMessage: request.progressMessage || '',
+            videoLink: request.status === 'ready' ? `${this.serverUrl}/${request.developerTag}/${request.projectTag}/${request.camera}/videos/video_${request.id}.mp4` : null,
+            resolution: request.resolution,
+            userName: request.userName || 'Unknown',
+            userId: request.userId || ''
+          };
+
+          // If item exists and only progress-related fields changed, update only those
+          if (existingItem && existingItem.id === requestId) {
+            const progressChanged = existingItem.progress !== mappedItem.progress ||
+                                   existingItem.progressMessage !== mappedItem.progressMessage ||
+                                   existingItem.status !== mappedItem.status ||
+                                   existingItem.videoLink !== mappedItem.videoLink;
+            
+            if (progressChanged) {
+              // Update only the changed fields
+              existingItem.progress = mappedItem.progress;
+              existingItem.progressMessage = mappedItem.progressMessage;
+              existingItem.status = mappedItem.status;
+              existingItem.videoLink = mappedItem.videoLink;
+            }
+            return existingItem; // Return existing object reference to prevent re-render
+          } else {
+            // New item or first load
+            this.videoRequestsMap.set(requestId, mappedItem);
+            return mappedItem;
+          }
+        });
+
+        // Remove items that no longer exist
+        const currentIds = new Set(filteredData.map(r => r._id || r.id));
+        for (const [id, item] of this.videoRequestsMap.entries()) {
+          if (!currentIds.has(id)) {
+            this.videoRequestsMap.delete(id);
+          }
+        }
+
+        // Update dataSource only if it's the initial load or structure changed
+        if (showLoading || this.dataSource.data.length !== updatedData.length) {
+          this.dataSource.data = updatedData;
+        } else {
+          // For updates, trigger change detection by updating the array reference
+          // but keep the same object references for unchanged items
+          this.dataSource.data = [...updatedData];
+        }
+
         this.isLoading = false;
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -110,6 +168,11 @@ export class VideoRequestComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       },
     });
+  }
+
+  // TrackBy function to help Angular identify which items have changed
+  trackByRequestId(index: number, item: any): string {
+    return item.id || index;
   }
 
   formatDate(date: string): string {
