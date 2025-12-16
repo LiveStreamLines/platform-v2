@@ -271,16 +271,16 @@
             <mat-card-content>
               <!-- Large Image Display -->
               <div class="slideshow-image-container" *ngIf="slideshowImages.length > 0">
-                <div class="slideshow-image-wrapper">
+                <div class="slideshow-image-wrapper" [class.presentation-mode]="isPresentationMode">
                   <button mat-icon-button 
                           class="nav-button prev-button" 
-                          (click)="previousImage()" 
+                          (click)="navigateImage('prev')" 
                           [disabled]="!canGoPrevious() || isSlideshowPlaying"
-                          *ngIf="slideshowImages.length > 1">
+                          *ngIf="slideshowImages.length > 1 && !isPresentationMode">
                     <mat-icon>chevron_left</mat-icon>
                   </button>
                   
-                  <div class="main-image-display">
+                  <div class="main-image-display" [class.presentation-display]="isPresentationMode">
                     <div *ngIf="!hasImageUrl(getCurrentSlideshowImage())" class="slideshow-loading">
                       <mat-spinner diameter="50"></mat-spinner>
                       <p>Loading images...</p>
@@ -297,16 +297,27 @@
                            (error)="onImageError($event)"
                            (load)="onImageLoad()"
                            class="slideshow-main-image"
+                           [class.presentation-image]="isPresentationMode"
+                           [ngClass]="presentationImageClass"
                            [style.display]="currentImageUrl ? 'block' : 'none'"
                            [style.filter]="getImageFilter()"
                            [attr.data-index]="currentSlideshowIndex">
                     </div>
-                    <p class="slideshow-timestamp" *ngIf="getCurrentSlideshowImage()">
+                    <p class="slideshow-timestamp" *ngIf="getCurrentSlideshowImage() && !isPresentationMode">
                       {{ formatTimestamp(getCurrentSlideshowImage()) }}
                     </p>
-                    <p class="slideshow-counter" *ngIf="slideshowImages.length > 0">
+                    <p class="slideshow-counter" *ngIf="slideshowImages.length > 0 && !isPresentationMode">
                       Image {{ currentSlideshowIndex + 1 }} of {{ slideshowImages.length }}
                     </p>
+                    
+                    <!-- Presentation Mode Controls -->
+                    <div class="presentation-controls" *ngIf="isPresentationMode">
+                      <div class="presentation-info">
+                        <p class="presentation-counter">{{ currentSlideshowIndex + 1 }} / {{ slideshowImages.length }}</p>
+                        <p class="presentation-timestamp">{{ formatTimestamp(getCurrentSlideshowImage()) }}</p>
+                      </div>
+                    </div>
+                    
                     <!-- Play/Pause Button -->
                     <button mat-fab 
                             color="primary" 
@@ -316,15 +327,55 @@
                             [matTooltip]="isSlideshowPlaying ? 'Pause' : 'Play'">
                       <mat-icon>{{ isSlideshowPlaying ? 'pause' : 'play_arrow' }}</mat-icon>
                     </button>
+                    
+                    <!-- Speed Controls -->
+                    <div class="speed-controls" *ngIf="slideshowImages.length > 1">
+                      <label class="speed-label">Speed:</label>
+                      <div class="speed-buttons">
+                        <button mat-mini-fab 
+                                *ngFor="let speed of availableSpeeds"
+                                [color]="slideshowSpeed === speed.value ? 'accent' : 'primary'"
+                                [class.active]="slideshowSpeed === speed.value"
+                                (click)="changeSlideshowSpeed(speed.value)"
+                                [matTooltip]="speed.label">
+                          {{ speed.label }}
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   
                   <button mat-icon-button 
                           class="nav-button next-button" 
-                          (click)="nextImage()" 
+                          (click)="navigateImage('next')" 
                           [disabled]="!canGoNext() || isSlideshowPlaying"
-                          *ngIf="slideshowImages.length > 1">
+                          *ngIf="slideshowImages.length > 1 && !isPresentationMode">
                     <mat-icon>chevron_right</mat-icon>
                   </button>
+                </div>
+
+                <!-- Presentation Mode Toggle and Transition Controls -->
+                <div class="presentation-mode-controls" *ngIf="slideshowImages.length > 1">
+                  <button mat-raised-button 
+                          [color]="isPresentationMode ? 'accent' : 'primary'"
+                          (click)="togglePresentationMode()"
+                          class="presentation-toggle-button">
+                    <mat-icon>{{ isPresentationMode ? 'fullscreen_exit' : 'presentation_mode' }}</mat-icon>
+                    <span>{{ isPresentationMode ? 'Exit Presentation' : 'Presentation Mode' }}</span>
+                  </button>
+                  
+                  <div class="transition-controls" *ngIf="isPresentationMode">
+                    <label class="transition-label">Transition:</label>
+                    <div class="transition-buttons">
+                      <button mat-mini-fab 
+                              *ngFor="let transition of availableTransitions"
+                              [color]="presentationTransition === transition.value ? 'accent' : 'primary'"
+                              [class.active]="presentationTransition === transition.value"
+                              (click)="changeTransition(transition.value)"
+                              [matTooltip]="transition.label">
+                        <mat-icon>{{ transition.icon }}</mat-icon>
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Slider -->

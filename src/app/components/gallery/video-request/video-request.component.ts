@@ -119,21 +119,44 @@ export class VideoRequestComponent implements OnInit, OnDestroy {
             userId: request.userId || ''
           };
 
-          // If item exists and only progress-related fields changed, update only those
+          // If item exists, check for any changes and update all changed fields
           if (existingItem && existingItem.id === requestId) {
             const progressChanged = existingItem.progress !== mappedItem.progress ||
                                    existingItem.progressMessage !== mappedItem.progressMessage ||
                                    existingItem.status !== mappedItem.status ||
                                    existingItem.videoLink !== mappedItem.videoLink;
             
-            if (progressChanged) {
-              // Update only the changed fields
-              existingItem.progress = mappedItem.progress;
-              existingItem.progressMessage = mappedItem.progressMessage;
-              existingItem.status = mappedItem.status;
-              existingItem.videoLink = mappedItem.videoLink;
+            const otherFieldsChanged = existingItem.developerProject !== mappedItem.developerProject ||
+                                      existingItem.camera !== mappedItem.camera ||
+                                      existingItem.duration !== mappedItem.duration ||
+                                      existingItem.hours !== mappedItem.hours ||
+                                      existingItem.RequestTime !== mappedItem.RequestTime ||
+                                      existingItem.filteredImageCount !== mappedItem.filteredImageCount ||
+                                      existingItem.resolution !== mappedItem.resolution ||
+                                      existingItem.userName !== mappedItem.userName ||
+                                      existingItem.userId !== mappedItem.userId;
+            
+            if (progressChanged || otherFieldsChanged) {
+              // Update all changed fields
+              if (progressChanged) {
+                existingItem.progress = mappedItem.progress;
+                existingItem.progressMessage = mappedItem.progressMessage;
+                existingItem.status = mappedItem.status;
+                existingItem.videoLink = mappedItem.videoLink;
+              }
+              if (otherFieldsChanged) {
+                existingItem.developerProject = mappedItem.developerProject;
+                existingItem.camera = mappedItem.camera;
+                existingItem.duration = mappedItem.duration;
+                existingItem.hours = mappedItem.hours;
+                existingItem.RequestTime = mappedItem.RequestTime;
+                existingItem.filteredImageCount = mappedItem.filteredImageCount;
+                existingItem.resolution = mappedItem.resolution;
+                existingItem.userName = mappedItem.userName;
+                existingItem.userId = mappedItem.userId;
+              }
             }
-            return existingItem; // Return existing object reference to prevent re-render
+            return existingItem; // Return existing object reference to prevent unnecessary re-render
           } else {
             // New item or first load
             this.videoRequestsMap.set(requestId, mappedItem);

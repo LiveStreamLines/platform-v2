@@ -145,7 +145,7 @@
                 type="color" 
                 class="property-color"
                 [ngModel]="getCurrentShape()?.fillColor" 
-                (ngModelChange)="getCurrentShape().fillColor = $event; updateShape()">
+                (ngModelChange)="updateShapeFillColor($event)">
               <span class="color-value">{{ getCurrentShape()?.fillColor }}</span>
             </div>
           </div>
@@ -156,19 +156,19 @@
                 type="color" 
                 class="property-color"
                 [ngModel]="getCurrentShape()?.borderColor" 
-                (ngModelChange)="getCurrentShape().borderColor = $event; updateShape()">
+                (ngModelChange)="updateShapeBorderColor($event)">
               <span class="color-value">{{ getCurrentShape()?.borderColor }}</span>
             </div>
           </div>
           <div class="property-item" *ngIf="getCurrentShape()">
             <label>Border Width: {{ getCurrentShape()?.borderWidth }}px</label>
-            <input 
-              type="range" 
-              class="property-slider"
-              min="1" 
-              max="30" 
-              [ngModel]="getCurrentShape()?.borderWidth" 
-              (ngModelChange)="getCurrentShape().borderWidth = $event; updateShape()">
+              <input 
+                type="range" 
+                class="property-slider"
+                min="1" 
+                max="30" 
+                [ngModel]="getCurrentShape()?.borderWidth" 
+                (ngModelChange)="updateShapeBorderWidth($event)">
           </div>
           <div class="property-actions" *ngIf="getCurrentShape()">
             <button 
@@ -195,19 +195,19 @@
                 type="color" 
                 class="property-color"
                 [ngModel]="getCurrentShape()?.color" 
-                (ngModelChange)="getCurrentShape().color = $event; updateShape()">
+                (ngModelChange)="updateShapeColor($event)">
               <span class="color-value">{{ getCurrentShape()?.color }}</span>
             </div>
           </div>
           <div class="property-item" *ngIf="getCurrentShape()">
             <label>Line Width: {{ getCurrentShape()?.lineWidth }}px</label>
-            <input 
-              type="range" 
-              class="property-slider"
-              min="1" 
-              max="30" 
-              [ngModel]="getCurrentShape()?.lineWidth" 
-              (ngModelChange)="getCurrentShape().lineWidth = $event; updateShape()">
+              <input 
+                type="range" 
+                class="property-slider"
+                min="1" 
+                max="30" 
+                [ngModel]="getCurrentShape()?.lineWidth" 
+                (ngModelChange)="updateShapeLineWidth($event)">
           </div>
           <div class="property-actions" *ngIf="getCurrentShape()">
             <button 

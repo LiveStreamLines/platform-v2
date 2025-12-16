@@ -306,6 +306,46 @@ mat-list-item span {
   background-color: rgba(25, 118, 210, 1) !important;
 }
 
+/* Speed Controls */
+.speed-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 16px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.speed-label {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.speed-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.speed-buttons button {
+  min-width: 50px;
+  height: 40px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.speed-buttons button.active {
+  background-color: #ff4081 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(255, 64, 129, 0.4);
+}
+
 .slideshow-loading {
   display: flex;
   flex-direction: column;
@@ -771,5 +811,211 @@ mat-list-item span {
   pointer-events: none;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.3);
   border-radius: 4px;
+}
+
+/* Presentation Mode Styles */
+.slideshow-image-wrapper.presentation-mode {
+  background-color: #1e1e1e;
+}
+
+.main-image-display.presentation-display {
+  background-color: #1e1e1e;
+}
+
+.presentation-image {
+  max-width: 100%;
+  max-height: 600px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: all 0.6s ease-in-out;
+}
+
+/* Transition Effects */
+.presentation-image.fade-out {
+  opacity: 0;
+}
+
+.presentation-image.fade-in {
+  opacity: 1;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.presentation-image.slide-out {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.presentation-image.slide-in {
+  transform: translateX(0);
+  opacity: 1;
+  animation: slideIn 0.6s ease-in-out;
+}
+
+.presentation-image.zoom-out {
+  transform: scale(0.5);
+  opacity: 0;
+}
+
+.presentation-image.zoom-in {
+  transform: scale(1);
+  opacity: 1;
+  animation: zoomIn 0.6s ease-in-out;
+}
+
+.presentation-image.blur-out {
+  filter: blur(10px);
+  opacity: 0;
+}
+
+.presentation-image.blur-in {
+  filter: blur(0);
+  opacity: 1;
+  animation: blurIn 0.6s ease-in-out;
+}
+
+.presentation-image.rotate-out {
+  transform: rotate(180deg) scale(0.5);
+  opacity: 0;
+}
+
+.presentation-image.rotate-in {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+  animation: rotateIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes blurIn {
+  from {
+    filter: blur(10px);
+    opacity: 0;
+  }
+  to {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    transform: rotate(180deg) scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Presentation Controls */
+.presentation-mode-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 16px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.presentation-toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.transition-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.transition-label {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.transition-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.transition-buttons button {
+  min-width: 50px;
+  height: 50px;
+}
+
+.transition-buttons button.active {
+  background-color: #ff4081 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(255, 64, 129, 0.4);
+}
+
+.presentation-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 12px 24px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.presentation-info {
+  text-align: center;
+}
+
+.presentation-counter {
+  margin: 0;
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.presentation-timestamp {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #b0b0b0;
 }
 

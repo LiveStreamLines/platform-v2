@@ -112,6 +112,27 @@ export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
   isSlideshowPlaying: boolean = false;
   slideshowInterval: any = null;
   slideshowIntervalDelay: number = 250; // 0.25 seconds between images
+  slideshowSpeed: number = 250; // Current speed in milliseconds
+  availableSpeeds: { label: string; value: number }[] = [
+    { label: '0.5x', value: 500 },
+    { label: '1x', value: 250 },
+    { label: '2x', value: 125 },
+    { label: '4x', value: 62.5 },
+    { label: '8x', value: 31.25 }
+  ];
+
+  // Presentation mode
+  isPresentationMode: boolean = false;
+  presentationSpeed: number = 2000; // 2 seconds per image in presentation mode (independent of regular speed)
+  presentationTransition: string = 'fade'; // 'fade', 'slide', 'zoom', 'blur', 'rotate'
+  availableTransitions: { label: string; value: string; icon: string }[] = [
+    { label: 'Fade', value: 'fade', icon: 'opacity' },
+    { label: 'Slide', value: 'slide', icon: 'arrow_forward' },
+    { label: 'Zoom', value: 'zoom', icon: 'zoom_in' },
+    { label: 'Blur', value: 'blur', icon: 'blur_on' },
+    { label: 'Rotate', value: 'rotate', icon: 'rotate_right' }
+  ];
+  presentationImageClass: string = '';
 
   // Image filters
   imageSaturation: number = 200; // 200% saturation
@@ -490,6 +511,23 @@ export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Navigate with transition support
+  navigateImage(direction: 'next' | 'prev'): void {
+    if (this.isPresentationMode) {
+      if (direction === 'next') {
+        this.nextImageWithTransition();
+      } else {
+        this.previousImageWithTransition();
+      }
+    } else {
+      if (direction === 'next') {
+        this.nextImage();
+      } else {
+        this.previousImage();
+      }
+    }
+  }
+
   // Handle slider change - optimized for video-like scrubbing
   onSlideshowSliderChange(event: any): void {
     // Extract the value from the event
@@ -573,17 +611,109 @@ export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
       clearInterval(this.slideshowInterval);
     }
     
-    // Set up interval to automatically advance
+    // Set up interval to automatically advance using appropriate speed
+    // Use presentation speed if in presentation mode, otherwise use regular speed
+    const speed = this.isPresentationMode ? this.presentationSpeed : this.slideshowSpeed;
     this.slideshowInterval = setInterval(() => {
       if (this.currentSlideshowIndex < this.slideshowImages.length - 1) {
-        this.nextImage();
+        this.nextImageWithTransition();
       } else {
         // Reached the end, loop back to the beginning
-        this.currentSlideshowIndex = 0;
-        this.updateCurrentImageUrl();
-        this.onSlideshowIndexChange();
+        // Set index to 0 and update directly to avoid skipping the first image
+        if (this.isPresentationMode) {
+          this.applyTransition('out', () => {
+            this.currentSlideshowIndex = 0;
+            this.updateCurrentImageUrl();
+            this.onSlideshowIndexChange();
+            this.cycleToNextTransition(); // Automatically change transition type
+            setTimeout(() => {
+              this.applyTransition('in', null);
+            }, 50);
+          });
+        } else {
+          this.currentSlideshowIndex = 0;
+          this.updateCurrentImageUrl();
+          this.onSlideshowIndexChange();
+        }
       }
-    }, this.slideshowIntervalDelay);
+    }, speed);
+  }
+
+  // Navigate to next image with transition
+  nextImageWithTransition(): void {
+    if (this.isPresentationMode) {
+      this.applyTransition('out', () => {
+        this.nextImage();
+        this.cycleToNextTransition(); // Automatically change transition type
+        setTimeout(() => {
+          this.applyTransition('in', null);
+        }, 50);
+      });
+    } else {
+      this.nextImage();
+    }
+  }
+
+  // Navigate to previous image with transition
+  previousImageWithTransition(): void {
+    if (this.isPresentationMode) {
+      this.applyTransition('out', () => {
+        this.previousImage();
+        setTimeout(() => {
+          this.applyTransition('in', null);
+        }, 50);
+      });
+    } else {
+      this.previousImage();
+    }
+  }
+
+  // Apply transition effect
+  private applyTransition(direction: 'in' | 'out', callback: (() => void) | null): void {
+    const transitionClass = `${this.presentationTransition}-${direction}`;
+    this.presentationImageClass = transitionClass;
+    
+    if (callback) {
+      setTimeout(() => {
+        callback();
+      }, 300); // Half of transition duration
+    } else {
+      setTimeout(() => {
+        this.presentationImageClass = '';
+      }, 600); // Full transition duration
+    }
+  }
+
+  // Toggle presentation mode
+  togglePresentationMode(): void {
+    this.isPresentationMode = !this.isPresentationMode;
+    // If slideshow is playing, restart it with the appropriate speed for the current mode
+    if (this.isSlideshowPlaying) {
+      this.pauseSlideshow();
+      this.playSlideshow();
+    }
+  }
+
+  // Change transition type
+  changeTransition(transition: string): void {
+    this.presentationTransition = transition;
+  }
+
+  // Cycle to the next transition type automatically
+  private cycleToNextTransition(): void {
+    const currentIndex = this.availableTransitions.findIndex(t => t.value === this.presentationTransition);
+    const nextIndex = (currentIndex + 1) % this.availableTransitions.length;
+    this.presentationTransition = this.availableTransitions[nextIndex].value;
+  }
+
+  // Change slideshow speed
+  changeSlideshowSpeed(speed: number): void {
+    this.slideshowSpeed = speed;
+    // If slideshow is currently playing, restart it with new speed
+    if (this.isSlideshowPlaying) {
+      this.pauseSlideshow();
+      this.playSlideshow();
+    }
   }
 
   // Pause automatic slideshow

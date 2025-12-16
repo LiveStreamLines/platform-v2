@@ -588,6 +588,47 @@ export class StudioTestComponent {
     this.updateCanvas();
   }
 
+  // Safe shape property update methods to prevent null reference errors
+  updateShapeFillColor(color: string): void {
+    const shape = this.getCurrentShape();
+    if (shape) {
+      shape.fillColor = color;
+      this.updateShape();
+    }
+  }
+
+  updateShapeBorderColor(color: string): void {
+    const shape = this.getCurrentShape();
+    if (shape) {
+      shape.borderColor = color;
+      this.updateShape();
+    }
+  }
+
+  updateShapeBorderWidth(width: number): void {
+    const shape = this.getCurrentShape();
+    if (shape) {
+      shape.borderWidth = width;
+      this.updateShape();
+    }
+  }
+
+  updateShapeColor(color: string): void {
+    const shape = this.getCurrentShape();
+    if (shape) {
+      shape.color = color;
+      this.updateShape();
+    }
+  }
+
+  updateShapeLineWidth(width: number): void {
+    const shape = this.getCurrentShape();
+    if (shape) {
+      shape.lineWidth = width;
+      this.updateShape();
+    }
+  }
+
   toggleShapeMove(): void {
     const shape = this.shapes.find(s => s.selected);
     if (shape) {
