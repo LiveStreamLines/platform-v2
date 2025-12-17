@@ -123,16 +123,23 @@ export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
 
   // Presentation mode
   isPresentationMode: boolean = false;
-  presentationSpeed: number = 2000; // 2 seconds per image in presentation mode (independent of regular speed)
-  presentationTransition: string = 'fade'; // 'fade', 'slide', 'zoom', 'blur', 'rotate'
-  availableTransitions: { label: string; value: string; icon: string }[] = [
-    { label: 'Fade', value: 'fade', icon: 'opacity' },
-    { label: 'Slide', value: 'slide', icon: 'arrow_forward' },
-    { label: 'Zoom', value: 'zoom', icon: 'zoom_in' },
-    { label: 'Blur', value: 'blur', icon: 'blur_on' },
-    { label: 'Rotate', value: 'rotate', icon: 'rotate_right' }
+  presentationSpeed: number = 2000; // independent of regular speed (default 2s/image)
+  availablePresentationSpeeds: { label: string; value: number }[] = [
+    { label: '1s', value: 1000 },
+    { label: '2s', value: 2000 },
+    { label: '3s', value: 3000 },
+    { label: '5s', value: 5000 }
   ];
-  presentationImageClass: string = '';
+
+  // Presentation effect: cross-fade ONLY
+  presentationTransition: 'fade' = 'fade';
+  presentationImageClass: string = ''; // kept for backwards compatibility; not used by cross-fade UI
+  private transitionTimeouts: ReturnType<typeof setTimeout>[] = []; // Store transition timeouts for cancellation
+
+  // Cross-fade layer state (two stacked images)
+  presentationActiveLayer: 'a' | 'b' = 'a';
+  presentationLayerAUrl: string = '';
+  presentationLayerBUrl: string = '';
 
   // Image filters
   imageSaturation: number = 200; // 200% saturation
@@ -621,15 +628,10 @@ export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
         // Reached the end, loop back to the beginning
         // Set index to 0 and update directly to avoid skipping the first image
         if (this.isPresentationMode) {
-          this.applyTransition('out', () => {
-            this.currentSlideshowIndex = 0;
-            this.updateCurrentImageUrl();
-            this.onSlideshowIndexChange();
-            this.cycleToNextTransition(); // Automatically change transition type
-            setTimeout(() => {
-              this.applyTransition('in', null);
-            }, 50);
-          });
+          this.currentSlideshowIndex = 0;
+          this.updateCurrentImageUrl();
+          this.onSlideshowIndexChange();
+          this.queueCrossFadeToCurrent();
         } else {
           this.currentSlideshowIndex = 0;
           this.updateCurrentImageUrl();
@@ -642,13 +644,12 @@ export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
   // Navigate to next image with transition
   nextImageWithTransition(): void {
     if (this.isPresentationMode) {
-      this.applyTransition('out', () => {
-        this.nextImage();
-        this.cycleToNextTransition(); // Automatically change transition type
-        setTimeout(() => {
-          this.applyTransition('in', null);
-        }, 50);
-      });
+      // Keep old layer visible; load new URL into inactive layer, then swap active for cross-fade
+      const before = this.currentImageUrl;
+      this.nextImage(); // updates currentSlideshowIndex + currentImageUrl
+      if (this.currentImageUrl && this.currentImageUrl !== before) {
+        this.queueCrossFadeToCurrent();
+      }
     } else {
       this.nextImage();
     }
@@ -657,36 +658,61 @@ export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
   // Navigate to previous image with transition
   previousImageWithTransition(): void {
     if (this.isPresentationMode) {
-      this.applyTransition('out', () => {
-        this.previousImage();
-        setTimeout(() => {
-          this.applyTransition('in', null);
-        }, 50);
-      });
+      const before = this.currentImageUrl;
+      this.previousImage();
+      if (this.currentImageUrl && this.currentImageUrl !== before) {
+        this.queueCrossFadeToCurrent();
+      }
     } else {
       this.previousImage();
     }
   }
 
-  // Apply transition effect
-  private applyTransition(direction: 'in' | 'out', callback: (() => void) | null): void {
-    const transitionClass = `${this.presentationTransition}-${direction}`;
-    this.presentationImageClass = transitionClass;
-    
-    if (callback) {
-      setTimeout(() => {
-        callback();
-      }, 300); // Half of transition duration
+  private cancelPendingTransitions(): void {
+    this.transitionTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+    this.transitionTimeouts = [];
+  }
+
+  private initPresentationCrossFade(): void {
+    this.presentationActiveLayer = 'a';
+    this.presentationLayerAUrl = this.currentImageUrl || '';
+    this.presentationLayerBUrl = this.currentImageUrl || '';
+    this.cancelPendingTransitions();
+  }
+
+  private queueCrossFadeToCurrent(): void {
+    if (!this.isPresentationMode) return;
+    if (!this.currentImageUrl) return;
+
+    const nextLayer: 'a' | 'b' = this.presentationActiveLayer === 'a' ? 'b' : 'a';
+    if (nextLayer === 'a') {
+      this.presentationLayerAUrl = this.currentImageUrl;
     } else {
-      setTimeout(() => {
-        this.presentationImageClass = '';
-      }, 600); // Full transition duration
+      this.presentationLayerBUrl = this.currentImageUrl;
     }
+
+    // Swap active layer on the next tick so the browser applies the opacity transition
+    const timeoutId = setTimeout(() => {
+      this.presentationActiveLayer = nextLayer;
+      const idx = this.transitionTimeouts.indexOf(timeoutId);
+      if (idx > -1) this.transitionTimeouts.splice(idx, 1);
+    }, 0);
+    this.transitionTimeouts.push(timeoutId);
   }
 
   // Toggle presentation mode
   togglePresentationMode(): void {
+    // Always enforce cross-fade effect for presentation mode
+    this.presentationTransition = 'fade';
+
+    // Cancel any pending transition timeouts when toggling mode
+    this.cancelPendingTransitions();
+    this.presentationImageClass = '';
+
     this.isPresentationMode = !this.isPresentationMode;
+    if (this.isPresentationMode) {
+      this.initPresentationCrossFade();
+    }
     // If slideshow is playing, restart it with the appropriate speed for the current mode
     if (this.isSlideshowPlaying) {
       this.pauseSlideshow();
@@ -694,16 +720,13 @@ export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Change transition type
-  changeTransition(transition: string): void {
-    this.presentationTransition = transition;
-  }
-
-  // Cycle to the next transition type automatically
-  private cycleToNextTransition(): void {
-    const currentIndex = this.availableTransitions.findIndex(t => t.value === this.presentationTransition);
-    const nextIndex = (currentIndex + 1) % this.availableTransitions.length;
-    this.presentationTransition = this.availableTransitions[nextIndex].value;
+  changePresentationSpeed(speed: number): void {
+    this.presentationSpeed = speed;
+    // If presentation is currently playing, restart with new speed (presentation speed is independent)
+    if (this.isPresentationMode && this.isSlideshowPlaying) {
+      this.pauseSlideshow();
+      this.playSlideshow();
+    }
   }
 
   // Change slideshow speed
@@ -722,6 +745,12 @@ export class CameraPicsS3TestComponent implements OnInit, OnDestroy {
     if (this.slideshowInterval) {
       clearInterval(this.slideshowInterval);
       this.slideshowInterval = null;
+    }
+    // Cancel any pending transition timeouts to prevent transitions from continuing after pause
+    this.cancelPendingTransitions();
+    // Reset presentation image class to clear any ongoing transition
+    if (this.isPresentationMode) {
+      this.presentationImageClass = '';
     }
   }
 

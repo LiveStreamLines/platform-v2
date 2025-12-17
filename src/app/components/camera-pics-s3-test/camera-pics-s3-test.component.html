@@ -292,13 +292,32 @@
                               (click)="toggleFilters()">
                         {{ filtersEnabled ? 'Original' : 'Enhanced' }}
                       </button>
-                      <img [src]="currentImageUrl" 
+                      
+                      <!-- Cross-fade presentation rendering -->
+                      <div class="presentation-slider" *ngIf="isPresentationMode">
+                        <img class="presentation-slide"
+                             [class.active]="presentationActiveLayer === 'a'"
+                             [src]="presentationLayerAUrl"
+                             [alt]="getCurrentSlideshowImage()"
+                             (error)="onImageError($event)"
+                             (load)="onImageLoad()"
+                             [style.filter]="getImageFilter()">
+                        <img class="presentation-slide"
+                             [class.active]="presentationActiveLayer === 'b'"
+                             [src]="presentationLayerBUrl"
+                             [alt]="getCurrentSlideshowImage()"
+                             (error)="onImageError($event)"
+                             (load)="onImageLoad()"
+                             [style.filter]="getImageFilter()">
+                      </div>
+
+                      <!-- Normal rendering -->
+                      <img *ngIf="!isPresentationMode"
+                           [src]="currentImageUrl" 
                            [alt]="getCurrentSlideshowImage()"
                            (error)="onImageError($event)"
                            (load)="onImageLoad()"
                            class="slideshow-main-image"
-                           [class.presentation-image]="isPresentationMode"
-                           [ngClass]="presentationImageClass"
                            [style.display]="currentImageUrl ? 'block' : 'none'"
                            [style.filter]="getImageFilter()"
                            [attr.data-index]="currentSlideshowIndex">
@@ -329,7 +348,7 @@
                     </button>
                     
                     <!-- Speed Controls -->
-                    <div class="speed-controls" *ngIf="slideshowImages.length > 1">
+                    <div class="speed-controls" *ngIf="slideshowImages.length > 1 && !isPresentationMode">
                       <label class="speed-label">Speed:</label>
                       <div class="speed-buttons">
                         <button mat-mini-fab 
@@ -353,7 +372,7 @@
                   </button>
                 </div>
 
-                <!-- Presentation Mode Toggle and Transition Controls -->
+                <!-- Presentation Mode Toggle + Presentation Speed (crossfade only) -->
                 <div class="presentation-mode-controls" *ngIf="slideshowImages.length > 1">
                   <button mat-raised-button 
                           [color]="isPresentationMode ? 'accent' : 'primary'"
@@ -363,16 +382,16 @@
                     <span>{{ isPresentationMode ? 'Exit Presentation' : 'Presentation Mode' }}</span>
                   </button>
                   
-                  <div class="transition-controls" *ngIf="isPresentationMode">
-                    <label class="transition-label">Transition:</label>
-                    <div class="transition-buttons">
+                  <div class="speed-controls presentation-speed-controls" *ngIf="isPresentationMode">
+                    <label class="speed-label">Presentation speed:</label>
+                    <div class="speed-buttons">
                       <button mat-mini-fab 
-                              *ngFor="let transition of availableTransitions"
-                              [color]="presentationTransition === transition.value ? 'accent' : 'primary'"
-                              [class.active]="presentationTransition === transition.value"
-                              (click)="changeTransition(transition.value)"
-                              [matTooltip]="transition.label">
-                        <mat-icon>{{ transition.icon }}</mat-icon>
+                              *ngFor="let speed of availablePresentationSpeeds"
+                              [color]="presentationSpeed === speed.value ? 'accent' : 'primary'"
+                              [class.active]="presentationSpeed === speed.value"
+                              (click)="changePresentationSpeed(speed.value)"
+                              [matTooltip]="speed.label">
+                        {{ speed.label }}
                       </button>
                     </div>
                   </div>
